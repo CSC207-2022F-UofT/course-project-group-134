@@ -1,4 +1,31 @@
 package entities;
+import java.util.List;
+import java.util.ArrayList;
 
 public class DiningHall {
+
+    private String location;
+    private String name;
+    private Menu menu;
+    private ArrayList<Review> reviews;
+    double starAverage;
+
+    public DiningHall(String location, String name, Menu menu){
+        this.location = location;
+        this.menu = menu;
+        this.name = name;
+        this.reviews = new ArrayList<>();
+        this.starAverage = 0;
+    }
+
+    public void addReview(Review review){
+        double totalRating = starAverage * this.reviews.size();
+        totalRating += review.getRating();
+        this.reviews.add(review);
+        this.starAverage = totalRating/this.reviews.size();
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
 }
