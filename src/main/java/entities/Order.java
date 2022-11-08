@@ -1,16 +1,18 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Order {
 
     private DiningHall diningHall;
     private Buyer buyer;
-    private FoodItem foodItem;
+    private ArrayList<FoodItem> foodItemList;
     private Seller seller;
 
-    public Order(DiningHall diningHall, Buyer buyer, FoodItem foodItem) {
+    public Order(DiningHall diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
         this.diningHall = diningHall;
         this.buyer = buyer;
-        this.foodItem = foodItem;
+        this.foodItemList = foodItemList;
     }
 
     public void setSeller(Seller seller) {
@@ -29,7 +31,7 @@ public class Order {
         return buyer;
     }
 
-    public FoodItem getFoodItem() {
-        return foodItem;
+    public ArrayList<FoodItem> getFoodItemList() {
+        return foodItemList;
     }
 }
