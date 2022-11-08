@@ -12,6 +12,10 @@ public class Seller extends User {
         this.mealPlan = mealPlan;
     }
 
+    public MealPlan getMealPlan() {
+        return this.mealPlan;
+    }
+
     public void fulfillOrder(Order order){
         order.setSeller(this);
     }
