@@ -28,4 +28,8 @@ public class DiningHall {
     public ArrayList<Review> getReviews() {
         return reviews;
     }
+
+    public Menu getMenu() {
+        return menu;
+    }
 }
