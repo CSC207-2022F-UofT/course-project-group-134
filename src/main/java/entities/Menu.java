@@ -1,4 +1,6 @@
 package entities;
 
-public class Menu {
+public class Menu extends FoodItem {
+
+
 }
