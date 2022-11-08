@@ -2,7 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
-public class Seller extends User implements Reviewable{
+public class Seller extends User {
 
     private MealPlan mealPlan;
     private ArrayList<Review> reviews;
@@ -16,9 +16,14 @@ public class Seller extends User implements Reviewable{
         order.setSeller(this);
     }
 
-    public void getReview(Review review){
+    public void addReview(Review review){
+        double totalRating = starAverage * this.reviews.size();
+        totalRating += review.getRating();
         this.reviews.add(review);
+        this.starAverage = totalRating/this.reviews.size();
     }
 
-
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
 }

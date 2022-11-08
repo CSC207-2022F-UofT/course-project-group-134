@@ -6,6 +6,6 @@ public class Buyer extends User{
     }
 
     public void placeOrder(Order order){
-
+        // TODO place in database
     }
 }

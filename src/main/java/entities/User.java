@@ -13,11 +13,19 @@ public abstract class User {
         this.password = password;
     }
 
-    public void transferRole(){
-
+    public void setUsername(String newName){
+        this.username = newName;
     }
 
-    public void report(String username){
+    public void setPassword(String newPassword){
+        this.password = newPassword;
+    }
 
+    public void transferRole(){
+        //TODO figure out later
+    }
+
+    public void report(User user){
+        user.numReported += 1;
     }
 }
