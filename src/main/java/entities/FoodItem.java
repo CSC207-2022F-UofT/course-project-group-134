@@ -33,7 +33,7 @@ public class FoodItem {
         return this.calories;
     }
 
-    public double gerPrice(){
+    public double getPrice(){
         return this.price;
     }
 
