@@ -2,7 +2,7 @@ package entities;
 import java.util.List;
 import java.util.ArrayList;
 
-public class DiningHall {
+public class DiningHall implements Reviewable {
 
     private String location;
     private String name;
