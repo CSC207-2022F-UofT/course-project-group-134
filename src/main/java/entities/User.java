@@ -13,6 +13,15 @@ public abstract class User {
         this.password = password;
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+
+    public String getPassword(){
+        return this.password;
+        // TODO sus
+    }
+
     public void setUsername(String newName){
         this.username = newName;
     }
