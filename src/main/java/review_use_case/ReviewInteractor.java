@@ -5,7 +5,11 @@ import entities.entityInterfaces.Reviewable;
 
 public class ReviewInteractor {
 
-    public void placeReview(Reviewable reviewable, Review review) {
-        reviewable.addReview(review);
+    public void placeReview(Reviewable reviewableItem, Review review) {
+        reviewableItem.addReview(review);
+    }
+
+    public void deleteReview(Reviewable reviewableItem, Review review) {
+        reviewableItem.deleteReview(review);
     }
 }

@@ -10,4 +10,6 @@ public interface Reviewable {
     void addReview(Review review);
 
     double getAverageReviewScore();
+
+    void deleteReview(Review review);
 }

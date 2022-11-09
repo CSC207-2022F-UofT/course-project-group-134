@@ -35,4 +35,11 @@ public class Seller extends User implements Reviewable{
     public ArrayList<Review> getReviews() {
         return this.reviews;
     }
+
+    public void deleteReview(Review review) {
+        double totalRating = starAverage * this.reviews.size();
+        totalRating -= review.getRating();
+        this.reviews.remove(review);
+        this.starAverage = totalRating / this.reviews.size();
+    }
 }
