@@ -1,8 +1,9 @@
 package entities;
+import entities.entityInterfaces.Reviewable;
 
 import java.util.ArrayList;
 
-public class Seller extends User {
+public class Seller extends User implements Reviewable{
 
     private MealPlan mealPlan;
     private ArrayList<Review> reviews;
@@ -10,6 +11,14 @@ public class Seller extends User {
     public Seller(String name, String password, MealPlan mealPlan){
         super(name, password);
         this.mealPlan = mealPlan;
+    }
+
+    public MealPlan getMealPlan() {
+        return this.mealPlan;
+    }
+
+    public double getAverageReviewScore(){
+        return this.starAverage;
     }
 
     public void fulfillOrder(Order order){
@@ -24,6 +33,6 @@ public class Seller extends User {
     }
 
     public ArrayList<Review> getReviews() {
-        return reviews;
+        return this.reviews;
     }
 }
