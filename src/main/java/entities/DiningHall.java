@@ -1,16 +1,19 @@
 package entities;
+
+import entities.entityInterfaces.Reviewable;
+
 import java.util.List;
 import java.util.ArrayList;
 
 public class DiningHall implements Reviewable {
 
-    private String location;
-    private String name;
-    private Menu menu;
-    private ArrayList<Review> reviews;
+    private final String location;
+    private final String name;
+    private final Menu menu;
+    private final ArrayList<Review> reviews;
     double starAverage;
 
-    public DiningHall(String location, String name, Menu menu){
+    public DiningHall(String location, String name, Menu menu) {
         this.location = location;
         this.menu = menu;
         this.name = name;
@@ -18,11 +21,11 @@ public class DiningHall implements Reviewable {
         this.starAverage = 0;
     }
 
-    public void addReview(Review review){
+    public void addReview(Review review) {
         double totalRating = starAverage * this.reviews.size();
         totalRating += review.getRating();
         this.reviews.add(review);
-        this.starAverage = totalRating/this.reviews.size();
+        this.starAverage = totalRating / this.reviews.size();
     }
 
     public ArrayList<Review> getReviews() {
@@ -31,5 +34,9 @@ public class DiningHall implements Reviewable {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public double getAverageReviewScore() {
+        return starAverage;
     }
 }
