@@ -1,6 +1,4 @@
 package entities;
-import entities.entityInterfaces.Reviewable;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,11 +32,4 @@ public class DiningHall implements Reviewable {
     public Menu getMenu() {
         return menu;
     }
-
-    public double getAverageReviewScore(){
-        return this.starAverage;
-    }
-
 }
-
-
