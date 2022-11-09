@@ -31,19 +31,39 @@ public class Database {
         return users;
     }
 
+    public void addUser(User user) {
+        users.add(user);
+    }
+
     public ArrayList<Buyer> getBuyers() {
         return buyers;
+    }
+
+    public void addBuyer(Buyer buyer) {
+        buyers.add(buyer);
     }
 
     public ArrayList<Seller> getSellers() {
         return sellers;
     }
 
+    public void addSeller(Seller seller) {
+        sellers.add(seller);
+    }
+
     public ArrayList<DiningHall> getDiningHalls() {
         return diningHalls;
     }
 
+    public void addDiningHall(DiningHall diningHall) {
+        diningHalls.add(diningHall);
+    }
+
     public ArrayList<Order> getOrders() {
         return orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
     }
 }
