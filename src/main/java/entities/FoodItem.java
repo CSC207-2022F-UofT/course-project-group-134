@@ -1,12 +1,20 @@
 package entities;
 
-public class FoodItem {
+import entities.entityInterfaces.Reviewable;
+
+import java.util.ArrayList;
+
+public class FoodItem implements Reviewable {
     private String description;
     private String[] allergens;
     private String[] ingredients;
     private int calories;
     private double price;
     private int popularity;
+
+    private double starAverage;
+
+    private ArrayList<Review> reviews;
 
     public FoodItem(String description, String[] allergens, String[] ingredients, int calories, double price){
         this.description = description;
@@ -15,6 +23,8 @@ public class FoodItem {
         this.calories = calories;
         this.price = price;
         this.popularity = 0;
+        this.starAverage = 0;
+        this.reviews = new ArrayList<>();
     }
 
     public String getDescription(){
@@ -41,4 +51,21 @@ public class FoodItem {
         return popularity;
     }
 
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+
+    public void addReview(Review review) {
+        double totalRating = starAverage * this.reviews.size();
+        totalRating += review.getRating();
+        this.reviews.add(review);
+        this.starAverage = totalRating / this.reviews.size();
+    }
+
+
+    public double getAverageReviewScore() {
+        return starAverage;
+    }
 }
