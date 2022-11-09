@@ -9,6 +9,7 @@ public class Database {
     private ArrayList<Buyer> buyers;
     private ArrayList<DiningHall> diningHalls;
     private ArrayList<Order> orders;
+    private User currentUser;
 
     public Database() {
         this.users = new ArrayList<>();
@@ -16,6 +17,14 @@ public class Database {
         this.buyers = new ArrayList<>();
         this.diningHalls = new ArrayList<>();
         this.orders = new ArrayList<>();
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     public ArrayList<User> getUsers() {
