@@ -9,8 +9,8 @@ public class UserRequestController {
         this.boundary = inputBoundary;
     }
 
-    public UserResponseModel create(String username, String email, String password, String repeat, UserType userType) {
-        UserRequestModel requestModel = new UserRequestModel(username, email, password, repeat, userType);
+    public UserResponseModel create(String username, String email, String password, UserType userType) {
+        UserRequestModel requestModel = new UserRequestModel(username, email, password, userType);
 
         return boundary.create(requestModel);
     }
