@@ -1,6 +1,9 @@
 package screens;
 
+import entities.MealPlan;
+import entities.UserType;
 import user_access_use_case.UserRequestController;
+import user_access_use_case.UserResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +23,16 @@ public class SignupScreen extends JFrame {
         String confirmString = String.valueOf(confirmInput.getPassword());
 
         if (passwordString.equals(confirmString)) {
-            signupController.create(usernameInput.getText(), emailInput.getText(),
-                    passwordString, null, null);
+            UserResponseModel response = signupController.create(usernameInput.getText(), emailInput.getText(),
+                    passwordString, UserType.BUYER, new MealPlan());
             // TODO: fix null and make user able to add userType
+            this.dispose();
+            WelcomeScreen screen = new WelcomeScreen(this.signupController);
+            JOptionPane.showMessageDialog(null,
+                    "Login with " + response.getName() + ".",
+                    "Login with credentials.",
+                    JOptionPane.PLAIN_MESSAGE);
+
         } else {
             JOptionPane.showMessageDialog(null,
                     "Try again. Passwords do not match.",
