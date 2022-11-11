@@ -1,32 +1,45 @@
 package user_access_use_case;
 
+import entities.User;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
+import java.io.File;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class UserGateway implements UserDsGateway {
 
-    private final File csvFile;
+    private File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, UserRequestModel> accounts = new HashMap<>();
+    private final Map<String, UserDsRequestModel> accounts = new HashMap<>();
 
+    // this constructor takes in the path to a csvFile and parses all the information
     public UserGateway(String csvPath) throws IOException {
-        csvFile = new File(csvPath);
+        this.csvFile = new File(csvPath);
+
+        if (!csvFile.exists()){
+            csvFile.createNewFile();
+        }
 
         headers.put("username", 0);
         headers.put("password", 1);
-        headers.put("email", 2)
+        headers.put("email", 2);
 
         if (csvFile.length() == 0) {
             save();
-        }
-        else {
+
+        } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
             reader.readLine(); // skip header
@@ -43,11 +56,33 @@ public class UserGateway implements UserDsGateway {
 
             reader.close();
         }
+    }
 
-    /*public UserGateway(){
+    public UserGateway(){
         //TODO: constructor
     }
-    public boolean existsByEmail(){
-        Arraylist<User> userList =
-    }*/
+
+
+    // If file is empty or does not exist
+    public void save() throws IOException{
+    }
+
+    public void save(UserRequestModel newUser) throws IOException{
+        BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
+
+        String toWrite = newUser.getEmail() + "," + newUser.getPassword() + "," + newUser.getUsername();
+        writer.write(toWrite);
+        writer.newLine();
+        writer.close();
+
+    }
+
+    public Boolean existsByEmail(String email){
+            for(UserDsRequestModel data: accounts.values()){
+                if(data.getEmail().equals(email)) {return true;}
+        }
+            return false;
+    }
+
+
 }
