@@ -32,9 +32,9 @@ public class UserGateway implements UserDsGateway {
             csvFile.createNewFile();
         }
 
-        headers.put("username", 0);
+        headers.put("email", 0);
         headers.put("password", 1);
-        headers.put("email", 2);
+        headers.put("username", 2);
 
         if (csvFile.length() == 0) {
             save();
