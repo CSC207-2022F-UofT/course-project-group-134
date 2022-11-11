@@ -7,4 +7,8 @@ public class UserResponseModel {
     public UserResponseModel(String name){
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
 }

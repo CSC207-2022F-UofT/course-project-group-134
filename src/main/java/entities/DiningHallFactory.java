@@ -1,7 +1,5 @@
 package entities;
 
-import entities.menu_factories.MenuFactory;
-
 public class DiningHallFactory {
     private MenuFactory menuFactory;
 
@@ -9,6 +7,4 @@ public class DiningHallFactory {
         this.menuFactory = menuFactory;
     }
 
-    public DiningHall create(DiningHallTypes types){
-    }
 }
