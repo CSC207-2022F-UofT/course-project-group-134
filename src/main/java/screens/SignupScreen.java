@@ -1,10 +1,15 @@
 package screens;
 
+import entities.MealPlan;
+import entities.UserType;
+import user_access_use_case.SignUpFailed;
 import user_access_use_case.UserRequestController;
+import user_access_use_case.UserResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class SignupScreen extends JFrame {
 
@@ -14,14 +19,27 @@ public class SignupScreen extends JFrame {
     private JPasswordField confirmInput = new JPasswordField(15);
     private UserRequestController signupController;
 
-    private void signupClicked(ActionEvent actionEvent) {
+    private void signupClicked(ActionEvent actionEvent) throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
         String confirmString = String.valueOf(confirmInput.getPassword());
 
         if (passwordString.equals(confirmString)) {
-            signupController.create(usernameInput.getText(), emailInput.getText(),
-                    passwordString, null, null);
-            // TODO: fix null and make user able to add userType
+            try {
+                UserResponseModel response = signupController.create(usernameInput.getText(), emailInput.getText(),
+                        passwordString, UserType.BUYER, new MealPlan());
+                // TODO: fix null and make user able to add userType
+                this.dispose();
+                WelcomeScreen screen = new WelcomeScreen(this.signupController);
+                JOptionPane.showMessageDialog(null,
+                        "Login with " + response.getName() + ".",
+                        "Login with credentials.",
+                        JOptionPane.PLAIN_MESSAGE);
+            } catch (SignUpFailed ex) {
+                JOptionPane.showMessageDialog(null,
+                        "The sign up failed. Try again.",
+                        "Try again.",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null,
                     "Try again. Passwords do not match.",
@@ -30,7 +48,7 @@ public class SignupScreen extends JFrame {
         }
     }
 
-    public SignupScreen(UserRequestController signupController) {
+    public SignupScreen(UserRequestController signupController) throws IOException {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(5,2));
         LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -46,7 +64,13 @@ public class SignupScreen extends JFrame {
         pnl.add(passwordInfo);
         pnl.add(repeatPasswordInfo);
         JButton signupButton = new JButton("Sign up");
-        signupButton.addActionListener(this::signupClicked);
+        signupButton.addActionListener(actionEvent -> {
+            try {
+                signupClicked(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         pnl.add(signupButton);
         this.add(pnl);
         this.setTitle("Sign up");

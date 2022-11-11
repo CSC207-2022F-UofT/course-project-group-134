@@ -9,6 +9,10 @@ public class MealPlan {
     private ArrayList<FoodItem> masterListOfItemsBought;
 
 
+    public MealPlan() {
+        // TODO shouldnt be blank.
+    }
+
     public MealPlan(Seller mealPlanUser, ArrayList<DiningHall> associatedDiningHalls, double balance){
         this.associatedDiningHalls = associatedDiningHalls;
         this.mealPlanUser = mealPlanUser;

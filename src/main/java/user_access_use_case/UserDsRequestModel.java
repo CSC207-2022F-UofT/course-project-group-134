@@ -11,6 +11,7 @@ public class UserDsRequestModel {
         this.email = email;
     }
 
+    public String getUsername() {return this.username;}
     public String getEmail(){
         return this.email;
     }
