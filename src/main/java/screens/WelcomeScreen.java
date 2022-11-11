@@ -1,29 +1,42 @@
 package screens;
 
+import user_access_use_case.SignUpInputBoundary;
+import user_access_use_case.UserRequestController;
+import user_access_use_case.UserRequestModel;
+import user_access_use_case.UserResponseModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class WelcomeScreen {
+public class WelcomeScreen extends JFrame {
+
+    private UserRequestController signupController;
 
     private void loginClicked(ActionEvent event) {
         LoginScreen screen = new LoginScreen();
-        screen.makeGUI();
+        this.dispose();
     }
 
-    public void makeGUI() {
-        JFrame frame = new JFrame();
+    private void signupClicked(ActionEvent event) {
+        SignupScreen screen = new SignupScreen(this.signupController);
+        this.dispose();
+    }
+
+    public WelcomeScreen(UserRequestController signupController) {
+        this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(2,2));
         JButton signupButton = new JButton("Sign up");
+        signupButton.addActionListener(this::signupClicked);
         pnl.add(signupButton);
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(this::loginClicked);
         pnl.add(loginButton);
-        frame.add(pnl);
-        frame.setTitle("Welcome");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 500);
-        frame.setLocation(200, 200);
-        frame.setVisible(true);
+        this.add(pnl);
+        this.setTitle("Welcome");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 500);
+        this.setLocation(200, 200);
+        this.setVisible(true);
     }
 }
