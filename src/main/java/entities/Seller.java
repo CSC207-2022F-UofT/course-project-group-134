@@ -8,9 +8,11 @@ public class Seller extends User implements Reviewable{
     private MealPlan mealPlan;
     private ArrayList<Review> reviews;
     double starAverage;
-    public Seller(String name, String password, MealPlan mealPlan){
-        super(name, password);
+    public Seller(String name, String password, MealPlan mealPlan, String email){
+        super(name, password, email);
         this.mealPlan = mealPlan;
+        this.starAverage  = 0;
+        this.reviews = new ArrayList<>();
     }
 
     public MealPlan getMealPlan() {
