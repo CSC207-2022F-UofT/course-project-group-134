@@ -65,6 +65,10 @@ public class UserGateway implements UserDsGateway {
 
     // If file is empty or does not exist
     public void save() throws IOException{
+        BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
+        writer.write("email,password,username");
+        writer.newLine();
+        writer.close();
     }
 
     public void save(UserDsRequestModel newUser) throws IOException{
