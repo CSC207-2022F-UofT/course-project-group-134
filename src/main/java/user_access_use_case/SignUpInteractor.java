@@ -3,7 +3,7 @@ import entities.User;
 import entities.UserFactory;
 
 
-public class SignUpInteractor implements SignUpInputBoundary {
+/*public class SignUpInteractor implements SignUpInputBoundary {
 
     final UserDsGateway userDsGateway;
     final UserAccessPresenter userPresenter;
@@ -15,4 +15,4 @@ public class SignUpInteractor implements SignUpInputBoundary {
         return userPresenter.prepareFailView("Passwords don't match.");
     }
 
-}
+}*/
