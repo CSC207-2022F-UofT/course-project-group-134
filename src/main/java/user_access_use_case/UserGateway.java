@@ -40,9 +40,8 @@ public class UserGateway implements UserDsGateway {
             save();
 
         } else {
-
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header
+            reader.readLine(); // skip header (email,password,username)
 
             String row;
             while ((row = reader.readLine()) != null) {
@@ -57,11 +56,6 @@ public class UserGateway implements UserDsGateway {
             reader.close();
         }
     }
-
-    public UserGateway(){
-        //TODO: constructor
-    }
-
 
     // If file is empty or does not exist
     public void save() throws IOException{
@@ -83,11 +77,12 @@ public class UserGateway implements UserDsGateway {
     }
 
     public Boolean existsByEmail(String email){
-            for(UserDsRequestModel data: accounts.values()){
-                if(data.getEmail().equals(email)) {return true;}
+        for (UserDsRequestModel data: accounts.values()) {
+            if (data.getEmail().equals(email)) {
+                return true;
+            }
         }
-            return false;
+        return false;
     }
-
 
 }
