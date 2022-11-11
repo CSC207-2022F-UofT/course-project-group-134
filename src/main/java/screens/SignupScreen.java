@@ -20,7 +20,8 @@ public class SignupScreen extends JFrame {
 
         if (passwordString.equals(confirmString)) {
             signupController.create(usernameInput.getText(), emailInput.getText(),
-                    passwordString, confirmString);
+                    passwordString, null, null);
+            // TODO: fix null and make user able to add userType
         } else {
             JOptionPane.showMessageDialog(null,
                     "Try again. Passwords do not match.",

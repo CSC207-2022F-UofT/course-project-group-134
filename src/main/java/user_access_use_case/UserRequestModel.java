@@ -41,4 +41,8 @@ public class UserRequestModel {
     public UserType getUserType() {
         return userType;
     }
+
+    public MealPlan getMealPlan() {
+        return mealPlan;
+    }
 }
