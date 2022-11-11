@@ -21,7 +21,6 @@ public abstract class User {
 
     public String getPassword(){
         return this.password;
-        // TODO sus
     }
 
     public void setUsername(String newName){
