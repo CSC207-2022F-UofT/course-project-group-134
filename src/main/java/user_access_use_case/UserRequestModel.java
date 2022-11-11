@@ -24,4 +24,8 @@ public class UserRequestModel {
     public String getRepeatPassword(){
         return this.repeatPassword;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }

@@ -1,10 +1,10 @@
 package user_access_use_case;
 
 public class UserAccessPresenter implements SignUpOutputBoundary{
-    public void prepareSuccessView(String info){
-
+    public UserResponseModel prepareSuccessView(UserResponseModel info){
+        return info;
     }
-    public void prepareFailView(String info){
-
+    public UserResponseModel prepareFailView(String error){
+        throw new SignUpFailed(error);
     }
 }
