@@ -5,6 +5,7 @@ import user_access_use_case.UserRequestController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class SignupScreen extends JFrame {
 
@@ -14,7 +15,7 @@ public class SignupScreen extends JFrame {
     private JPasswordField confirmInput = new JPasswordField(15);
     private UserRequestController signupController;
 
-    private void signupClicked(ActionEvent actionEvent) {
+    private void signupClicked(ActionEvent actionEvent) throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
         String confirmString = String.valueOf(confirmInput.getPassword());
 
@@ -30,7 +31,7 @@ public class SignupScreen extends JFrame {
         }
     }
 
-    public SignupScreen(UserRequestController signupController) {
+    public SignupScreen(UserRequestController signupController) throws IOException {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(5,2));
         LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -46,7 +47,13 @@ public class SignupScreen extends JFrame {
         pnl.add(passwordInfo);
         pnl.add(repeatPasswordInfo);
         JButton signupButton = new JButton("Sign up");
-        signupButton.addActionListener(this::signupClicked);
+        signupButton.addActionListener(actionEvent -> {
+            try {
+                signupClicked(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         pnl.add(signupButton);
         this.add(pnl);
         this.setTitle("Sign up");

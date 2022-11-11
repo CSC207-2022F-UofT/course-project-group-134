@@ -1,6 +1,8 @@
 package user_access_use_case;
 import entities.*;
 
+import java.io.IOException;
+
 
 public class UserRegisterInteractor implements SignUpInputBoundary {
 
@@ -16,7 +18,7 @@ public class UserRegisterInteractor implements SignUpInputBoundary {
     }
 
     @Override
-    public UserResponseModel create(UserRequestModel requestModel) {
+    public UserResponseModel create(UserRequestModel requestModel) throws IOException {
         if (userDsGateway.existsByEmail(requestModel.getEmail())) {
             return userPresenter.prepareFailView("User already exists based on email.");
         }

@@ -67,7 +67,7 @@ public class UserGateway implements UserDsGateway {
     public void save() throws IOException{
     }
 
-    public void save(UserRequestModel newUser) throws IOException{
+    public void save(UserDsRequestModel newUser) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
 
         String toWrite = newUser.getEmail() + "," + newUser.getPassword() + "," + newUser.getUsername();
