@@ -75,6 +75,7 @@ public class UserGateway implements UserDsGateway {
         writer.newLine();
         writer.close();
 
+        accounts.put(newUser.getEmail(), newUser);
     }
 
     public Boolean existsByEmail(String email){
