@@ -36,36 +36,22 @@ public class UserGateway implements UserDsGateway {
         headers.put("password", 1);
         headers.put("email", 2);
 
-        if (csvFile.length() == 0) {
-            save();
+        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+        reader.readLine(); // skip header
 
-        } else {
+        String row;
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
+            String username = String.valueOf(col[headers.get("username")]);
+            String password = String.valueOf(col[headers.get("password")]);
+            String email = String.valueOf(col[headers.get("email")]);
+            UserDsRequestModel user = new UserDsRequestModel(username, password, email);
+            accounts.put(email, user);
 
-            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header
-
-            String row;
-            while ((row = reader.readLine()) != null) {
-                String[] col = row.split(",");
-                String username = String.valueOf(col[headers.get("username")]);
-                String password = String.valueOf(col[headers.get("password")]);
-                String email = String.valueOf(col[headers.get("email")]);
-                UserDsRequestModel user = new UserDsRequestModel(username, password, email);
-                accounts.put(email, user);
-            }
-
-            reader.close();
+        reader.close();
         }
     }
 
-    public UserGateway(){
-        //TODO: constructor
-    }
-
-
-    // If file is empty or does not exist
-    public void save() throws IOException{
-    }
 
     public void save(UserRequestModel newUser) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));

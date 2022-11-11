@@ -6,6 +6,4 @@ public interface UserDsGateway {
     Boolean existsByEmail(String email);
 
     void save(UserRequestModel requestModel) throws IOException;   // Save new account data
-
-    void save() throws IOException;
 }
