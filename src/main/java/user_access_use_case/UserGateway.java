@@ -32,24 +32,17 @@ public class UserGateway implements UserDsGateway {
         headers.put("email", 0);
         headers.put("password", 1);
         headers.put("username", 2);
+        headers.put("userType", 3);
+        headers.put("balance", 4);
+        headers.put("diningHalls", 5);
 
-        // New code begins
-        ArrayList<String> headers_temp = new ArrayList<String>(
-                Arrays.asList("email", "password", "username", "user type", "dining halls", "meal plan balance")
-        );
-
-        Map<String, Integer> headers_2 = new HashMap<>();
-        for(int i = 0; i < headers_temp.size(); i++){
-            headers_2.put(headers_temp.get(i), i);
-        }
-        // New code ends
 
         if (csvFile.length() == 0) {
             save();
 
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header (email,password,username)
+            reader.readLine(); // skip header (email,password,username,balance,diningHalls)
 
             String row;
             while ((row = reader.readLine()) != null) {
@@ -63,12 +56,12 @@ public class UserGateway implements UserDsGateway {
                 // New code begins
                 String[] col = row.split(",");
 
-                String username = String.valueOf(col[0]);
-                String password = String.valueOf(col[1]);
-                String email = String.valueOf(col[2]);
-                String userType = String.valueOf(col[3]);
-                double balance = Double.parseDouble(col[4]);
-                String diningHalls = String.valueOf(col[5]);
+                String username = String.valueOf(col[headers.get("username")]);
+                String password = String.valueOf(col[headers.get("password")]);
+                String email = String.valueOf(col[headers.get("email")]);
+                String userType = String.valueOf(col[headers.get("userType")]);
+                double balance = Double.parseDouble(col[headers.get("balance")]);
+                String diningHalls = String.valueOf(col[headers.get("diningHalls")]);
 
                 // Changing diningHalls into an ArrayList from a String[]
                 ArrayList<String> diningHallsList = new ArrayList<>();
@@ -88,7 +81,7 @@ public class UserGateway implements UserDsGateway {
     // If file is empty or does not exist
     public void save() throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
-        writer.write("email,password,username,userType,allowedDiningHalls,mealPlanBalance");
+        writer.write("email,password,username,userType,mealPlanBalance,allowedDiningHalls");
         writer.newLine();
         writer.close();
     }
