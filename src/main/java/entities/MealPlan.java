@@ -3,21 +3,18 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MealPlan {
+    private String residence;
+
     private ArrayList<DiningHall> associatedDiningHalls;
-    private Seller mealPlanUser;
+
     private double balance;
     private ArrayList<FoodItem> masterListOfItemsBought;
 
-
-    public MealPlan() {
-        // TODO shouldnt be blank.
-    }
-
-    public MealPlan(Seller mealPlanUser, ArrayList<DiningHall> associatedDiningHalls, double balance){
-        this.associatedDiningHalls = associatedDiningHalls;
-        this.mealPlanUser = mealPlanUser;
+    public MealPlan(String residence, double balance){
+        this.residence = residence;
         this.balance = balance;
         this.masterListOfItemsBought = new ArrayList<>();
+        this.associatedDiningHalls = new ArrayList<>();
     }
 
     public double getBalance() {
@@ -25,6 +22,7 @@ public class MealPlan {
     }
 
     public ArrayList<DiningHall> getAssociatedDiningHalls() {
+        // TODO: implement this by getting the set of dining halls from residence
         return associatedDiningHalls;
     }
 
