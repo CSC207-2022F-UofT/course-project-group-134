@@ -28,6 +28,10 @@ public class DiningHall implements Reviewable {
         this.starAverage = totalRating / this.reviews.size();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<Review> getReviews() {
         return reviews;
     }
