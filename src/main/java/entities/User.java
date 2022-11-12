@@ -82,10 +82,9 @@ public abstract class User {
     }
 
     /**
-     * This user 'Reports' the given user (This increases numReported by 1).
-     * @param otherUser the user to be reported. This user can be the same as itself.
+     * This user gets reported (This increases numReported by 1).
      */
-    public void report(User otherUser){
-        otherUser.numReported += 1;
+    public void report(){
+        this.numReported += 1;
     }
 }

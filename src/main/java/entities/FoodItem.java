@@ -12,10 +12,6 @@ import java.util.ArrayList;
  */
 public class FoodItem implements Reviewable {
     /**
-     * Name of the food item
-     */
-    private String name;
-    /**
      * Description of the food item/what it is.
      */
     private String description;
@@ -54,15 +50,13 @@ public class FoodItem implements Reviewable {
      * The constructor for foodItem. This creates a food item with the given parameters. popularity and starAverage are
      * initialized as zero, and reviews is initialized as an empty arraylist.
      *
-     * @param name The name of the food item.
      * @param description The description of the food item.
      * @param allergens The potential allergens of the food item, represented by a list of strings.
      * @param ingredients The ingredients of the food item, represented by a list of strings.
      * @param calories The approximate number of (kilo)calories contained in one serving of the food item.
      * @param price The price of the food item in Canadian Dollars, represented by a double.
      */
-    public FoodItem(String name, String description, String[] allergens, String[] ingredients, int calories, double price){
-        this.name = name;
+    public FoodItem(String description, String[] allergens, String[] ingredients, int calories, double price){
         this.description = description;
         this.allergens = allergens;
         this.ingredients = ingredients;
@@ -73,13 +67,6 @@ public class FoodItem implements Reviewable {
         this.reviews = new ArrayList<>();
     }
 
-    /**
-     * Gets the name of the food item.
-     * @return The name of the food item.
-     */
-    public String getName(){
-        return this.name;
-    }
 
     /**
      * Gets the description of the food item.
