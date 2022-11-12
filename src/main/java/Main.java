@@ -1,6 +1,4 @@
-import entities.BuyerFactory;
-import entities.SellerFactory;
-import entities.UserFactory;
+import entities.*;
 import screens.LoginScreen;
 import screens.WelcomeScreen;
 import user_access_use_case.*;
@@ -9,7 +7,8 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
+
         UserDsGateway user;
         try {
             user = new UserGateway("./users.csv");

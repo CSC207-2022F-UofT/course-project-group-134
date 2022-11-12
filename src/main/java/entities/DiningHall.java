@@ -46,6 +46,14 @@ public class DiningHall implements Reviewable {
         this.reviews.remove(review);
         this.starAverage = totalRating / this.reviews.size();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }
 
 
