@@ -30,9 +30,10 @@ public class UserRegisterInteractor implements SignUpInputBoundary {
         if (requestModel.getUserType() == UserType.BUYER) {
             user = userFactory.createBuyer(requestModel.getUserType(), requestModel.getUsername(),
                     requestModel.getPassword(), requestModel.getEmail());
-
-           userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(), "Buyer",
-                            null, null);
+            ArrayList<String> diningHalls = new ArrayList<>();
+            diningHalls.add("none"); // TODO, this person is a buyer. What to do with its dining halls list.
+            userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(), "Buyer",
+                        0, diningHalls);
         }
         else {
             user = userFactory.createSeller(requestModel.getUserType(), requestModel.getUsername(),

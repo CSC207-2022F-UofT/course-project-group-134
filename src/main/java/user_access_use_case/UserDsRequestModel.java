@@ -13,7 +13,7 @@ public class UserDsRequestModel {
 
     private double mealPlanBalance;
 
-    public UserDsRequestModel(String username, String password, String email, String userType, Double
+    public UserDsRequestModel(String username, String password, String email, String userType, double
                               mealPlanBalance, ArrayList<String> associatedDiningHalls ){
 
         this.username = username;
