@@ -1,10 +1,6 @@
 package user_access_use_case;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import entities.DiningHall;
-import entities.MealPlan;
 
 public class UserDsRequestModel {
     private String username;
@@ -17,7 +13,7 @@ public class UserDsRequestModel {
 
     private double mealPlanBalance;
 
-    public UserDsRequestModel(String username, String password, String email, String userType, double
+    public UserDsRequestModel(String username, String password, String email, String userType, Double
                               mealPlanBalance, ArrayList<String> associatedDiningHalls ){
 
         this.username = username;

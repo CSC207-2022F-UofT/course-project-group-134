@@ -24,6 +24,10 @@ public class MealPlan {
         return balance;
     }
 
+    public ArrayList<DiningHall> getAssociatedDiningHalls() {
+        return associatedDiningHalls;
+    }
+
     public void updateMealPlan(ArrayList<FoodItem> foodItems, DiningHall diningHall){
         if (!this.associatedDiningHalls.contains(diningHall)){
             return;

@@ -2,6 +2,7 @@ package user_access_use_case;
 import entities.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class UserRegisterInteractor implements SignUpInputBoundary {
@@ -22,18 +23,33 @@ public class UserRegisterInteractor implements SignUpInputBoundary {
         if (userDsGateway.existsByEmail(requestModel.getEmail())) {
             return userPresenter.prepareFailView("User already exists based on email.");
         }
+
         User user;
+        UserDsRequestModel userDsModel;
 
         if (requestModel.getUserType() == UserType.BUYER) {
             user = userFactory.createBuyer(requestModel.getUserType(), requestModel.getUsername(),
                     requestModel.getPassword(), requestModel.getEmail());
+
+           userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(), "Buyer",
+                            null, null);
         }
         else {
             user = userFactory.createSeller(requestModel.getUserType(), requestModel.getUsername(),
                     requestModel.getPassword(), requestModel.getMealPlan(), requestModel.getEmail());;
+
+            double mealPlanBalance = requestModel.getMealPlan().getBalance();
+            ArrayList<DiningHall> diningHallsList = requestModel.getMealPlan().getAssociatedDiningHalls();
+            ArrayList<String> diningHallsNames = new ArrayList<>();
+
+            for(DiningHall hall: diningHallsList){
+                diningHallsNames.add(hall.getName());
+            }
+            userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(),
+                    "Seller", mealPlanBalance, diningHallsNames);
         }
 
-        UserDsRequestModel userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail());
+
         userDsGateway.save(userDsModel);
 
         UserResponseModel accountResponseModel = new UserResponseModel(user.getUsername());
