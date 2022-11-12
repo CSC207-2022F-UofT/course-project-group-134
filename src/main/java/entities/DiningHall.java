@@ -2,7 +2,6 @@ package entities;
 
 import entities.entityInterfaces.Reviewable;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class DiningHall implements Reviewable {
@@ -49,10 +48,6 @@ public class DiningHall implements Reviewable {
         totalRating -= review.getRating();
         this.reviews.remove(review);
         this.starAverage = totalRating / this.reviews.size();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getLocation() {
