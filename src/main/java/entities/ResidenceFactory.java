@@ -7,7 +7,7 @@ public class ResidenceFactory {
         this.menuFactory = menuFactory;
     }
 
-    public Residence createDiningHall(ResidenceTypes type) throws Exception {
+    public Residence createDiningHall(ResidenceType type) throws Exception {
         Menu menu = this.menuFactory.createMenu(type);
         return new Residence(type.name(), type.name(), menu);
     }

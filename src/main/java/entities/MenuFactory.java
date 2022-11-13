@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class MenuFactory {
 
-    public Menu createMenu(ResidenceTypes type) throws Exception
+    public Menu createMenu(ResidenceType type) throws Exception
     {
         String name = type.name();
         ArrayList<FoodItem> foodItems = new ArrayList<>();

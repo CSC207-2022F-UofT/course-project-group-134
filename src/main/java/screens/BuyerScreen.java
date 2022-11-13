@@ -1,8 +1,6 @@
 package screens;
 
 import order_use_case.OrderFailed;
-import user_access_use_case.SignUpFailed;
-import user_access_use_case.UserResponseModel;
 import user_login_use_case.LoginController;
 
 import javax.swing.*;
@@ -38,8 +36,6 @@ public class BuyerScreen extends JFrame {
             JOptionPane.showMessageDialog(null,
                     ex.getMessage(), "Order failed.", JOptionPane.WARNING_MESSAGE);
         }
-        //TODO: implement this.
-
     }
 
     public BuyerScreen(LoginController loginController) {

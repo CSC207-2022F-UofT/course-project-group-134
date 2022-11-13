@@ -1,8 +1,6 @@
 package screens;
 
 import entities.User;
-import user_access_use_case.SignUpMain;
-import user_access_use_case.UserResponseModel;
 import user_login_use_case.LoginController;
 import user_login_use_case.LoginFailed;
 import user_login_use_case.LoginResponseModel;

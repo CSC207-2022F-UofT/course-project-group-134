@@ -1,8 +1,5 @@
 package user_login_use_case;
 
-import user_access_use_case.SignUpInputBoundary;
-import user_access_use_case.UserRequestModel;
-
 import java.io.IOException;
 
 public class LoginController {
