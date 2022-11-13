@@ -46,6 +46,6 @@ public class WelcomeScreen extends JFrame {
         this.setSize(400, 500);
         this.setLocation(200, 200);
         this.setVisible(true);
-
     }
+
 }
