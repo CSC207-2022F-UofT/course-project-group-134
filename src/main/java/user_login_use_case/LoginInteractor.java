@@ -2,19 +2,18 @@ package user_login_use_case;
 
 import entities.User;
 import entities.UserFactory;
-import user_access_use_case.UserAccessPresenter;
-import user_access_use_case.UserDsGateway;
+import user_access_use_case.SignUpDsGateway;
 
 import java.io.IOException;
 
 public class LoginInteractor implements LoginInputBoundary {
 
-    final UserDsGateway userDsGateway;
+    final SignUpDsGateway userDsGateway;
     final LoginPresenter loginPresenter;
     final UserFactory userFactory;
 
-    public LoginInteractor(UserDsGateway userDsGateway, LoginPresenter loginPresenter,
-                                  UserFactory userFactory) {
+    public LoginInteractor(SignUpDsGateway userDsGateway, LoginPresenter loginPresenter,
+                           UserFactory userFactory) {
         this.userDsGateway = userDsGateway;
         this.loginPresenter = loginPresenter;
         this.userFactory = userFactory;

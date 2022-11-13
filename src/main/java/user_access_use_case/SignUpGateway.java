@@ -13,16 +13,16 @@ import java.io.File;
 
 import java.util.*;
 
-public class UserGateway implements UserDsGateway {
+public class SignUpGateway implements SignUpDsGateway {
 
     private File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, UserDsRequestModel> accounts = new HashMap<>();
+    private final Map<String, SignUpDsRequestModel> accounts = new HashMap<>();
 
     // this constructor takes in the path to a csvFile and parses all the information
-    public UserGateway(String csvPath) throws IOException {
+    public SignUpGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
         if (!csvFile.exists()){
@@ -55,7 +55,7 @@ public class UserGateway implements UserDsGateway {
                 double balance = Double.parseDouble(col[headers.get("balance")]);
                 String residence = String.valueOf(col[headers.get("residence")]);
 
-                UserDsRequestModel user = new UserDsRequestModel(username, password, email, userType,
+                SignUpDsRequestModel user = new SignUpDsRequestModel(username, password, email, userType,
                         balance, residence);
                 accounts.put(email, user);
             }
@@ -72,7 +72,7 @@ public class UserGateway implements UserDsGateway {
         writer.close();
     }
 
-    public void save(UserDsRequestModel newUser) throws IOException{
+    public void save(SignUpDsRequestModel newUser) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
 
         String toWrite = newUser.getEmail() + "," + newUser.getPassword() + "," + newUser.getUsername() +  ","
@@ -86,7 +86,7 @@ public class UserGateway implements UserDsGateway {
     }
 
     public Boolean existsByEmail(String email){
-        for (UserDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data: accounts.values()) {
             if (data.getEmail().equals(email)) {
                 return true;
             }
@@ -101,7 +101,7 @@ public class UserGateway implements UserDsGateway {
      * @return Returns either a Buyer or Seller corresponding to the user email if it exists. Otherwise, returns null.
      */
     public User readUser(String email, UserFactory userFactory) {
-        for (UserDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data: accounts.values()) {
             if (data.getEmail().equals(email)) {
                 if (data.getUserType().equals("Seller")) {
                     MealPlan mealPlan = new MealPlan(data.getResidence(), data.getMealPlanBalance());

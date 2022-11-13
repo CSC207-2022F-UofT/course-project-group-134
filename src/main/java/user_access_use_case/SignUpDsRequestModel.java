@@ -1,8 +1,6 @@
 package user_access_use_case;
 
-import java.util.ArrayList;
-
-public class UserDsRequestModel {
+public class SignUpDsRequestModel {
     private String username;
     private String password;
     private String email;
@@ -10,7 +8,7 @@ public class UserDsRequestModel {
     private String residence;
     private double mealPlanBalance;
 
-    public UserDsRequestModel(String username, String password, String email, String userType, double
+    public SignUpDsRequestModel(String username, String password, String email, String userType, double
                               mealPlanBalance, String residence){
         this.username = username;
         this.password = password;

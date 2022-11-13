@@ -1,20 +1,19 @@
 package user_access_use_case;
 
-import entities.MealPlan;
 import entities.UserType;
 
 import java.io.IOException;
 
-public class UserRequestController {
+public class SignUpRequestController {
     SignUpInputBoundary boundary;
 
-    public UserRequestController(SignUpInputBoundary inputBoundary){
+    public SignUpRequestController(SignUpInputBoundary inputBoundary){
         this.boundary = inputBoundary;
     }
 
-    public UserResponseModel create(String username, String email, String password, String userTypeString,
-                                    String residence, String balanceString) throws IOException {
-        UserRequestModel requestModel;
+    public SignUpResponseModel create(String username, String email, String password, String userTypeString,
+                                      String residence, String balanceString) throws IOException {
+        SignUpRequestModel requestModel;
         UserType userType;
         double balance = 0;
         if (userTypeString.equals("Seller")) {
@@ -24,7 +23,7 @@ public class UserRequestController {
             userType = UserType.BUYER;
             residence = "none";
         }
-        requestModel = new UserRequestModel(username, email, password, userType, residence, balance);
+        requestModel = new SignUpRequestModel(username, email, password, userType, residence, balance);
         return boundary.create(requestModel);
     }
 }

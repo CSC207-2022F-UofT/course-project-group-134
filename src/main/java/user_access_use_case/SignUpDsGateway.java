@@ -5,10 +5,10 @@ import entities.UserFactory;
 
 import java.io.IOException;
 
-public interface UserDsGateway {
+public interface SignUpDsGateway {
     Boolean existsByEmail(String email);
 
-    void save(UserDsRequestModel requestModel) throws IOException;   // Save new account data
+    void save(SignUpDsRequestModel requestModel) throws IOException;   // Save new account data
 
     void save() throws IOException;
 

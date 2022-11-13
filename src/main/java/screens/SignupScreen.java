@@ -1,10 +1,10 @@
 package screens;
 
-import entities.MealPlan;
 import entities.UserType;
+import entities.ResidenceType;
 import user_access_use_case.SignUpFailed;
-import user_access_use_case.UserRequestController;
-import user_access_use_case.UserResponseModel;
+import user_access_use_case.SignUpRequestController;
+import user_access_use_case.SignUpResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class SignupScreen extends JFrame {
     private JTextField mealPlanInput = new JTextField(15);
     private JComboBox<String> userTypeDropdown;
     private JComboBox<String> residenceDropdown;
-    private UserRequestController signupController;
+    private SignUpRequestController signupController;
 
     private void signupClicked(ActionEvent actionEvent) throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
@@ -31,7 +31,7 @@ public class SignupScreen extends JFrame {
             try {
                 Object inputUserType = userTypeDropdown.getSelectedItem();
                 Object inputResidence = residenceDropdown.getSelectedItem();
-                UserResponseModel response = signupController.create(usernameInput.getText(),
+                SignUpResponseModel response = signupController.create(usernameInput.getText(),
                         emailInput.getText(), passwordString, inputUserType.toString(), inputResidence.toString(),
                         mealPlanInput.getText());
 
@@ -59,7 +59,7 @@ public class SignupScreen extends JFrame {
         }
     }
 
-    public SignupScreen(UserRequestController signupController) {
+    public SignupScreen(SignUpRequestController signupController) {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(8,1));
         LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -75,14 +75,27 @@ public class SignupScreen extends JFrame {
         balanceInfo.setVisible(false);
 
         // Usertype dropdown
-        userTypeDropdown = new JComboBox<>(new String[]{"Buyer", "Seller"});
+
+        UserType[] userStates = UserType.values();
+        String[] userTypeList = new String[userStates.length];
+
+        for (int i = 0; i < userStates.length; i++) {
+            userTypeList[i] = userStates[i].toString();
+        }
+
+        ResidenceType[] residenceStates = ResidenceType.values();
+        String[] residenceTypeList = new String[residenceStates.length];
+
+        for (int i = 0; i < residenceStates.length; i++) {
+            residenceTypeList[i] = residenceStates[i].toString();
+        }
+
+        userTypeDropdown = new JComboBox<>(userTypeList);
         LabelComboboxPanel userTypePanel = new LabelComboboxPanel(
                 new JLabel("Select one user type:"), userTypeDropdown);
 
         // College dropdown
-        String[] residenceChoices = {"Chelsea", "Chestnut", "Innis College", "New College", "St. Michael's College",
-                "Trinity College", "University College", "Victoria College", "Woodsworth College"};
-        residenceDropdown = new JComboBox<>(residenceChoices);
+        residenceDropdown = new JComboBox<>(residenceTypeList);
         LabelComboboxPanel residencePanel = new LabelComboboxPanel(
                 new JLabel("Select your residence:"), residenceDropdown);
 
@@ -99,7 +112,7 @@ public class SignupScreen extends JFrame {
                 new ActionListener(){
                     // show balance box based on userType selected
                     public void actionPerformed(ActionEvent e){
-                        if (userTypeDropdown.getSelectedItem().equals("Seller")){
+                        if (userTypeDropdown.getSelectedItem().equals(UserType.SELLER.toString())){
                             balanceInfo.setVisible(true);
                             residencePanel.setVisible(true);
                         } else {

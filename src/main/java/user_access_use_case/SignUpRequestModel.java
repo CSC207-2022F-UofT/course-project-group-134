@@ -1,9 +1,8 @@
 package user_access_use_case;
 
-import entities.MealPlan;
 import entities.UserType;
 
-public class UserRequestModel {
+public class SignUpRequestModel {
     private String username;
     private String email;
     private String password;
@@ -11,7 +10,7 @@ public class UserRequestModel {
     private String residence;
     private double balance;
 
-    public UserRequestModel (String name, String email, String password, UserType userType, String residence, double balance){
+    public SignUpRequestModel(String name, String email, String password, UserType userType, String residence, double balance){
         this.username = name;
         this.email = email;
         this.password = password;
