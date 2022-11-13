@@ -12,14 +12,19 @@ public class UserRequestController {
         this.boundary = inputBoundary;
     }
 
-    public UserResponseModel create(String username, String email, String password, UserType userType, MealPlan mealPlan) throws IOException {
+    public UserResponseModel create(String username, String email, String password, String userTypeString,
+                                    String residence, String balanceString) throws IOException {
         UserRequestModel requestModel;
-        if (userType == UserType.SELLER) {
-            requestModel = new UserRequestModel(username, email, password, userType, mealPlan);
+        UserType userType;
+        double balance = 0;
+        if (userTypeString.equals("Seller")) {
+            userType = UserType.SELLER;
+            balance = Double.parseDouble(balanceString);
+        } else {
+            userType = UserType.BUYER;
+            residence = "none";
         }
-        else {
-            requestModel = new UserRequestModel(username, email, password, userType);
-        }
+        requestModel = new UserRequestModel(username, email, password, userType, residence, balance);
         return boundary.create(requestModel);
     }
 }

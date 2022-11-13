@@ -41,4 +41,12 @@ public class MealPlan {
         }
     }
 
+    public String getResidence() {
+        return residence;
+    }
+
+    @Override
+    public String toString() {
+        return "Balance: " + this.getBalance() + " Residence: " + this.getResidence();
+    }
 }

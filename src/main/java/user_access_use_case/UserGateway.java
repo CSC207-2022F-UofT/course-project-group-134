@@ -1,6 +1,6 @@
 package user_access_use_case;
 
-import entities.User;
+import entities.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -34,7 +34,7 @@ public class UserGateway implements UserDsGateway {
         headers.put("username", 2);
         headers.put("userType", 3);
         headers.put("balance", 4);
-        headers.put("diningHalls", 5);
+        headers.put("residence", 5);
 
 
         if (csvFile.length() == 0) {
@@ -42,18 +42,10 @@ public class UserGateway implements UserDsGateway {
 
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header (email,password,username,balance,diningHalls)
+            reader.readLine(); // skip header (email,password,username,mealPlanBalance,residence)
 
             String row;
             while ((row = reader.readLine()) != null) {
-                /*
-                String[] col = row.split(",");
-                String username = String.valueOf(col[headers.get("username")]);
-                String password = String.valueOf(col[headers.get("password")]);
-                String email = String.valueOf(col[headers.get("email")]);
-                */
-
-                // New code begins
                 String[] col = row.split(",");
 
                 String username = String.valueOf(col[headers.get("username")]);
@@ -61,16 +53,10 @@ public class UserGateway implements UserDsGateway {
                 String email = String.valueOf(col[headers.get("email")]);
                 String userType = String.valueOf(col[headers.get("userType")]);
                 double balance = Double.parseDouble(col[headers.get("balance")]);
-                String diningHalls = String.valueOf(col[headers.get("diningHalls")]);
-
-                // Changing diningHalls into an ArrayList from a String[]
-                ArrayList<String> diningHallsList = new ArrayList<>();
-                diningHallsList.addAll(Arrays.asList(diningHalls.split("/")));
-
-                // New code ends
+                String residence = String.valueOf(col[headers.get("residence")]);
 
                 UserDsRequestModel user = new UserDsRequestModel(username, password, email, userType,
-                        balance, diningHallsList);
+                        balance, residence);
                 accounts.put(email, user);
             }
 
@@ -81,7 +67,7 @@ public class UserGateway implements UserDsGateway {
     // If file is empty or does not exist
     public void save() throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
-        writer.write("email,password,username,userType,mealPlanBalance,allowedDiningHalls");
+        writer.write("email,password,username,userType,mealPlanBalance,residence");
         writer.newLine();
         writer.close();
     }
@@ -90,13 +76,7 @@ public class UserGateway implements UserDsGateway {
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
 
         String toWrite = newUser.getEmail() + "," + newUser.getPassword() + "," + newUser.getUsername() +  ","
-                + newUser.getUserType() + "," + newUser.getMealPlanBalance() + ",";
-
-        String allowedDiningHallsString = String.join("/", newUser.getAllowedDiningHalls());
-
-        toWrite += allowedDiningHallsString;
-
-        // NOTE: There is a slash (/) between each allowed dining hall
+                + newUser.getUserType() + "," + newUser.getMealPlanBalance() + "," + newUser.getResidence();
 
         writer.write(toWrite);
         writer.newLine();
@@ -114,4 +94,27 @@ public class UserGateway implements UserDsGateway {
         return false;
     }
 
+    /**
+     * Reads and returns a user based off of an email query.
+     * @param email The email of the user to read.
+     * @param userFactory The userfactory which creates users.
+     * @return Returns either a Buyer or Seller corresponding to the user email if it exists. Otherwise, returns null.
+     */
+    public User readUser(String email, UserFactory userFactory) {
+        for (UserDsRequestModel data: accounts.values()) {
+            if (data.getEmail().equals(email)) {
+                if (data.getUserType().equals("Seller")) {
+                    MealPlan mealPlan = new MealPlan(data.getResidence(), data.getMealPlanBalance());
+                    Seller seller = userFactory.createSeller(UserType.SELLER,
+                            data.getUsername(), data.getPassword(), mealPlan, data.getEmail());
+                    return seller;
+                } else {
+                    Buyer buyer = userFactory.createBuyer(UserType.BUYER, data.getUsername(),
+                            data.getPassword(), data.getEmail());
+                    return buyer;
+                }
+            }
+        }
+        return null; // user does not exist by email.
+    }
 }
