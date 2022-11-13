@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Order {
 
-    private DiningHall diningHall;
+    private Residence diningHall;
     private Buyer buyer;
     private ArrayList<FoodItem> foodItemList;
     private Seller seller;
 
-    public Order(DiningHall diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
+    public Order(Residence diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
         this.diningHall = diningHall;
         this.buyer = buyer;
         this.foodItemList = foodItemList;
@@ -23,7 +23,7 @@ public class Order {
         return seller;
     }
 
-    public DiningHall getDiningHall() {
+    public Residence getDiningHall() {
         return diningHall;
     }
 

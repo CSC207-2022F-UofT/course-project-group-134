@@ -1,11 +1,10 @@
 package entities;
-import java.util.List;
 import java.util.ArrayList;
 
 public class MealPlan {
     private String residence;
 
-    private ArrayList<DiningHall> associatedDiningHalls;
+    private ArrayList<Residence> associatedDiningHalls;
 
     private double balance;
     private ArrayList<FoodItem> masterListOfItemsBought;
@@ -21,12 +20,12 @@ public class MealPlan {
         return balance;
     }
 
-    public ArrayList<DiningHall> getAssociatedDiningHalls() {
+    public ArrayList<Residence> getAssociatedDiningHalls() {
         // TODO: implement this by getting the set of dining halls from residence
         return associatedDiningHalls;
     }
 
-    public void updateMealPlan(ArrayList<FoodItem> foodItems, DiningHall diningHall){
+    public void updateMealPlan(ArrayList<FoodItem> foodItems, Residence diningHall){
         if (!this.associatedDiningHalls.contains(diningHall)){
             return;
         }

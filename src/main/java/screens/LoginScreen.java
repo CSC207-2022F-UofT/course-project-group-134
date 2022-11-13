@@ -1,6 +1,7 @@
 package screens;
 
 import entities.User;
+import user_access_use_case.SignUpMain;
 import user_access_use_case.UserResponseModel;
 import user_login_use_case.LoginController;
 import user_login_use_case.LoginFailed;
@@ -20,7 +21,8 @@ public class LoginScreen extends JFrame {
         try {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
-            // TODO move to next screen.
+            // BuyerMain.create();
+            this.dispose();
             JOptionPane.showMessageDialog(null,
                     "Login succeeded\n" + user.toString() + ".",
                     "Login succeeded",
