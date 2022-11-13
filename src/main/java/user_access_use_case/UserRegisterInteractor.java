@@ -23,37 +23,31 @@ public class UserRegisterInteractor implements SignUpInputBoundary {
         if (userDsGateway.existsByEmail(requestModel.getEmail())) {
             return userPresenter.prepareFailView("User already exists based on email.");
         }
+        if (!requestModel.getUsername().matches("[A-Za-z0-9]+")) {
+            return userPresenter.prepareFailView("Username is not alphanumeric.");
+        }
+        if (!requestModel.getEmail().matches("[A-Za-z0-9]+")) {
+            return userPresenter.prepareFailView("Email is not alphanumeric.");
+        }
+        if (!requestModel.getPassword().matches("[A-Za-z0-9]+")) {
+            return userPresenter.prepareFailView("Password is not alphanumeric.");
+        }
 
-        User user;
         UserDsRequestModel userDsModel;
 
         if (requestModel.getUserType() == UserType.BUYER) {
-            user = userFactory.createBuyer(requestModel.getUserType(), requestModel.getUsername(),
-                    requestModel.getPassword(), requestModel.getEmail());
-            ArrayList<String> diningHalls = new ArrayList<>();
-            diningHalls.add("none"); // TODO, this person is a buyer. What to do with its dining halls list.
-            userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(), "Buyer",
-                        0, diningHalls);
-        }
-        else {
-            user = userFactory.createSeller(requestModel.getUserType(), requestModel.getUsername(),
-                    requestModel.getPassword(), requestModel.getMealPlan(), requestModel.getEmail());;
-
-            double mealPlanBalance = requestModel.getMealPlan().getBalance();
-            ArrayList<DiningHall> diningHallsList = requestModel.getMealPlan().getAssociatedDiningHalls();
-            ArrayList<String> diningHallsNames = new ArrayList<>();
-
-            for(DiningHall hall: diningHallsList){
-                diningHallsNames.add(hall.getName());
-            }
-            userDsModel = new UserDsRequestModel(user.getUsername(), user.getPassword(), user.getEmail(),
-                    "Seller", mealPlanBalance, diningHallsNames);
+            userDsModel = new UserDsRequestModel(requestModel.getUsername(), requestModel.getPassword(),
+                    requestModel.getEmail(), "Buyer", 0, "none");
+        } else {
+            userDsModel = new UserDsRequestModel(requestModel.getUsername(), requestModel.getPassword(),
+                    requestModel.getEmail(), "Seller",
+                    requestModel.getBalance(), requestModel.getResidence());
         }
 
 
         userDsGateway.save(userDsModel);
 
-        UserResponseModel accountResponseModel = new UserResponseModel(user.getUsername());
+        UserResponseModel accountResponseModel = new UserResponseModel(requestModel.getUsername());
         return userPresenter.prepareSuccessView(accountResponseModel);
     }
 }

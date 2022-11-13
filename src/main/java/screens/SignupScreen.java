@@ -29,41 +29,27 @@ public class SignupScreen extends JFrame {
 
         if (passwordString.equals(confirmString)) {
             try {
-                UserType userType = null;
-                MealPlan mealPlan = null;
                 Object inputUserType = userTypeDropdown.getSelectedItem();
-                Object inputMealPlan = residenceDropdown.getSelectedItem();
-                if (inputUserType != null){
-                    if (inputUserType.equals("Buyer")){
-                        userType = UserType.BUYER;
-                    } else {
-                        userType = UserType.SELLER;
-                        if (inputMealPlan != null){
-                            mealPlan = new MealPlan(inputMealPlan.toString(),
-                                    Double.parseDouble(mealPlanInput.getText()));
-                        }
-                    }
-                }
-                UserResponseModel response = signupController.create(usernameInput.getText(), emailInput.getText(),
-                        passwordString, userType, mealPlan);
+                Object inputResidence = residenceDropdown.getSelectedItem();
+                UserResponseModel response = signupController.create(usernameInput.getText(),
+                        emailInput.getText(), passwordString, inputUserType.toString(), inputResidence.toString(),
+                        mealPlanInput.getText());
 
                 this.dispose();
-                WelcomeScreen screen = new WelcomeScreen(this.signupController);
+                WelcomeScreen screen = new WelcomeScreen();
                 JOptionPane.showMessageDialog(null,
                         "Login with " + response.getName() + ".",
-                        "Login with credentials.",
+                        "Signup succeeded.",
                         JOptionPane.PLAIN_MESSAGE);
             } catch (NumberFormatException ex) {
                 // When user types in something that is not number in balance.
                 JOptionPane.showMessageDialog(null,
                         mealPlanInput.getText() + " is not a valid balance.",
-                        "Try again.",
-                        JOptionPane.WARNING_MESSAGE);
+                        "Signup failed.", JOptionPane.WARNING_MESSAGE);
             } catch (SignUpFailed ex) {
+                System.out.println(ex.getMessage());
                 JOptionPane.showMessageDialog(null,
-                        "The sign up failed. Try again.",
-                        "Try again.",
-                        JOptionPane.WARNING_MESSAGE);
+                        ex.getMessage(), "Signup failed.", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null,
@@ -138,7 +124,7 @@ public class SignupScreen extends JFrame {
         backButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                WelcomeScreen screen = new WelcomeScreen(this.signupController);
+                WelcomeScreen screen = new WelcomeScreen();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

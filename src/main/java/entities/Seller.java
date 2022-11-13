@@ -95,4 +95,9 @@ public class Seller extends User implements Reviewable{
         this.reviews.remove(review);
         this.starAverage = totalRating / this.reviews.size();
     }
+
+    @Override
+    public String toString() {
+        return "Seller: " + this.getUsername() + " " + this.getMealPlan().toString();
+    }
 }

@@ -1,9 +1,7 @@
 package screens;
 
-import user_access_use_case.SignUpInputBoundary;
-import user_access_use_case.UserRequestController;
-import user_access_use_case.UserRequestModel;
-import user_access_use_case.UserResponseModel;
+import user_access_use_case.*;
+import user_login_use_case.LoginMain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +10,17 @@ import java.io.IOException;
 
 public class WelcomeScreen extends JFrame {
 
-    private UserRequestController signupController;
-
     private void loginClicked(ActionEvent event) {
-        LoginScreen screen = new LoginScreen();
+        LoginMain.create();
         this.dispose();
     }
 
     private void signupClicked(ActionEvent event) throws IOException {
-        SignupScreen screen = new SignupScreen(this.signupController);
+        SignUpMain.create();
         this.dispose();
     }
 
-    public WelcomeScreen(UserRequestController signupController) throws IOException {
-        this.signupController = signupController;
+    public WelcomeScreen() throws IOException {
         JPanel pnl = new JPanel(new GridLayout(2,2));
         JButton signupButton = new JButton("Sign up");
 
