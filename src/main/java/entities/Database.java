@@ -7,7 +7,7 @@ public class Database {
     private ArrayList<User> users;
     private ArrayList<Seller> sellers;
     private ArrayList<Buyer> buyers;
-    private ArrayList<DiningHall> diningHalls;
+    private ArrayList<Residence> diningHalls;
     private ArrayList<Order> orders;
     private User currentUser;
 
@@ -51,11 +51,11 @@ public class Database {
         sellers.add(seller);
     }
 
-    public ArrayList<DiningHall> getDiningHalls() {
+    public ArrayList<Residence> getDiningHalls() {
         return diningHalls;
     }
 
-    public void addDiningHall(DiningHall diningHall) {
+    public void addDiningHall(Residence diningHall) {
         diningHalls.add(diningHall);
     }
 

@@ -1,17 +1,15 @@
 package entities;
 
-import java.util.Arrays;
-
-public class DiningHallFactory {
+public class ResidenceFactory {
     private MenuFactory menuFactory;
 
-    public DiningHallFactory(MenuFactory menuFactory){
+    public ResidenceFactory(MenuFactory menuFactory){
         this.menuFactory = menuFactory;
     }
 
-    public DiningHall createDiningHall(DiningHallTypes type) throws Exception {
+    public Residence createDiningHall(ResidenceTypes type) throws Exception {
         Menu menu = this.menuFactory.createMenu(type);
-        return new DiningHall(type.name(), type.name(), menu);
+        return new Residence(type.name(), type.name(), menu);
     }
 //NOTE: the below main method is a sample to test the running of DiningHallFactory
 

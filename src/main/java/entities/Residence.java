@@ -4,7 +4,7 @@ import entities.entityInterfaces.Reviewable;
 
 import java.util.ArrayList;
 
-public class DiningHall implements Reviewable {
+public class Residence implements Reviewable {
 
     private String location;
     private String name;
@@ -12,7 +12,7 @@ public class DiningHall implements Reviewable {
     private ArrayList<Review> reviews;
     double starAverage;
 
-    public DiningHall(String location, String name, Menu menu) {
+    public Residence(String location, String name, Menu menu) {
         this.location = location;
         this.menu = menu;
         this.name = name;

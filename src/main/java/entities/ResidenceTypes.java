@@ -1,6 +1,6 @@
 package entities;
 
-public enum DiningHallTypes {
+public enum ResidenceTypes {
     NEW_COLLEGE,
     UNIVERSITY_COLLEGE,
     ST_MICHAELS_COLLEGE,

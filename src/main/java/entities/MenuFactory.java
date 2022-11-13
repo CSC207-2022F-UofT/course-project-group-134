@@ -1,15 +1,11 @@
 package entities;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
-
-import entities.menu_factories.*;
 
 public class MenuFactory {
 
-    public Menu createMenu(DiningHallTypes type) throws Exception
+    public Menu createMenu(ResidenceTypes type) throws Exception
     {
         String name = type.name();
         ArrayList<FoodItem> foodItems = new ArrayList<>();
