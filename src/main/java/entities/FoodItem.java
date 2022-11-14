@@ -163,4 +163,8 @@ public class FoodItem implements Reviewable {
         this.reviews.remove(review);
         this.starAverage = totalRating / this.reviews.size();
     }
+
+    public double getStarAverage() {
+        return starAverage;
+    }
 }

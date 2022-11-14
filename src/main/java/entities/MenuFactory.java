@@ -7,6 +7,7 @@ public class MenuFactory {
 
     public Menu createMenu(ResidenceType type) throws Exception
     {
+        System.out.println("In MenuFactory");
         String name = type.name();
         ArrayList<FoodItem> foodItems = new ArrayList<>();
 
