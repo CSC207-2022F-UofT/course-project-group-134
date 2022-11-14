@@ -33,17 +33,9 @@ public class SignUpRegisterInteractor implements SignUpInputBoundary {
             return userPresenter.prepareFailView("Password is not alphanumeric.");
         }
 
-        SignUpDsRequestModel userDsModel;
-
-        if (requestModel.getUserType() == UserType.BUYER) {
-            userDsModel = new SignUpDsRequestModel(requestModel.getUsername(), requestModel.getPassword(),
-                    requestModel.getEmail(), UserType.BUYER.toString(), 0, "none");
-        } else {
-            userDsModel = new SignUpDsRequestModel(requestModel.getUsername(), requestModel.getPassword(),
-                    requestModel.getEmail(), UserType.SELLER.toString(),
-                    requestModel.getBalance(), requestModel.getResidence());
-        }
-
+        SignUpDsRequestModel userDsModel = new SignUpDsRequestModel(requestModel.getUsername(),
+                requestModel.getPassword(), requestModel.getEmail(), requestModel.getUserType().toString(),
+                requestModel.getBalance(), requestModel.getResidence());
 
         userDsGateway.save(userDsModel);
 

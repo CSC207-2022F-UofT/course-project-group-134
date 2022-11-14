@@ -1,5 +1,6 @@
 package screens;
 
+import entities.Buyer;
 import order_use_case.OrderFailed;
 import user_login_use_case.LoginController;
 
@@ -13,6 +14,7 @@ public class BuyerScreen extends JFrame {
     private JComboBox<String> diningHallDropdown;
 
     private JComboBox<String> foodItemDropdown;
+    private Buyer buyer;
 
     private void orderClicked(ActionEvent actionEvent) throws IOException {
 
@@ -38,7 +40,8 @@ public class BuyerScreen extends JFrame {
         }
     }
 
-    public BuyerScreen(LoginController loginController) {
+    public BuyerScreen(/*OrderController orderController,*/ Buyer buyer) {
+        this.buyer = buyer;
         //this.orderController = orderController;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));

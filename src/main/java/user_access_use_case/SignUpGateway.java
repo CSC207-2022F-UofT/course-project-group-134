@@ -86,7 +86,7 @@ public class SignUpGateway implements SignUpDsGateway {
     }
 
     public Boolean existsByEmail(String email){
-        for (SignUpDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data : accounts.values()) {
             if (data.getEmail().equals(email)) {
                 return true;
             }
@@ -103,7 +103,7 @@ public class SignUpGateway implements SignUpDsGateway {
     public User readUser(String email, UserFactory userFactory) {
         for (SignUpDsRequestModel data: accounts.values()) {
             if (data.getEmail().equals(email)) {
-                if (data.getUserType().equals("Seller")) {
+                if (data.getUserType().equals(UserType.SELLER.toString())) {
                     MealPlan mealPlan = new MealPlan(data.getResidence(), data.getMealPlanBalance());
                     Seller seller = userFactory.createSeller(UserType.SELLER,
                             data.getUsername(), data.getPassword(), mealPlan, data.getEmail());

@@ -1,5 +1,6 @@
 package screens;
 
+import entities.Seller;
 import order_use_case.OrderFailed;
 import user_login_use_case.LoginController;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public class SellingScreen extends JFrame {
 
+    Seller seller;
 
     private void acceptClicked(ActionEvent actionEvent) throws IOException {
 
@@ -26,8 +28,9 @@ public class SellingScreen extends JFrame {
         }
     }
 
-    public SellingScreen(LoginController loginController) {
-        //this.orderController = orderController;
+    public SellingScreen(/*SellingController sellingController,*/ Seller seller) {
+        this.seller = seller;
+        //this.sellingController = sellingController;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
         JButton loginButton = new JButton("Accept Order");
@@ -54,7 +57,7 @@ public class SellingScreen extends JFrame {
         pnl.add(buttonsPanel);
 
         this.add(pnl);
-        this.setTitle("Buying");
+        this.setTitle("Selling");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 500);
         this.setLocation(200, 200);
