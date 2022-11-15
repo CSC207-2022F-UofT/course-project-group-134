@@ -2,27 +2,38 @@ package selling_use_case;
 
 //import entities.DiningHallTypes;
 
+import entities.UserType;
+import user_access_use_case.SignUpDsRequestModel;
+import user_access_use_case.SignUpResponseModel;
+
 public class SellingInteractor implements SellingInputBoundary {
 
-    private SellingOutputBoundary presenter;
-    private SellingDataAccessInterface sellingGateway;
+    final SellingDsGateway sellingDsGateway;
 
-    public SellingInteractor(SellingOutputBoundary presenter, SellingDataAccessInterface sellingGateway){
-        this.presenter = presenter;
-        this.sellingGateway = sellingGateway;
+    final SellingPresenter sellingPresenter;
+
+    public SellingInteractor(SellingPresenter presenter, SellingDsGateway sellingDsGateway){
+        this.sellingDsGateway = sellingDsGateway;
+        this.sellingPresenter = presenter;
     }
-
-    public void accept(int orderNumber, String sellerUsername, String sellerEmail, String buyerUsername,
-                       String buyerEmail){
-        if (!this.sellingGateway.orderExistsById(orderNumber)){
-            this.presenter.prepareFailView("Order does not exist");
+    // TODO: we should ensure selling don't take on another order while having one unfulfilled
+    public SellingResponseModel accept(SellingRequestModel requestModel){
+        int orderNumber = requestModel.getOrder().getOrderNumber();
+        String sellerUsername = requestModel.getSeller().getUsername();
+        if (!this.sellingDsGateway.orderExistsById(orderNumber)){
+            this.sellingPresenter.prepareFailView("Order does not exist");
         }
-        else if (!this.sellingGateway.getOrderStatus(orderNumber).equals("Ordered")){
-            this.presenter.prepareFailView("Order has already been taken up by another seller");
+        else if (!this.sellingDsGateway.getOrderStatus(orderNumber).equals("Ordered")){
+            this.sellingPresenter.prepareFailView("Order has already been taken up by another seller");
         }
 
-        this.sellingGateway.updateOrder(orderNumber, "Accepted", sellerUsername);
-        this.presenter.prepareSuccessView();
+        SellingDsRequestModel sellingDsModel;
+
+        sellingDsGateway.updateOrder(orderNumber, "Accepted", sellerUsername);;
+
+        SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrder());
+        return sellingPresenter.prepareSuccessView(sellingResponseModel);
+
     }
 
 }

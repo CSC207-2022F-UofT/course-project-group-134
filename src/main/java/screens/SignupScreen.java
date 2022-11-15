@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class SignupScreen extends JFrame {
 
     private JTextField usernameInput = new JTextField(15);
@@ -75,7 +78,7 @@ public class SignupScreen extends JFrame {
         balanceInfo.setVisible(false);
 
         // Usertype dropdown
-
+        // converting enum to string
         UserType[] userStates = UserType.values();
         String[] userTypeList = new String[userStates.length];
 

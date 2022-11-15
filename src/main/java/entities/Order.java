@@ -3,13 +3,14 @@ package entities;
 import java.util.ArrayList;
 
 public class Order {
-
+    private int orderNumber;
     private Residence diningHall;
     private Buyer buyer;
     private ArrayList<FoodItem> foodItemList;
     private Seller seller;
 
-    public Order(Residence diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
+    public Order(int orderNumber, Residence diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
+        this.orderNumber = orderNumber;
         this.diningHall = diningHall;
         this.buyer = buyer;
         this.foodItemList = foodItemList;
@@ -23,6 +24,9 @@ public class Order {
         return seller;
     }
 
+    public int getOrderNumber() {
+        return orderNumber;
+    }
     public Residence getDiningHall() {
         return diningHall;
     }
