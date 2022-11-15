@@ -2,7 +2,7 @@ package get_menus_use_case;
 
 import entities.MenuFactory;
 import order_use_case.OrderController;
-import order_use_case.OrderView;
+import screens.OrderView;
 
 public class GetMenusmMain {
 

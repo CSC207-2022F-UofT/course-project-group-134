@@ -1,19 +1,18 @@
-package order_use_case;
+package screens;
 
 import entities.ResidenceType;
-import entities.UserType;
 import get_menus_use_case.GetMenusController;
 import get_menus_use_case.GetMenusResponseModel;
-import screens.LabelComboboxPanel;
+import order_use_case.FoodItemDetailsView;
+import order_use_case.OrderController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class OrderView extends JFrame implements OrderViewModel{
+public class OrderView extends JFrame implements OrderViewModel {
     private JPanel pnl = new JPanel(new GridLayout(2,1));
     private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
