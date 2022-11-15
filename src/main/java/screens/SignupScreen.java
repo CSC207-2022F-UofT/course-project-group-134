@@ -1,10 +1,10 @@
 package screens;
 
-import entities.MealPlan;
 import entities.UserType;
+import entities.ResidenceType;
 import user_access_use_case.SignUpFailed;
-import user_access_use_case.UserRequestController;
-import user_access_use_case.UserResponseModel;
+import user_access_use_case.SignUpRequestController;
+import user_access_use_case.SignUpResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class SignupScreen extends JFrame {
 
     private JTextField usernameInput = new JTextField(15);
@@ -21,7 +24,7 @@ public class SignupScreen extends JFrame {
     private JTextField mealPlanInput = new JTextField(15);
     private JComboBox<String> userTypeDropdown;
     private JComboBox<String> residenceDropdown;
-    private UserRequestController signupController;
+    private SignUpRequestController signupController;
 
     private void signupClicked(ActionEvent actionEvent) throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
@@ -29,35 +32,27 @@ public class SignupScreen extends JFrame {
 
         if (passwordString.equals(confirmString)) {
             try {
-                UserType userType = null;
-                MealPlan mealPlan = null;
                 Object inputUserType = userTypeDropdown.getSelectedItem();
-                Object inputMealPlan = residenceDropdown.getSelectedItem();
-                if (inputUserType != null){
-                    if (inputUserType.equals("Buyer")){
-                        userType = UserType.BUYER;
-                    } else {
-                        userType = UserType.SELLER;
-                        if (inputMealPlan != null){
-                            mealPlan = new MealPlan(inputMealPlan.toString(),
-                                    Double.parseDouble(mealPlanInput.getText()));
-                        }
-                    }
-                }
-                UserResponseModel response = signupController.create(usernameInput.getText(), emailInput.getText(),
-                        passwordString, userType, mealPlan);
+                Object inputResidence = residenceDropdown.getSelectedItem();
+                SignUpResponseModel response = signupController.create(usernameInput.getText(),
+                        emailInput.getText(), passwordString, inputUserType.toString(), inputResidence.toString(),
+                        mealPlanInput.getText());
 
                 this.dispose();
-                WelcomeScreen screen = new WelcomeScreen(this.signupController);
+                WelcomeScreen screen = new WelcomeScreen();
                 JOptionPane.showMessageDialog(null,
                         "Login with " + response.getName() + ".",
-                        "Login with credentials.",
+                        "Signup succeeded.",
                         JOptionPane.PLAIN_MESSAGE);
-            } catch (SignUpFailed ex) {
+            } catch (NumberFormatException ex) {
+                // When user types in something that is not number in balance.
                 JOptionPane.showMessageDialog(null,
-                        "The sign up failed. Try again.",
-                        "Try again.",
-                        JOptionPane.WARNING_MESSAGE);
+                        mealPlanInput.getText() + " is not a valid balance.",
+                        "Signup failed.", JOptionPane.WARNING_MESSAGE);
+            } catch (SignUpFailed ex) {
+                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), "Signup failed.", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null,
@@ -67,9 +62,9 @@ public class SignupScreen extends JFrame {
         }
     }
 
-    public SignupScreen(UserRequestController signupController) throws IOException {
+    public SignupScreen(SignUpRequestController signupController) {
         this.signupController = signupController;
-        JPanel pnl = new JPanel(new GridLayout(6,1));
+        JPanel pnl = new JPanel(new GridLayout(8,1));
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Choose username"), usernameInput);
         LabelTextPanel emailInfo = new LabelTextPanel(
@@ -83,51 +78,55 @@ public class SignupScreen extends JFrame {
         balanceInfo.setVisible(false);
 
         // Usertype dropdown
-        JLabel userTypeLabel = new JLabel("Select one user type:");
-        userTypeLabel.setVisible(true);
+        // converting enum to string
+        UserType[] userStates = UserType.values();
+        String[] userTypeList = new String[userStates.length];
 
-        pnl.add(userTypeLabel);
+        for (int i = 0; i < userStates.length; i++) {
+            userTypeList[i] = userStates[i].toString();
+        }
 
-        String[] userTypeChoices = {"Buyer","Seller"};
+        ResidenceType[] residenceStates = ResidenceType.values();
+        String[] residenceTypeList = new String[residenceStates.length];
 
-        userTypeDropdown = new JComboBox<String>(userTypeChoices);
+        for (int i = 0; i < residenceStates.length; i++) {
+            residenceTypeList[i] = residenceStates[i].toString();
+        }
+
+        userTypeDropdown = new JComboBox<>(userTypeList);
+        LabelComboboxPanel userTypePanel = new LabelComboboxPanel(
+                new JLabel("Select one user type:"), userTypeDropdown);
 
         // College dropdown
-        JLabel residenceLabel = new JLabel("Select your residence:");
-        residenceLabel.setVisible(false);
+        residenceDropdown = new JComboBox<>(residenceTypeList);
+        LabelComboboxPanel residencePanel = new LabelComboboxPanel(
+                new JLabel("Select your residence:"), residenceDropdown);
 
+        residencePanel.setVisible(false);
 
-        pnl.add(residenceLabel);
-
-        String[] residenceChoices = {"Chelsea","Chestnut", "Innis College", "New College", "St. Michael's College",
-                "Trinity College", "University College", "Victoria College", "Woodsworth College"};
-
-        residenceDropdown = new JComboBox<String>(residenceChoices);
-        residenceDropdown.setVisible(false);
-
-        pnl.add(userTypeDropdown);
-        pnl.add(residenceDropdown);
+        pnl.add(userTypePanel);
         pnl.add(usernameInfo);
         pnl.add(emailInfo);
         pnl.add(passwordInfo);
         pnl.add(repeatPasswordInfo);
+        pnl.add(residencePanel);
         pnl.add(balanceInfo);
         userTypeDropdown.addActionListener(
                 new ActionListener(){
                     // show balance box based on userType selected
                     public void actionPerformed(ActionEvent e){
-                        if (userTypeDropdown.getSelectedItem().equals("Seller")){
+                        if (userTypeDropdown.getSelectedItem().equals(UserType.SELLER.toString())){
                             balanceInfo.setVisible(true);
-                            residenceLabel.setVisible(true);
-                            residenceDropdown.setVisible(true);
+                            residencePanel.setVisible(true);
                         } else {
                             balanceInfo.setVisible(false);
-                            residenceLabel.setVisible(false);
-                            residenceDropdown.setVisible(false);
+                            residencePanel.setVisible(false);
                         }
                     }
                 }
         );
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
 
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(actionEvent -> {
@@ -137,7 +136,19 @@ public class SignupScreen extends JFrame {
                 throw new RuntimeException(e);
             }
         });
-        pnl.add(signupButton);
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(actionEvent -> {
+            this.dispose();
+            try {
+                WelcomeScreen screen = new WelcomeScreen();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        buttonsPanel.add(backButton);
+        buttonsPanel.add(signupButton);
+
+        pnl.add(buttonsPanel);
         this.add(pnl);
         this.setTitle("Sign up");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

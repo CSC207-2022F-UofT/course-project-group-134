@@ -1,29 +1,22 @@
 package user_access_use_case;
 
-import entities.MealPlan;
 import entities.UserType;
 
-public class UserRequestModel {
+public class SignUpRequestModel {
     private String username;
     private String email;
     private String password;
     private UserType userType;
-    private MealPlan mealPlan;
+    private String residence;
+    private double balance;
 
-    public UserRequestModel (String name, String email, String password, UserType userType, MealPlan mealPlan){
+    public SignUpRequestModel(String name, String email, String password, UserType userType, String residence, double balance){
         this.username = name;
         this.email = email;
         this.password = password;
         this.userType = userType;
-        this.mealPlan = mealPlan;
-    }
-
-    public UserRequestModel (String name, String email, String password, UserType userType){
-        this.username = name;
-        this.email = email;
-        this.password = password;
-        this.userType = userType;
-        this.mealPlan = null;
+        this.residence = residence;
+        this.balance = balance;
     }
 
     public String getEmail(){
@@ -42,7 +35,11 @@ public class UserRequestModel {
         return userType;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
+    public String getResidence() {
+        return residence;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

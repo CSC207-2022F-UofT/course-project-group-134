@@ -23,4 +23,13 @@ public class Buyer extends User{
         super(name, password, email);
     }
 
+    /**
+     * This buyer places an order.
+     * @param order The order to be placed.
+     *
+     *              TODO: implement this function
+     */
+    public void placeOrder(Order order){
+        // TODO place in database
+    }
 }

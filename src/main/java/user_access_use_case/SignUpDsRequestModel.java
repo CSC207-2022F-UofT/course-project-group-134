@@ -1,30 +1,27 @@
 package user_access_use_case;
 
-import java.util.ArrayList;
-
-public class UserDsRequestModel {
+public class SignUpDsRequestModel {
     private String username;
     private String password;
     private String email;
-
     private String userType;
-
-    private ArrayList<String> allowedDiningHalls;    // List of names of dining halls where the meal plan can be used
-
+    private String residence;
     private double mealPlanBalance;
 
-    public UserDsRequestModel(String username, String password, String email, String userType, double
-                              mealPlanBalance, ArrayList<String> associatedDiningHalls ){
-
+    public SignUpDsRequestModel(String username, String password, String email, String userType, double
+                              mealPlanBalance, String residence){
         this.username = username;
         this.password = password;
         this.email = email;
         this.userType = userType;
         this.mealPlanBalance = mealPlanBalance;
-        this.allowedDiningHalls = associatedDiningHalls;
+        this.residence = residence;
     }
 
-    public String getUsername() {return this.username;}
+    public String getUsername() {
+        return this.username;
+    }
+
     public String getEmail(){
         return this.email;
     }
@@ -41,7 +38,7 @@ public class UserDsRequestModel {
         return mealPlanBalance;
     }
 
-    public ArrayList<String> getAllowedDiningHalls() {
-        return allowedDiningHalls;
+    public String getResidence() {
+        return residence;
     }
 }
