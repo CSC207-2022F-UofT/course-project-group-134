@@ -1,6 +1,9 @@
 package screens;
 
 import entities.User;
+import entities.UserType;
+import order_use_case.BuyerMain;
+import selling_use_case.SellerMain;
 import user_login_use_case.LoginController;
 import user_login_use_case.LoginFailed;
 import user_login_use_case.LoginResponseModel;
@@ -19,7 +22,12 @@ public class LoginScreen extends JFrame {
         try {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
-            // BuyerMain.create();
+            if (response.getUser().getUserType() == UserType.SELLER){
+                SellerMain.create();
+            }
+            else {
+                BuyerMain.create();
+            }
             this.dispose();
             JOptionPane.showMessageDialog(null,
                     "Login succeeded\n" + user.toString() + ".",
@@ -67,7 +75,7 @@ public class LoginScreen extends JFrame {
         this.setTitle("Login");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 500);
-        this.setLocation(200, 200);
+        this.setLocation(500, 100);
         this.setVisible(true);
     }
 }

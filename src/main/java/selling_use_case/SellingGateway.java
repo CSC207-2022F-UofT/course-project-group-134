@@ -1,7 +1,13 @@
 package selling_use_case;
 
-public class SellingGateway implements SellingDsGateway{
+import java.io.File;
+import java.io.IOException;
 
+public class SellingGateway implements SellingDsGateway{
+    private File csvFile;
+    public SellingGateway(String csvPath) throws IOException {
+        this.csvFile = new File(csvPath);
+    }
     public void addOrder(SellingDsRequestModel data) {
 
     }
