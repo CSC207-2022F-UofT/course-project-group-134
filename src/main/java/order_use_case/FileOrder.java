@@ -5,18 +5,19 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import entities.Order;
-import entities.Buyer;
-
 public class FileOrder implements OrderDsGateway{
-    private final csvFile;
-
+    private final File csvFile;
+    private int currentOrderID = 0;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<Integer, OrderDsResponseModel> orders = new HashMap<>();
+    private final Map<Integer, OrderDsModel> orders = new HashMap<>();
 
-    public FileUser(String csvPath) throws IOException {
-        csvFile = new File(csvPath);
+    public FileOrder(String csvPath) throws IOException {
+        this.csvFile = new File(csvPath);
+
+        if (!csvFile.exists()){
+            csvFile.createNewFile();
+        }
 
         headers.put("orderID", 0);
         headers.put("buyerName", 1);
@@ -43,21 +44,23 @@ public class FileOrder implements OrderDsGateway{
                 String sellerName = String.valueOf(col[headers.get("sellerName")]);
                 String sellerEmail = String.valueOf(col[headers.get("sellerEmail")]);
                 String residence = String.valueOf(col[headers.get("residence")]);
+                String status = String.valueOf(col[headers.get("status")]);
                 String[] foodItems = (String.valueOf(col[headers.get("foodItems")])).split(";");
-                OrderDsResponseModel order = new OrderDsResponseModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, foodItems);
+                OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems);
                 orders.put(orderID, order);
+                this.currentOrderID = orderID + 1;
             }
 
             reader.close();
         }
     }
 
-    public boolean validOrder(Buyer buyer) {
-
-    }
-
-    public void saveOrder(Order order) {
-
+    @Override
+    public void saveOrder(OrderDsRequestModel orderModel) {
+        OrderDsModel order = new OrderDsModel(this.currentOrderID, orderModel.getBuyerName(), orderModel.getBuyerEmail(),
+                orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems());
+        orders.put(this.currentOrderID, order);
+        this.save();
     }
     private void save() {
         BufferedWriter writer;
@@ -66,9 +69,10 @@ public class FileOrder implements OrderDsGateway{
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (OrderDsResponseModel user : accounts.values()) {
-                String line = "%s,%s,%s".formatted(
-                        user.getName(), user.getPassword(), user.getCreationTime());
+            for (OrderDsModel order : orders.values()) {
+                String line = String.format("%d,%s,%s,%s,%s,%s,%s,%s",
+                order.getOrderID(), order.getBuyerName(), order.getBuyerEmail(), order.getSellerName(),
+                order.getSellerEmail(), order.getResidence(), order.getStatus(), String.join(";",order.getFoodItems()));
                 writer.write(line);
                 writer.newLine();
             }

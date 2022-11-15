@@ -1,6 +1,6 @@
 package order_use_case;
 
-public class OrderRequestModel {
+public class OrderDsRequestModel {
 
     public final String buyerName;
     private final String buyerEmail;
@@ -8,14 +8,16 @@ public class OrderRequestModel {
     private final String sellerEmail;
 
     private final String residence;
+    private final String status;
     private final String[] foodItems;
 
-    public OrderRequestModel(String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String[] foodItems) {
+    public OrderDsRequestModel(String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems) {
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;
         this.sellerName = sellerName;
         this.sellerEmail = sellerEmail;
         this.residence = residence;
+        this.status = status;
         this.foodItems = foodItems;
     }
 
@@ -37,6 +39,10 @@ public class OrderRequestModel {
 
     public String getResidence() {
         return residence;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String[] getFoodItems() {
