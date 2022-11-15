@@ -16,7 +16,7 @@ public class SignUpRequestController {
         SignUpRequestModel requestModel;
         UserType userType;
         double balance = 0;
-        if (userTypeString.equals("Seller")) {
+        if (userTypeString.equals(UserType.SELLER.toString())) {
             userType = UserType.SELLER;
             balance = Double.parseDouble(balanceString);
         } else {
