@@ -48,7 +48,7 @@ public class FileOrder implements OrderDsGateway{
                 String[] foodItems = (String.valueOf(col[headers.get("foodItems")])).split(";");
                 OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems);
                 orders.put(orderID, order);
-                this.currentOrderID = orderID + 1;
+                this.currentOrderID++;
             }
 
             reader.close();
@@ -60,6 +60,7 @@ public class FileOrder implements OrderDsGateway{
         OrderDsModel order = new OrderDsModel(this.currentOrderID, orderModel.getBuyerName(), orderModel.getBuyerEmail(),
                 orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems());
         orders.put(this.currentOrderID, order);
+        this.currentOrderID++;
         this.save();
     }
     private void save() {
