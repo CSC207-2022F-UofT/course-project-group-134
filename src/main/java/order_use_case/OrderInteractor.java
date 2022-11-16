@@ -7,30 +7,29 @@ import entities.OrderFactory;
 
 public class OrderInteractor implements OrderInputBoundary {
     final OrderDsGateway orderDsGateway;
-    final OrderPresenter orderPresenter;
+    final OrderOutputBoundary orderPresenter;
     final OrderFactory orderFactory;
 
-    public OrderInteractor(OrderDsGateway orderDsGateway, OrderPresenter orderPresenter, OrderFactory orderFactory) {
+    public OrderInteractor(OrderDsGateway orderDsGateway, OrderOutputBoundary orderPresenter, OrderFactory orderFactory) {
         this.orderDsGateway = orderDsGateway;
         this.orderPresenter = orderPresenter;
         this.orderFactory = orderFactory;
     }
 
-    void public placeOrder(OrderRequestModel request) {
-        //Model must have DiningHall and List of FoodItems
+    @Override
+     public OrderResponseModel placeOrder(OrderRequestModel request) {
+        // TODO: How can the order fail?
 
-        //TODO: figure out how to retrieve Buyer instance
-        Buyer buyer = new Buyer("random","password","email") //placeholder for workable code
+        String sellerName = "null";
+        String sellerEmail = "null";
+        String status = "ORDERED";
+        System.out.println("INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
-        Order order = orderFactory.create(request.getDiningHall(), buyer, request.getFoodItems)
+        OrderDsRequestModel orderDsRequest = new OrderDsRequestModel(request.getBuyerName(), request.getBuyerEmail(),
+                sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems());
+        orderDsGateway.saveOrder(orderDsRequest);
+
+        OrderResponseModel responseModel = new OrderResponseModel();
+        return orderPresenter.prepareSuccessView(responseModel);
     }
-
-    void public updateOrderStatus() {
-
-    }
-
-    void public getOrderStatus() {
-
-    }
-
 }
