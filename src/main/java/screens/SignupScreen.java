@@ -47,7 +47,7 @@ public class SignupScreen extends JFrame {
             } catch (NumberFormatException ex) {
                 // When user types in something that is not number in balance.
                 JOptionPane.showMessageDialog(null,
-                        mealPlanInput.getText() + " is not a valid balance.",
+                        mealPlanInput.getText() + " is not a valid balance.", //TODO: Perhaps the presenter should handle this?
                         "Signup failed.", JOptionPane.WARNING_MESSAGE);
             } catch (SignUpFailed ex) {
                 System.out.println(ex.getMessage());
