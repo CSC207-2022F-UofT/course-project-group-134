@@ -13,7 +13,7 @@ public class SellerMain {
     public static void create(String sellerEmail) throws DoesNotExistException {
         OrderGateway gateway;
         try {
-            gateway = new OrderGateway("./orders.csv");
+            gateway = new OrderGateway("./src/main/java/data_storage/orders.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
