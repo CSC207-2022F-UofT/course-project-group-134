@@ -9,7 +9,7 @@ public class OrderMain {
     public static void main(String[] args) {
         OrderDsGateway orders;
         try {
-            orders = new FileOrder("./src/main/java/data_storage/orders.csv");
+            orders = new OrderGateway("./orders.csv");
             System.out.println("File Created!");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
@@ -25,5 +25,6 @@ public class OrderMain {
         orderController.placeOrder("Deon Chan", "email@domain.com", "New College", foodItems);
         orderController.placeOrder("Ben", "email@domain.com", "University College", foodItems2);
         orderController.placeOrder("Not Deon Chan", "email@domain.com", "New College", foodItems);
+        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca", "Trinity College", foodItems);
     }
 }

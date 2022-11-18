@@ -15,7 +15,7 @@ public class GetMenusMain {
 
         OrderDsGateway orders;
         try {
-            orders = new FileOrder("./orders.csv");
+            orders = new OrderGateway("./orders.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

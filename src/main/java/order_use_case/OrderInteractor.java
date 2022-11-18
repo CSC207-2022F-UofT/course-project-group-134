@@ -3,6 +3,7 @@ package order_use_case;
 import entities.Buyer;
 import entities.Order;
 import entities.OrderFactory;
+import entities.OrderStatusType;
 
 
 public class OrderInteractor implements OrderInputBoundary {
@@ -22,7 +23,7 @@ public class OrderInteractor implements OrderInputBoundary {
 
         String sellerName = "null";
         String sellerEmail = "null";
-        String status = "ORDERED";
+        String status = OrderStatusType.ORDERED.toString();
         System.out.println("INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
         OrderDsRequestModel orderDsRequest = new OrderDsRequestModel(request.getBuyerName(), request.getBuyerEmail(),

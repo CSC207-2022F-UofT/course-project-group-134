@@ -3,6 +3,7 @@ package screens;
 import entities.User;
 import entities.UserType;
 import order_use_case.BuyerMain;
+import order_use_case.DoesNotExistException;
 import selling_use_case.SellerMain;
 import user_login_use_case.LoginController;
 import user_login_use_case.LoginFailed;
@@ -24,7 +25,7 @@ public class LoginScreen extends JFrame {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
             if (response.getUser().getUserType() == UserType.SELLER){
-                SellerMain.create();
+                SellerMain.create(user.getEmail());
             }
             else {
                 BuyerMain.create();
@@ -38,6 +39,8 @@ public class LoginScreen extends JFrame {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null,
                     ex.getMessage(), "Login failed.", JOptionPane.WARNING_MESSAGE);
+        } catch (DoesNotExistException e) {
+            throw new RuntimeException(e);
         }
     }
 

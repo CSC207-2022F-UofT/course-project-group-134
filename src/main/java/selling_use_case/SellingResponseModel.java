@@ -3,11 +3,11 @@ package selling_use_case;
 import entities.Order;
 
 public class SellingResponseModel {
-    private Order order;
-    public SellingResponseModel(Order order){
-        this.order = order;
+    private int orderNumber;
+    public SellingResponseModel(int orderNumber){
+        this.orderNumber = orderNumber;
     }
-    public Order getOrder(){
-        return this.order;
+    public int getOrderNumber() {
+        return this.orderNumber;
     }
 }

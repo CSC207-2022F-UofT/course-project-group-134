@@ -4,19 +4,19 @@ import entities.Order;
 import entities.Seller;
 
 public class SellingRequestModel {
-    private Seller seller;
-    private Order order;
+    private String sellerEmail;
+    private int orderNumber;
 
-    public SellingRequestModel(Seller seller, Order order) {
-        this.seller = seller;
-        this.order = order;
+    public SellingRequestModel(String sellerEmail, int orderNumber) {
+        this.sellerEmail = sellerEmail;
+        this.orderNumber = orderNumber;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public String getSellerEmail() {
+        return sellerEmail;
     }
 
-    public Order getOrder() {
-        return order;
+    public int getOrderNumber() {
+        return orderNumber;
     }
 }
