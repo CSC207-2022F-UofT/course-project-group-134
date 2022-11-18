@@ -13,7 +13,7 @@ public class LoginMain {
     public static void create() {
         SignUpDsGateway user;
         try {
-            user = new SignUpGateway("./src/main/java/data_storage/users.csv");
+            user = new SignUpGateway("./users.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

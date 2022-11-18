@@ -18,6 +18,7 @@ public abstract class User {
     private int numReported;
     private String[] chats;
     private String email;
+    protected UserType userType;
 
     /**
      * Constructor for user.
@@ -72,6 +73,10 @@ public abstract class User {
      */
     public String getEmail() {
         return email;
+    }
+
+    public UserType getUserType(){
+        return userType;
     }
 
     /**

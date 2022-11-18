@@ -21,6 +21,7 @@ public class Buyer extends User{
      */
     public Buyer(String name, String password, String email){
         super(name, password, email);
+        super.userType = UserType.BUYER;
     }
 
     /**
