@@ -13,9 +13,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class OrderView extends JFrame implements OrderViewModel {
-    private JPanel pnl = new JPanel(new GridLayout(2,1));
+    private JPanel pnl = new JPanel(new GridLayout(4,1));
     private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
+    private JButton orderButton = new JButton("Order");
     private JComboBox<String> residenceDropdown;
     private OrderController orderController;
     private GetMenusController getMenusController;
@@ -100,11 +101,15 @@ public class OrderView extends JFrame implements OrderViewModel {
         }
         this.menusPanel = menusPanel;
         pnl.add(menusPanel);
-        //this.add(pnl);
-        /*this.setTitle("Sign up");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(450, 400);
-        this.setLocation(500, 100);*/
+        pnl.add(orderButton);
+        JTextField temp = new JTextField(20);
+        temp.addActionListener(actionEvent ->{
+            JOptionPane.showMessageDialog(null,
+                    "Hello there",
+                    "Testing",
+                    JOptionPane.PLAIN_MESSAGE);
+        });
+        pnl.add(temp);
         this.setVisible(true);
 
     }
