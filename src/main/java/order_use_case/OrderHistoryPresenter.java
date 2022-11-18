@@ -34,7 +34,7 @@ public class OrderHistoryPresenter {
 
         OrderHistoryResponseModel orderModel = new OrderHistoryResponseModel(this.orderID, this.sellerName,
                 this.sellerEmail, this.residence, this.orderStatus, foodItems);
-        orderModel.
+        //orderModel.
         this.responseModel = orderModel;
     }
 

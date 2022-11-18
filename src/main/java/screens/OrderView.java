@@ -11,18 +11,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OrderView extends JFrame implements OrderViewModel {
     private JPanel pnl = new JPanel(new GridLayout(4,1));
+
+    private JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+    private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
-    private JButton orderButton = new JButton("Order");
+    private JButton orderButton = new JButton("Preview Order");
+    Double totalPrice = 0.0;
+    private JLabel totalPriceString = new JLabel("Total Price: $0");
+
     private JComboBox<String> residenceDropdown;
+    private ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
     private OrderController orderController;
     private GetMenusController getMenusController;
+    private String username;
+    private String email;
 
-    public OrderView(OrderController orderController, GetMenusController getMenusController) {
+    public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email) {
         this.orderController = orderController;
+        this.email = email;
+        this.username = username;
         ResidenceType[] residenceStates = ResidenceType.values();
         String[] residenceTypeList = new String[residenceStates.length];
         this.getMenusController = getMenusController;
@@ -38,7 +50,11 @@ public class OrderView extends JFrame implements OrderViewModel {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         try {
-                            pnl.remove(menusPanel);
+                            //pnl.remove(menusPanel);
+                            totalPrice = 0.0;
+                            totalPriceString.setText("Total Price: $" + totalPrice);
+                            orderButton.setVisible(true);
+                            totalPriceString.setVisible(true);
                             GetMenusResponseModel responseModel = getMenusController.getFoodItemNames((String) residenceDropdown.getSelectedItem());
                             showMenus(
                                     responseModel.getFoodItemNames(),
@@ -56,8 +72,19 @@ public class OrderView extends JFrame implements OrderViewModel {
                     }
                 });
 
+        orderButton.addActionListener(actionEvent -> {
+            orderClicked();
+        });
+
         pnl.add(residencePanel);
         pnl.add(this.menusPanel);
+
+        bottomPanel.add(totalPriceString);
+        bottomPanel.add(orderButton);
+        pnl.add(bottomPanel);
+        orderButton.setVisible(false);
+        totalPriceString.setVisible(false);
+
         this.add(pnl);
 
         this.setTitle("Create Order");
@@ -72,12 +99,29 @@ public class OrderView extends JFrame implements OrderViewModel {
     @Override
     public void showMenus(ArrayList<String> foodItemNames, ArrayList<Double> foodItemPrices, ArrayList<String[]> foodItemAllergens, ArrayList<String[]> foodItemIngredients, ArrayList<Integer> foodItemCalories, ArrayList<Integer> foodItemPopularities, ArrayList<Double> foodItemStarAverages, ArrayList<ArrayList<String>> foodItemReviews) {
         System.out.println("In view");
-        System.out.println(foodItemNames.get(0).toString());
-        JPanel menusPanel = new JPanel(new GridLayout(1,2));
-        ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+        System.out.println(foodItemNames.get(0));
+
+        menusPanel.removeAll();
+        bottomPanel.removeAll();
+        quantityDropdownsList.clear();
+        checkBoxes.clear();
+
+
+        String[] quantities = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+
         for (int i= 0; i < 2; i++){
-            JPanel tempFoodItemPanel = new JPanel(new GridLayout(1,2));
+            JPanel tempFoodItemPanel = new JPanel(new GridLayout(1,3));
+
+            JComboBox<String> tempFoodItemQuantity = new JComboBox<>(quantities);
+            tempFoodItemQuantity.addActionListener(actionEvent -> {
+                foodItemQuantityExtracted(foodItemPrices, tempFoodItemQuantity);
+            });
+
+            quantityDropdownsList.add(tempFoodItemQuantity);
+
             JButton tempDetailsButton = new JButton("Details");
+            LabelComboboxPanel quantitiesPanel = new LabelComboboxPanel(
+                    new JLabel("Quantity"), tempFoodItemQuantity);
 
             String itemName = foodItemNames.get(i);
             Double itemPrice = foodItemPrices.get(i);
@@ -94,25 +138,63 @@ public class OrderView extends JFrame implements OrderViewModel {
             });
 
             JCheckBox tempCheckBox = new JCheckBox(foodItemNames.get(i) + " ($" + foodItemPrices.get(i).toString() + ")");
+            tempCheckBox.addActionListener(actionEvent -> {
+                if (tempCheckBox.isSelected()){
+                    quantityDropdownsList.get(checkBoxes.indexOf(tempCheckBox)).setSelectedIndex(1);
+                }
+                else{
+                    quantityDropdownsList.get(checkBoxes.indexOf(tempCheckBox)).setSelectedIndex(0);
+                }
+            });
+
             tempFoodItemPanel.add(tempCheckBox);
+            tempFoodItemPanel.add(quantitiesPanel);
             tempFoodItemPanel.add(tempDetailsButton);
             checkBoxes.add(tempCheckBox);
             menusPanel.add(tempFoodItemPanel);
         }
-        this.menusPanel = menusPanel;
         pnl.add(menusPanel);
-        pnl.add(orderButton);
-        JTextField temp = new JTextField(20);
-        temp.addActionListener(actionEvent ->{
-            JOptionPane.showMessageDialog(null,
-                    "Hello there",
-                    "Testing",
-                    JOptionPane.PLAIN_MESSAGE);
-        });
-        pnl.add(temp);
+
+
+        bottomPanel.add(totalPriceString);
+        bottomPanel.add(orderButton);
+        pnl.add(bottomPanel);
         this.setVisible(true);
 
     }
 
+    private void foodItemQuantityExtracted(ArrayList<Double> foodItemPrices, JComboBox<String> tempFoodItemQuantity) {
+        totalPrice = 0.0;
+        for (JComboBox<String> comboBox: quantityDropdownsList){
+            totalPrice += Integer.parseInt(comboBox.getSelectedItem().toString()) * foodItemPrices.get(quantityDropdownsList.indexOf(comboBox));
+        }
+        totalPriceString.setText("Total Price: $" + totalPrice);
 
+        if (Integer.parseInt(tempFoodItemQuantity.getSelectedItem().toString()) == 0){
+            checkBoxes.get(quantityDropdownsList.indexOf(tempFoodItemQuantity)).setSelected(false);
+        }
+        else if (Integer.parseInt(tempFoodItemQuantity.getSelectedItem().toString()) > 0){
+            checkBoxes.get(quantityDropdownsList.indexOf(tempFoodItemQuantity)).setSelected(true);
+        }
+    }
+
+    public void orderClicked(){
+        ArrayList<String> selectedFoodItems = new ArrayList<>();
+        ArrayList<Integer> selectedFoodItemQuantities = new ArrayList<>();
+        ArrayList<Double> selectedFoodItemPrices = new ArrayList<>();
+        String selectedResidence = Objects.requireNonNull(residenceDropdown.getSelectedItem()).toString();
+        for (JCheckBox checkBox : checkBoxes){
+            if (checkBox.isSelected()){
+                String[] checkBoxText = checkBox.getText().split("\\$");
+                selectedFoodItems.add(checkBoxText[0].substring(0, checkBoxText[0].length() - 1));
+                selectedFoodItemQuantities.add(Integer.parseInt((String) Objects.requireNonNull(quantityDropdownsList.get(checkBoxes.indexOf(checkBox)).getSelectedItem())));
+                selectedFoodItemPrices.add(Double.parseDouble(checkBoxText[1].substring(0, checkBoxText[1].length() - 1)));
+
+            }
+        }
+        String[] foodItemsArr = new String[selectedFoodItems.size()];
+        Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
+        Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
+        new OrderPreviewScreen(this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+    }
 }
