@@ -1,6 +1,5 @@
-package order_use_case;
+package order_history_use_case;
 
-import entities.Order;
 import entities.User;
 import entities.UserType;
 
@@ -9,7 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

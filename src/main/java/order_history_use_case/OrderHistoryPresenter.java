@@ -1,4 +1,4 @@
-package order_use_case;
+package order_history_use_case;
 
 import java.util.ArrayList;
 

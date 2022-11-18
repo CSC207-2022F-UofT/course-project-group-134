@@ -1,4 +1,4 @@
-package order_use_case;
+package order_history_use_case;
 
 
 public class OrderHistoryController implements  OrderHistoryInputBoundary{
