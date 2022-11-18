@@ -2,36 +2,34 @@ package selling_use_case;
 
 //import entities.DiningHallTypes;
 
-import entities.UserType;
-import user_access_use_case.SignUpDsRequestModel;
-import user_access_use_case.SignUpResponseModel;
+import entities.OrderStatusType;
+import order_use_case.OrderDsGateway;
+import order_use_case.OrderGateway;
 
 public class SellingInteractor implements SellingInputBoundary {
 
-    final SellingDsGateway sellingDsGateway;
+    final OrderDsGateway orderDsGateway;
 
     final SellingPresenter sellingPresenter;
 
-    public SellingInteractor(SellingPresenter presenter, SellingDsGateway sellingDsGateway){
-        this.sellingDsGateway = sellingDsGateway;
+    public SellingInteractor(SellingPresenter presenter, OrderDsGateway sellingDsGateway){
+        this.orderDsGateway = sellingDsGateway;
         this.sellingPresenter = presenter;
     }
     // TODO: we should ensure selling don't take on another order while having one unfulfilled
     public SellingResponseModel accept(SellingRequestModel requestModel){
-        int orderNumber = requestModel.getOrder().getOrderNumber();
-        String sellerUsername = requestModel.getSeller().getUsername();
-        if (!this.sellingDsGateway.orderExistsById(orderNumber)){
+        int orderNumber = requestModel.getOrderNumber();
+        String sellerEmail = requestModel.getSellerEmail();
+        if (!this.orderDsGateway.orderExistsById(orderNumber)){
             this.sellingPresenter.prepareFailView("Order does not exist");
         }
-        else if (!this.sellingDsGateway.getOrderStatus(orderNumber).equals("Ordered")){
+        else if (!this.orderDsGateway.getOrderStatus(orderNumber).equals(OrderStatusType.ORDERED)){
             this.sellingPresenter.prepareFailView("Order has already been taken up by another seller");
         }
 
-        SellingDsRequestModel sellingDsModel;
+        orderDsGateway.updateOrder(orderNumber, OrderStatusType.ACCEPTED, sellerEmail);
 
-        sellingDsGateway.updateOrder(orderNumber, "Accepted", sellerUsername);;
-
-        SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrder());
+        SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrderNumber());
         return sellingPresenter.prepareSuccessView(sellingResponseModel);
 
     }

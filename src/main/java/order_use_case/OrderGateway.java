@@ -1,18 +1,21 @@
 package order_use_case;
 
+import entities.*;
+
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileOrder implements OrderDsGateway{
+public class OrderGateway implements OrderDsGateway{
     private final File csvFile;
     private int currentOrderID = 0;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<Integer, OrderDsModel> orders = new HashMap<>();
 
-    public FileOrder(String csvPath) throws IOException {
+    public OrderGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
         if (!csvFile.exists()){
@@ -83,5 +86,61 @@ public class FileOrder implements OrderDsGateway{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public boolean orderExistsById(int orderNumber){
+        return this.orders.containsKey(orderNumber);
+    }
+
+    public ArrayList<Integer> getUnfulfilledOrders() {
+        ArrayList<Integer> orders = new ArrayList<Integer>();
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
+            if (entry.getValue().getStatus().equals(OrderStatusType.ORDERED.toString())){
+                orders.add(entry.getKey());
+            }
+        }
+        return orders;
+    }
+
+    public OrderDsModel getOrderInfo(int orderNumber) {
+        return orders.get(orderNumber);
+    }
+
+    public OrderStatusType getOrderStatus(int orderNumber) {
+        OrderDsModel model = getOrderInfo(orderNumber);
+        return OrderStatusType.valueOf(model.getStatus());
+    }
+
+    public void setOrderStatus(int orderNumber, OrderStatusType status) {
+        this.csvFile.delete();
+        orders.get(orderNumber).setStatus(status.toString());
+        save();
+    }
+    // TODO: check later if we can combine with method below
+
+    public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail){
+        this.csvFile.delete();
+        orders.get(orderNumber).setStatus(status.toString());
+        orders.get(orderNumber).setSellerEmail(sellerEmail);
+        save();
+    }
+
+    public boolean sellerHasOrder(String sellerEmail){
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
+            if (entry.getValue().getSellerEmail().equals(sellerEmail) &&
+                    !(entry.getValue().getStatus().equals(OrderStatusType.FINISHED.toString()))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getOrderNumberFromSellerEmail(String sellerEmail) throws DoesNotExistException {
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
+            if (entry.getValue().getSellerEmail().equals(sellerEmail) &&
+                    !(entry.getValue().getStatus().equals(OrderStatusType.FINISHED.toString()))) {
+                return entry.getValue().getOrderID();
+            }
+        }
+        throw new DoesNotExistException("Seller has not accepted an order.");
     }
 }

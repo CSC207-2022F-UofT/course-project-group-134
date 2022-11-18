@@ -1,15 +1,17 @@
 package order_use_case;
 
+import entities.OrderStatusType;
+
 public class OrderDsModel {
     private final int orderID;
 
-    public final String buyerName;
+    private final String buyerName;
     private final String buyerEmail;
     private final String sellerName;
-    private final String sellerEmail;
+    private String sellerEmail;
 
     private final String residence;
-    private final String status;
+    private String status;
     private final String[] foodItems;
 
     public OrderDsModel(int orderID, String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems) {
@@ -53,5 +55,13 @@ public class OrderDsModel {
 
     public String[] getFoodItems() {
         return foodItems;
+    }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
     }
 }
