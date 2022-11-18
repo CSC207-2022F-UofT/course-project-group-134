@@ -1,4 +1,4 @@
-package order_use_case;
+package order_history_use_case;
 
 import java.util.ArrayList;
 
@@ -34,8 +34,12 @@ public class OrderHistoryPresenter {
 
         OrderHistoryResponseModel orderModel = new OrderHistoryResponseModel(this.orderID, this.sellerName,
                 this.sellerEmail, this.residence, this.orderStatus, foodItems);
-        //orderModel.
+        // orderModel.
         this.responseModel = orderModel;
+    }
+
+    public OrderHistoryPresenter(OrderHistoryRequestModel requestModel){
+
     }
 
 

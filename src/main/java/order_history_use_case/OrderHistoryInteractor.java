@@ -1,28 +1,22 @@
-package order_use_case;
+package order_history_use_case;
+
+import entities.User;
 
 import java.io.*;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;;
 
 public class OrderHistoryInteractor {
 
-    //TODO: 1) get info from gateway (done),
-    // 2) call the presenter with info from the gateway and return that
+    // TODO: call the presenter
 
-    private String userName;
-    private String email;
+    private User user;
 
-    public OrderHistoryInteractor(String userName, String email){
-        this.userName = userName;
-        this.email = email;
+    public OrderHistoryInteractor(User user) throws IOException {
+        this.user = user;
+        OrderHistoryGateway gateway1 = new OrderHistoryGateway(user);
+        ArrayList<OrderHistoryRequestModel> allOrders = gateway1.getAllOrders();
 
-    }
-
-    public void fetchUserDetails(){
-
-        // TODO: get user details from the correct csv file and pass it into the presenter
-
+        // TODO: call presenter
     }
 
     public static void setPrice(OrderHistoryResponseModel responseModel){
