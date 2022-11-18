@@ -1,22 +1,22 @@
-package order_use_case;
+package screens;
 
 import entities.ResidenceType;
-import entities.UserType;
 import get_menus_use_case.GetMenusController;
 import get_menus_use_case.GetMenusResponseModel;
-import screens.LabelComboboxPanel;
+import order_use_case.FoodItemDetailsView;
+import order_use_case.OrderController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class OrderView extends JFrame implements OrderViewModel{
-    private JPanel pnl = new JPanel(new GridLayout(2,1));
+public class OrderView extends JFrame implements OrderViewModel {
+    private JPanel pnl = new JPanel(new GridLayout(4,1));
     private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
+    private JButton orderButton = new JButton("Order");
     private JComboBox<String> residenceDropdown;
     private OrderController orderController;
     private GetMenusController getMenusController;
@@ -36,7 +36,6 @@ public class OrderView extends JFrame implements OrderViewModel{
 
         residenceDropdown.addActionListener(
                 new ActionListener() {
-                    // show balance box based on userType selected
                     public void actionPerformed(ActionEvent e) {
                         try {
                             pnl.remove(menusPanel);
@@ -60,7 +59,8 @@ public class OrderView extends JFrame implements OrderViewModel{
         pnl.add(residencePanel);
         pnl.add(this.menusPanel);
         this.add(pnl);
-        this.setTitle("Sign up");
+
+        this.setTitle("Create Order");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 400);
         this.setLocation(500, 100);
@@ -76,18 +76,43 @@ public class OrderView extends JFrame implements OrderViewModel{
         JPanel menusPanel = new JPanel(new GridLayout(1,2));
         ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
         for (int i= 0; i < 2; i++){
+            JPanel tempFoodItemPanel = new JPanel(new GridLayout(1,2));
+            JButton tempDetailsButton = new JButton("Details");
+
+            String itemName = foodItemNames.get(i);
+            Double itemPrice = foodItemPrices.get(i);
+            String[] itemAllergens = foodItemAllergens.get(i);
+            String[] itemIngredients = foodItemIngredients.get(i);
+            int itemCalories = foodItemCalories.get(i);
+            int itemPopularity = foodItemPopularities.get(i);
+            Double itemStarAverage = foodItemStarAverages.get(i);
+            ArrayList<String> itemReviews = foodItemReviews.get(i);
+
+            tempDetailsButton.addActionListener(actionEvent -> {
+                FoodItemDetailsView foodItemDetailsView = new FoodItemDetailsView(
+                     itemName, itemPrice, itemAllergens, itemIngredients, itemCalories, itemPopularity, itemStarAverage, itemReviews);
+            });
+
             JCheckBox tempCheckBox = new JCheckBox(foodItemNames.get(i) + " ($" + foodItemPrices.get(i).toString() + ")");
+            tempFoodItemPanel.add(tempCheckBox);
+            tempFoodItemPanel.add(tempDetailsButton);
             checkBoxes.add(tempCheckBox);
-            menusPanel.add(tempCheckBox);
+            menusPanel.add(tempFoodItemPanel);
         }
         this.menusPanel = menusPanel;
         pnl.add(menusPanel);
-        this.add(pnl);
-        /*this.setTitle("Sign up");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(450, 400);
-        this.setLocation(500, 100);*/
+        pnl.add(orderButton);
+        JTextField temp = new JTextField(20);
+        temp.addActionListener(actionEvent ->{
+            JOptionPane.showMessageDialog(null,
+                    "Hello there",
+                    "Testing",
+                    JOptionPane.PLAIN_MESSAGE);
+        });
+        pnl.add(temp);
         this.setVisible(true);
 
     }
+
+
 }
