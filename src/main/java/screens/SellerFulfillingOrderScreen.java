@@ -13,7 +13,8 @@ import java.io.IOException;
 
 public class SellerFulfillingOrderScreen extends JFrame{
 
-    public SellerFulfillingOrderScreen(SellingController sellingController, OrderDsGateway gateway, String sellerEmail) throws DoesNotExistException {
+    public SellerFulfillingOrderScreen(SellingController sellingController, OrderDsGateway gateway, String sellerEmail,
+                                       String sellerResidence) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
 
         int orderNumber = gateway.getOrderNumberFromSellerEmail(sellerEmail);
@@ -61,14 +62,14 @@ public class SellerFulfillingOrderScreen extends JFrame{
                 try {
                     if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
                         gateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
-                        SellerMain.create(sellerEmail);
+                        SellerMain.create(sellerEmail, orderDsModel.getResidence());
                         JOptionPane.showMessageDialog(null,
                                 "Successfully finished order.",
                                 "Order Finished",
                                 JOptionPane.PLAIN_MESSAGE);
                     } else { // order status is ACCEPTED
                         gateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
-                        SellerMain.create(sellerEmail);
+                        SellerMain.create(sellerEmail, orderDsModel.getResidence());
                     }
                 } catch (DoesNotExistException ex) {
                     throw new RuntimeException(ex);

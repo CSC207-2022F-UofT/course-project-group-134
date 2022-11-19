@@ -1,5 +1,6 @@
 package screens;
 
+import entities.Seller;
 import entities.User;
 import entities.UserType;
 import order_use_case.BuyerMain;
@@ -16,8 +17,8 @@ import java.io.IOException;
 
 public class LoginScreen extends JFrame {
 
-    private JTextField emailInput;
-    private JTextField passwordInput;
+    private JTextField emailInput = new JTextField(15);;
+    private JTextField passwordInput = new JTextField(15);;
     private LoginController loginController;
 
     private void loginClicked(ActionEvent actionEvent) throws IOException {
@@ -25,7 +26,7 @@ public class LoginScreen extends JFrame {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
             if (response.getUser().getUserType() == UserType.SELLER){
-                SellerMain.create(user.getEmail());
+                SellerMain.create(user.getEmail(), ((Seller)user).getMealPlan().getResidence());
             }
             else {
                 BuyerMain.create();
@@ -47,10 +48,13 @@ public class LoginScreen extends JFrame {
     public LoginScreen(LoginController loginController) {
         this.loginController = loginController;
         JPanel pnl = new JPanel(new GridLayout(3,1));
-        emailInput = new JTextField("Email");
-        pnl.add(emailInput);
-        passwordInput = new JTextField("Password");
-        pnl.add(passwordInput);
+
+        LabelTextPanel emailInfo = new LabelTextPanel(
+                new JLabel("Enter email"), emailInput);
+        pnl.add(emailInfo);
+        LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel("Enter password"), passwordInput);
+        pnl.add(passwordInfo);
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
         JButton loginButton = new JButton("Log in");
