@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class GetMenusMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void create() throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
         MenuFactory menuFactory = new MenuFactory();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuFactory);
