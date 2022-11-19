@@ -4,12 +4,12 @@ import entities.ChatMessage;
 
 import java.util.ArrayList;
 
-public class ChatRecieveMessagesModel {
+public class ChatLogRecieveModel {
 
 
     private final ArrayList<ChatMessage> chatMessages;
 
-    public ChatRecieveMessagesModel(ArrayList<ChatMessage> messages){
+    public ChatLogRecieveModel(ArrayList<ChatMessage> messages){
         this.chatMessages = messages;
     }
 
