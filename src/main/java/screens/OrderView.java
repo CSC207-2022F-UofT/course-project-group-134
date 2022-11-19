@@ -17,6 +17,7 @@ public class OrderView extends JFrame implements OrderViewModel {
     private JPanel pnl = new JPanel(new GridLayout(4,1));
 
     private JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+    private JButton backButton = new JButton("Back to home");
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
     private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
@@ -76,6 +77,13 @@ public class OrderView extends JFrame implements OrderViewModel {
             orderClicked();
         });
 
+        pnl.add(backButton);
+
+        backButton.addActionListener(actionEvent -> {
+            this.dispose();
+            new BuyerDefaultView(this.username, this.email);
+        });
+
         pnl.add(residencePanel);
         pnl.add(this.menusPanel);
 
@@ -88,7 +96,7 @@ public class OrderView extends JFrame implements OrderViewModel {
         this.add(pnl);
 
         this.setTitle("Create Order");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(450, 400);
         this.setLocation(500, 100);
         this.setVisible(true);

@@ -12,7 +12,7 @@ public class MenuFactory {
         ArrayList<FoodItem> foodItems = new ArrayList<>();
 
         // Below scanner used for finding the number of lines in the csv file
-        Scanner scTemp = new Scanner(new File("src/main/Dining_Halls/"+ name +".csv"));
+        Scanner scTemp = new Scanner(new File("src/main/java/data_storage/Dining_Halls/"+ name +".csv"));
 
         scTemp.useDelimiter("\n");
         int counter = 0;
@@ -23,7 +23,7 @@ public class MenuFactory {
         System.out.println(counter);
 
         // Below scanner used for the actual creation of the food items and the menu
-        Scanner sc = new Scanner(new File("src/main/Dining_Halls/"+ name +".csv"));
+        Scanner sc = new Scanner(new File("src/main/java/data_storage/Dining_Halls/"+ name +".csv"));
         sc.useDelimiter(",|\n");
 
         for (int i = 0; i < counter; i++) {
