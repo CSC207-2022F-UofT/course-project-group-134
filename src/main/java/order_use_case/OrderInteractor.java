@@ -1,7 +1,5 @@
 package order_use_case;
 
-import entities.Buyer;
-import entities.Order;
 import entities.OrderFactory;
 import entities.OrderStatusType;
 
@@ -27,7 +25,7 @@ public class OrderInteractor implements OrderInputBoundary {
         System.out.println("INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
         OrderDsRequestModel orderDsRequest = new OrderDsRequestModel(request.getBuyerName(), request.getBuyerEmail(),
-                sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems());
+                sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems(), request.getPrice());
         orderDsGateway.saveOrder(orderDsRequest);
 
         OrderResponseModel responseModel = new OrderResponseModel();

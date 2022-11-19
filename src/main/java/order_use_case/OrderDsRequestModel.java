@@ -10,8 +10,9 @@ public class OrderDsRequestModel {
     private final String residence;
     private final String status;
     private final String[] foodItems;
+    private final Double price;
 
-    public OrderDsRequestModel(String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems) {
+    public OrderDsRequestModel(String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems, Double price) {
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;
         this.sellerName = sellerName;
@@ -19,6 +20,7 @@ public class OrderDsRequestModel {
         this.residence = residence;
         this.status = status;
         this.foodItems = foodItems;
+        this.price = price;
     }
 
     public String getBuyerName() {
@@ -47,5 +49,9 @@ public class OrderDsRequestModel {
 
     public String[] getFoodItems() {
         return foodItems;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }
