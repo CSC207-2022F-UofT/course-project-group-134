@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class GetMenusMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void create() throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
         MenuFactory menuFactory = new MenuFactory();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuFactory);
@@ -17,7 +17,7 @@ public class GetMenusMain {
 
         OrderDsGateway orders;
         try {
-            orders = new OrderGateway("./orders.csv");
+            orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

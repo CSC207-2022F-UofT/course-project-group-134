@@ -68,7 +68,7 @@ public class OrderHistoryGateway {
 
         Map<String, Integer> headers = new LinkedHashMap<>();
 
-        String csvPath = "../Dining_Halls/"+ residence + ".csv";   // TODO: check if this is correct
+        String csvPath = "./src/main/java/data_storage/Dining_Halls/"+ residence + ".csv";   // TODO: check if this is correct
         File csvFile = new File(csvPath);
 
         headers.put("ItemName", 0);

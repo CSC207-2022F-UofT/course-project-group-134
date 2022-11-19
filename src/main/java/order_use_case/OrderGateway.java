@@ -30,6 +30,7 @@ public class OrderGateway implements OrderDsGateway{
         headers.put("residence", 5);
         headers.put("status", 6);
         headers.put("foodItems", 7);
+        headers.put("price", 8);
 
         if (csvFile.length() == 0) {
             save();
@@ -49,7 +50,8 @@ public class OrderGateway implements OrderDsGateway{
                 String residence = String.valueOf(col[headers.get("residence")]);
                 String status = String.valueOf(col[headers.get("status")]);
                 String[] foodItems = (String.valueOf(col[headers.get("foodItems")])).split(";");
-                OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems);
+                Double price = Double.valueOf(col[headers.get("price")]);
+                OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems, price);
                 orders.put(orderID, order);
                 this.currentOrderID++;
             }
@@ -61,7 +63,7 @@ public class OrderGateway implements OrderDsGateway{
     @Override
     public void saveOrder(OrderDsRequestModel orderModel) {
         OrderDsModel order = new OrderDsModel(this.currentOrderID, orderModel.getBuyerName(), orderModel.getBuyerEmail(),
-                orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems());
+                orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems(), orderModel.getPrice());
         orders.put(this.currentOrderID, order);
         this.currentOrderID++;
         this.save();
@@ -74,9 +76,9 @@ public class OrderGateway implements OrderDsGateway{
             writer.newLine();
 
             for (OrderDsModel order : orders.values()) {
-                String line = String.format("%d,%s,%s,%s,%s,%s,%s,%s",
+                String line = String.format("%d,%s,%s,%s,%s,%s,%s,%s,%.2f",
                 order.getOrderID(), order.getBuyerName(), order.getBuyerEmail(), order.getSellerName(),
-                order.getSellerEmail(), order.getResidence(), order.getStatus(), String.join(";",order.getFoodItems()));
+                order.getSellerEmail(), order.getResidence(), order.getStatus(), String.join(";",order.getFoodItems()),order.getPrice());
                 writer.write(line);
                 writer.newLine();
             }
