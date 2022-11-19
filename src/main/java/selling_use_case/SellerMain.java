@@ -10,7 +10,7 @@ import screens.SellingScreen;
 import java.io.IOException;
 
 public class SellerMain {
-    public static void create(String sellerEmail) throws DoesNotExistException {
+    public static void create(String sellerEmail, String sellerResidence) throws DoesNotExistException {
         OrderGateway gateway;
         try {
             gateway = new OrderGateway("./orders.csv");
@@ -21,9 +21,10 @@ public class SellerMain {
         SellingInputBoundary interactor = new SellingInteractor(presenter, gateway);
         SellingController sellingController = new SellingController(interactor);
         if (gateway.sellerHasOrder(sellerEmail)){
-            SellerFulfillingOrderScreen fulfillingOrderScreen = new SellerFulfillingOrderScreen(sellingController, gateway, sellerEmail);
+            SellerFulfillingOrderScreen fulfillingOrderScreen = new SellerFulfillingOrderScreen(
+                    sellingController, gateway, sellerEmail, sellerResidence);
         } else {
-            SellingScreen sellingScreen = new SellingScreen(sellingController, gateway, sellerEmail);
+            SellingScreen sellingScreen = new SellingScreen(sellingController, gateway, sellerEmail, sellerResidence);
         }
     }
 }

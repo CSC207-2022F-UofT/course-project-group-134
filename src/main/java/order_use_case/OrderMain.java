@@ -1,6 +1,7 @@
 package order_use_case;
 
 import entities.OrderFactory;
+import entities.ResidenceType;
 
 import java.io.IOException;
 
@@ -22,9 +23,13 @@ public class OrderMain {
         OrderController orderController = new OrderController(orderInteractor);
         String[] foodItems = {"Burger", "Fries"};
         String[] foodItems2 = {"Burger", "Burger", "Poutine", "Burger"};
-        orderController.placeOrder("Deon Chan", "email@domain.com", "New College", foodItems);
-        orderController.placeOrder("Ben", "email@domain.com", "University College", foodItems2);
-        orderController.placeOrder("Not Deon Chan", "email@domain.com", "New College", foodItems);
-        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca", "Trinity College", foodItems);
+        orderController.placeOrder("Deon Chan", "email@domain.com",
+                ResidenceType.NEW_COLLEGE.toString(), foodItems);
+        orderController.placeOrder("Ben", "email@domain.com",
+                ResidenceType.UNIVERSITY_COLLEGE.toString(), foodItems2);
+        orderController.placeOrder("Not Deon Chan", "email@domain.com",
+                ResidenceType.NEW_COLLEGE.toString(), foodItems);
+        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca",
+                ResidenceType.TRINITY_COLLEGE.toString(), foodItems);
     }
 }

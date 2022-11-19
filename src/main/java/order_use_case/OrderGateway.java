@@ -91,14 +91,26 @@ public class OrderGateway implements OrderDsGateway{
         return this.orders.containsKey(orderNumber);
     }
 
-    public ArrayList<Integer> getUnfulfilledOrders() {
+    public ArrayList<Integer> getUnfulfilledOrders(String sellerResidence) {
         ArrayList<Integer> orders = new ArrayList<Integer>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
-            if (entry.getValue().getStatus().equals(OrderStatusType.ORDERED.toString())){
+            if (entry.getValue().getStatus().equals(OrderStatusType.ORDERED.toString()) &&
+                    entry.getValue().getResidence().equals(sellerResidence)){
                 orders.add(entry.getKey());
             }
         }
         return orders;
+    }
+
+    public ArrayList<Integer> getFinishedOrders(String sellerEmail) {
+        ArrayList<Integer> finishedOrders = new ArrayList<Integer>();
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
+            if (entry.getValue().getStatus().equals(OrderStatusType.FINISHED.toString()) &&
+            entry.getValue().getSellerEmail().equals(sellerEmail)){
+                finishedOrders.add(entry.getKey());
+            }
+        }
+        return finishedOrders;
     }
 
     public OrderDsModel getOrderInfo(int orderNumber) {

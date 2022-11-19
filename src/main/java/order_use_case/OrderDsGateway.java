@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public interface OrderDsGateway {
     void saveOrder(OrderDsRequestModel orderModel);
 
-    ArrayList<Integer> getUnfulfilledOrders();
+    ArrayList<Integer> getUnfulfilledOrders(String sellerResidence);
+
+    ArrayList<Integer> getFinishedOrders(String sellerEmail);
 
     OrderDsModel getOrderInfo(int orderNumber);
 
