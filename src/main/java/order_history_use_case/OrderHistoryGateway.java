@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class OrderHistoryGateway {
 
-    private ArrayList<OrderHistoryRequestModel> orderList;
+    private ArrayList<OrderHistoryResponseModel> orderList;
 
-    public OrderHistoryGateway(User user) throws IOException {
+    public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();
 
         String csvPath = "orders.csv";
@@ -37,23 +35,14 @@ public class OrderHistoryGateway {
                 String orderResidence = String.valueOf(col[5]);
                 String orderStatus = String.valueOf(col[6]);
                 String[] foodItems = String.valueOf(col[7]).split(";");
+                double totalPrice = Double.parseDouble(col[8]);
 
-                if(user.getUserType().equals(UserType.BUYER)){
-                    if(user.getUsername().equals(buyerName)){
-                        OrderHistoryRequestModel newOrder = new OrderHistoryRequestModel(orderID,
-                                buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems);
+                if(inputUsername.equals(buyerName) & inputEmail.equals(buyerEmail)){
+                    OrderHistoryResponseModel newOrder = new OrderHistoryResponseModel(orderID,
+                            buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems,
+                            totalPrice);
 
-                        orderList.add(newOrder);
-                    }
-                }
-
-                else if(user.getUserType().equals(UserType.SELLER)){
-                    if(user.getUsername().equals(sellerName)){
-                        OrderHistoryRequestModel newOrder = new OrderHistoryRequestModel(orderID,
-                                buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems);
-
-                        orderList.add(newOrder);
-                    }
+                    orderList.add(newOrder);
                 }
 
             }
@@ -62,6 +51,7 @@ public class OrderHistoryGateway {
 
     }
 
+    /*
     public static double fetchPrice(String foodName, String residence) throws IOException {
         double price = 0.0;
         residence = residence.toUpperCase();
@@ -86,11 +76,11 @@ public class OrderHistoryGateway {
             String itemName = String.valueOf(col[headers.get("ItemName")]);
             price = Double.parseDouble(String.valueOf(col[headers.get("Price")]));
 
-            /*
-            String[] allergens = String.valueOf(col[headers.get("Allergens")]).split(";");
-            String[] ingredients = String.valueOf(col[headers.get("Ingredients")]).split(";");
-            String calories = String.valueOf(col[headers.get("Calories")]);
-             */
+
+            // String[] allergens = String.valueOf(col[headers.get("Allergens")]).split(";");
+            //  String[] ingredients = String.valueOf(col[headers.get("Ingredients")]).split(";");
+            // String calories = String.valueOf(col[headers.get("Calories")]);
+
 
             if(foodName.equals(itemName)){
                 break;
@@ -101,9 +91,9 @@ public class OrderHistoryGateway {
         return price;
     }
 
-    public ArrayList<OrderHistoryRequestModel> getAllOrders(){
+    */
+
+    public ArrayList<OrderHistoryResponseModel> getAllOrders(){
         return orderList;
     }
-
-
-    }
+}

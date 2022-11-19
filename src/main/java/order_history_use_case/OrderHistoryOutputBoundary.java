@@ -1,6 +1,8 @@
 package order_history_use_case;
 
+import java.util.ArrayList;
+
 public interface OrderHistoryOutputBoundary {
 
-    // idk  what  this is supposed to do
+    String[] getViewList(OrderHistoryResponseModel resMod);
 }
