@@ -23,5 +23,9 @@ public class Chat {
     }
 
 
+    public User[] getUsers(){
+        return new User[]{user1, user2};
+    }
+
 
 }

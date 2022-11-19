@@ -1,6 +1,14 @@
 package chat_use_case;
 
-public class ChatPresenter {
+import chat_use_case.boundaries.ChatOutputBoundary;
+import chat_use_case.models.ChatRecieveMessagesModel;
+
+public class ChatPresenter implements ChatOutputBoundary {
+    @Override
+    public chatRecieveMessagesModel getMessageList() {
 
 
+
+
+    }
 }
