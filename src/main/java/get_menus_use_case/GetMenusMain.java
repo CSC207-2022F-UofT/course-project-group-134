@@ -3,11 +3,13 @@ package get_menus_use_case;
 import entities.MenuFactory;
 import entities.OrderFactory;
 import order_use_case.*;
+import screens.OrderView;
+
 import java.io.IOException;
 
 public class GetMenusMain {
 
-    public static void main(String[] args) throws Exception {
+    public static void create() throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
         MenuFactory menuFactory = new MenuFactory();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuFactory);
@@ -15,7 +17,7 @@ public class GetMenusMain {
 
         OrderDsGateway orders;
         try {
-            orders = new OrderGateway("./orders.csv");
+            orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
@@ -26,6 +28,6 @@ public class GetMenusMain {
         OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
         OrderController orderController = new OrderController(orderInteractor);
 
-        OrderView orderView = new OrderView(orderController, getMenusController);
+        OrderView orderView = new OrderView(orderController, getMenusController,"tb", "tb");
     }
 }

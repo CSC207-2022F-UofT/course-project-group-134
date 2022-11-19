@@ -1,4 +1,4 @@
-package order_use_case;
+package order_history_use_case;
 
 
 public class OrderHistoryController implements  OrderHistoryInputBoundary{
@@ -9,8 +9,10 @@ public class OrderHistoryController implements  OrderHistoryInputBoundary{
 
     }
 
+    /*
     public OrderHistoryResponseModel onClick(){
         // TODO: find a way to get the user's details after the button click and send it to the interactor
     }
+     */
 
 }

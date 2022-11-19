@@ -7,14 +7,15 @@ public class OrderDsModel {
 
     private final String buyerName;
     private final String buyerEmail;
-    private final String sellerName;
+    private String sellerName;
     private String sellerEmail;
 
     private final String residence;
     private String status;
     private final String[] foodItems;
+    private final Double price;
 
-    public OrderDsModel(int orderID, String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems) {
+    public OrderDsModel(int orderID, String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems, Double price) {
         this.orderID = orderID;
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;
@@ -23,6 +24,7 @@ public class OrderDsModel {
         this.residence = residence;
         this.status = status;
         this.foodItems = foodItems;
+        this.price = price;
     }
 
     public int getOrderID() {
@@ -57,8 +59,16 @@ public class OrderDsModel {
         return foodItems;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     public void setSellerEmail(String sellerEmail) {
