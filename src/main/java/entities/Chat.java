@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class Chat {
 
     private final ArrayList<ChatMessage> chatLog;
-    private final User user1, user2;
+    private User user1, user2;
+    public Chat(User user1) {
+        this.chatLog = new ArrayList<>();
+    }
 
     public Chat(User user1, User user2){
         this.chatLog = new ArrayList<>();
