@@ -11,7 +11,7 @@ public class ChatPresenter implements ChatOutputBoundary {
     ChatDsBoundary ds;
 
     public ChatPresenter(){
-
+        ds = ChatDsGateway.getInstance();
     }
 
     @Override

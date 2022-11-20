@@ -10,7 +10,7 @@ public class ChatInteractor implements ChatInputBoundary {
 
 
     public ChatInteractor(){
-        dataStore = new ChatDsGateway();
+        dataStore = ChatDsGateway.getInstance();
     }
 
     public void createChat(ChatCreationRequestModel c) {

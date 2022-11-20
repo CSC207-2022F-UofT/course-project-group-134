@@ -15,7 +15,7 @@ public class ChatDsGateway implements ChatDsBoundary {
     ArrayList<Chat> chats ;
 
     private static ChatDsGateway instance = null;
-    private static ChatDsGateway getInstance(){
+    public static ChatDsGateway getInstance(){
         if(instance == null){
             instance = new ChatDsGateway();
         }
