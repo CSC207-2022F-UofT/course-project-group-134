@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 public class OrderHistoryController{
 
-    private final OrderHistoryRequestModel reqMod;
-    private final OrderHistoryInputBoundary inputBoundary;
+
+    private OrderHistoryRequestModel reqMod;
+    private OrderHistoryInputBoundary inputBoundary;
 
     public OrderHistoryController(String username, String email, OrderHistoryInputBoundary interactor){
         this.reqMod = new OrderHistoryRequestModel(username, email);

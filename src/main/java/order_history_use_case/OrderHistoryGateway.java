@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class OrderHistoryGateway {
 
-    private final ArrayList<OrderHistoryResponseModel> orderList;
+
+    private ArrayList<OrderHistoryResponseModel> orderList;
 
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();

@@ -1,5 +1,11 @@
 package order_history_use_case;
 
+
+import entities.FoodItem;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class OrderHistoryPresenter implements OrderHistoryOutputBoundary{
 
     @Override
