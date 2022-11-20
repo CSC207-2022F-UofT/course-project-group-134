@@ -23,6 +23,7 @@ public class BuyerScreen extends JFrame {
                     emailInput.getText(), passwordString, inputUserType.toString(), inputResidence.toString(),
                     mealPlanInput.getText());*/
             //TODO: edit this later after confirming with Deon
+            //TODO: I need the buyer name and email somehow - Deon
 
 //            this.dispose();
 //            WelcomeScreen screen = new WelcomeScreen();
@@ -50,7 +51,7 @@ public class BuyerScreen extends JFrame {
                 throw new RuntimeException(e);
             }
         });
-        ///Hmm TODO is this logout?
+
         JButton backButton = new JButton("Back");
         backButton.addActionListener(actionEvent -> {
             this.dispose();

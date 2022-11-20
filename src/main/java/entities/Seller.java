@@ -15,11 +15,11 @@ public class Seller extends User implements Reviewable{
     /**
      * Seller's meal plan
      */
-    private MealPlan mealPlan;
+    private final MealPlan mealPlan;
     /**
      * List of reviews that the seller has received.
      */
-    private ArrayList<Review> reviews;
+    private final ArrayList<Review> reviews;
     /**
      * Average 'star' value of the reviews that the seller has received.
      */
@@ -37,6 +37,7 @@ public class Seller extends User implements Reviewable{
      */
     public Seller(String name, String password, MealPlan mealPlan, String email){
         super(name, password, email);
+        super.userType = UserType.SELLER;
         this.mealPlan = mealPlan;
         this.starAverage  = 0;
         this.reviews = new ArrayList<>();

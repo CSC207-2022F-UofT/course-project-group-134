@@ -3,7 +3,7 @@ package entities;
 /**
  * This class represents the subclass of User that is a Buyer. A buyer is a (RAVENOUS) User who seeks sustenance by
  * means of purchasing or otherwise receiving food from Sellers on our service.
- *
+ * <p>
  * The Buyer class has no additional parameters other than the ones it inherits from the User class.
  *
  * @author Vivian Liu
@@ -21,6 +21,7 @@ public class Buyer extends User{
      */
     public Buyer(String name, String password, String email){
         super(name, password, email);
+        super.userType = UserType.BUYER;
     }
 
     /**
@@ -31,10 +32,5 @@ public class Buyer extends User{
      */
     public void placeOrder(Order order){
         // TODO place in database
-    }
-
-    @Override
-    public String toString() {
-        return "Buyer: " + this.getUsername();
     }
 }

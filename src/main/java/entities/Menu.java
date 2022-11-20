@@ -1,5 +1,5 @@
 package entities;
-import java.util.List;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +11,7 @@ public class Menu{
     /**
      * The list of food items that the menu has
      */
-    private ArrayList<FoodItem> foodItems;
+    private final ArrayList<FoodItem> foodItems;
 
 
     /**
@@ -37,4 +37,75 @@ public class Menu{
     public ArrayList<FoodItem> getFoodItems() {
         return foodItems;
     }
+
+    public ArrayList<String> getFoodItemNames(){
+        ArrayList<String> foodItemNames = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemNames.add(foodItem.getDescription());
+        }
+        return foodItemNames;
+    }
+
+    public ArrayList<Double> getFoodItemPrices(){
+        ArrayList<Double> foodItemPrices = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemPrices.add(foodItem.getPrice());
+        }
+        return foodItemPrices;
+    }
+
+    public ArrayList<String[]> getFoodItemAllergens(){
+        ArrayList<String[]> foodItemAllergens = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemAllergens.add(foodItem.getAllergens());
+        }
+        return foodItemAllergens;
+    }
+
+    public ArrayList<String[]> getFoodItemIngredients(){
+        ArrayList<String[]> foodItemIngredients = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemIngredients.add(foodItem.getIngredients());
+        }
+        return foodItemIngredients;
+    }
+
+    public ArrayList<Integer> getFoodItemCalories(){
+        ArrayList<Integer> foodItemCalories = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemCalories.add(foodItem.getCalories());
+        }
+        return foodItemCalories;
+    }
+
+    public ArrayList<Integer> getFoodItemPopularities(){
+        ArrayList<Integer> foodItemPopularities = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemPopularities.add(foodItem.getPopularity());
+        }
+        return foodItemPopularities;
+    }
+
+    public ArrayList<Double> getFoodItemStarAverages(){
+        ArrayList<Double> foodItemStarAverages = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            foodItemStarAverages.add(foodItem.getStarAverage());
+        }
+        return foodItemStarAverages;
+    }
+
+    public ArrayList<ArrayList<String>> getFoodItemReviews(){
+        ArrayList<ArrayList<String>> foodItemReviews = new ArrayList<>();
+        for (FoodItem foodItem : this.foodItems){
+            ArrayList<String> foodItemReviewTemp = new ArrayList<>();
+            for (Review review : foodItem.getReviews()){
+                foodItemReviewTemp.add(review.getReviewString());
+            }
+            foodItemReviews.add(foodItemReviewTemp);
+        }
+        return foodItemReviews;
+    }
+
 }
+
+

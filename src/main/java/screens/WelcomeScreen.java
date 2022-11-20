@@ -39,7 +39,7 @@ public class WelcomeScreen extends JFrame {
         this.setTitle("Welcome");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 500);
-        this.setLocation(200, 200);
+        this.setLocation(500, 100);
         this.setVisible(true);
     }
 

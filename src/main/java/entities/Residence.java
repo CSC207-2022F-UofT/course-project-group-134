@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class Residence implements Reviewable {
 
-    private String location;
-    private String name;
-    private Menu menu;
-    private ArrayList<Review> reviews;
+    private final String location;
+    private final String name;
+    private final Menu menu;
+    private final ArrayList<Review> reviews;
     double starAverage;
 
     public Residence(String location, String name, Menu menu) {
