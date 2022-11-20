@@ -6,6 +6,8 @@ import order_history_use_case.OrderHistoryOutputBoundary;
 import order_history_use_case.OrderHistoryPresenter;
 import screens.BuyerDefaultView;
 
+import java.io.IOException;
+
 public class BuyerMain {
     public static void create() throws IOException {
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
