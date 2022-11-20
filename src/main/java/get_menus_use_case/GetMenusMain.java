@@ -2,6 +2,10 @@ package get_menus_use_case;
 
 import entities.MenuFactory;
 import entities.OrderFactory;
+import order_history_use_case.OrderHistoryInputBoundary;
+import order_history_use_case.OrderHistoryInteractor;
+import order_history_use_case.OrderHistoryOutputBoundary;
+import order_history_use_case.OrderHistoryPresenter;
 import order_use_case.*;
 import screens.OrderView;
 
@@ -28,6 +32,9 @@ public class GetMenusMain {
         OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
         OrderController orderController = new OrderController(orderInteractor);
 
-        OrderView orderView = new OrderView(orderController, getMenusController,"tb", "tb");
+        OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
+        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor("tb3", "tb3@mail.utoronto.ca", orderHistoryOutputBoundary);
+
+        OrderView orderView = new OrderView(orderController, getMenusController,"tb3", "tb3@mail.utoronto.ca", orderHistoryInteractor);
     }
 }

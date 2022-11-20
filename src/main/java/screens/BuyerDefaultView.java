@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BuyerDefaultView extends JFrame {
 
@@ -18,8 +19,9 @@ public class BuyerDefaultView extends JFrame {
     private JButton logoutButton = new JButton("Logout");
     private JPanel topPanel = new JPanel(new GridLayout(1, 2));
     private JPanel getOrderHistoryPanel;
-    JPanel orderHistoryPanel;
-    JPanel currentOrdersPanel;
+    private JPanel currentOrdersInnerPanel;
+    JScrollPane orderHistoryPanel;
+    JScrollPane currentOrdersPanel;
     private OrderHistoryController orderHistoryController;
 
     public BuyerDefaultView(String username, String email, OrderHistoryInputBoundary orderHistoryInteractor){
@@ -47,10 +49,11 @@ public class BuyerDefaultView extends JFrame {
 
         tabbedPane.addTab("Order History", orderHistoryPanel);
         tabbedPane.addTab("Current Orders", currentOrdersPanel);
+        this.createOrderHistoryPanel();
+        this.createCurrentOrdersPanel();
+
         pnl.add(tabbedPane);
         this.add(pnl);
-
-        this.createOrderHistoryPanel();;
 
         this.setTitle("Home");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,17 +64,24 @@ public class BuyerDefaultView extends JFrame {
 
     private void createOrderHistoryPanel(){
         ArrayList<String[]> orderHistory =  this.orderHistoryController.onClick();
-        this.orderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),1));
-        tabbedPane.setComponentAt(0, this.currentOrdersPanel);
+        getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),1));
+        OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
-            JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length, 1));
+            JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
             for (String s : tempOrder) {
-                tempOrderPanel.add(new JLabel(s));
+                tempOrderPanel.add(new JLabel(ordersInfoHeaders[Arrays.asList(tempOrder).indexOf(s)] + ": "+ s));
             }
+            tempOrderPanel.add(new JLabel(" "));
+            this.getOrderHistoryPanel.add(tempOrderPanel);
         }
+        this.orderHistoryPanel = new JScrollPane(getOrderHistoryPanel);
+        tabbedPane.setComponentAt(0, this.orderHistoryPanel);
     }
 
     private void createCurrentOrdersPanel(){
+        currentOrdersInnerPanel = new JPanel(new GridLayout(1,1));
+        currentOrdersPanel = new JScrollPane(currentOrdersInnerPanel);
+        tabbedPane.setComponentAt(1, this.currentOrdersPanel);
 
     }
 

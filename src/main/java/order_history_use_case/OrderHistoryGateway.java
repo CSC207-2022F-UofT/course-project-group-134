@@ -16,7 +16,7 @@ public class OrderHistoryGateway {
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();
 
-        String csvPath = "orders.csv";
+        String csvPath = "src/main/java/data_storage/orders.csv";
         File csvFile = new File(csvPath);
 
 
