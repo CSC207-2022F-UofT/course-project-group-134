@@ -1,7 +1,5 @@
 package order_use_case;
 
-import entities.OrderStatusType;
-
 public class OrderDsModel {
     private final int orderID;
 

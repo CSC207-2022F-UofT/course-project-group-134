@@ -3,8 +3,9 @@ package entities;
 import java.util.ArrayList;
 
 public class Chat {
-    private User user1, user2;
-    private ArrayList<String> chatLog;
+    private final User user1;
+    private final User user2;
+    private final ArrayList<String> chatLog;
 
     public Chat(User user1, User user2) {
         this.chatLog = new ArrayList<>();

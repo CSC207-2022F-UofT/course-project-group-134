@@ -1,6 +1,5 @@
 package entities;
-import java.lang.reflect.Array;
-import java.util.List;
+
 import java.util.ArrayList;
 
 /**
@@ -12,7 +11,7 @@ public class Menu{
     /**
      * The list of food items that the menu has
      */
-    private ArrayList<FoodItem> foodItems;
+    private final ArrayList<FoodItem> foodItems;
 
 
     /**

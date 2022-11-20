@@ -1,11 +1,8 @@
 package selling_use_case;
 
-import entities.Order;
-import entities.Seller;
-
 public class SellingRequestModel {
-    private String sellerEmail;
-    private int orderNumber;
+    private final String sellerEmail;
+    private final int orderNumber;
 
     public SellingRequestModel(String sellerEmail, int orderNumber) {
         this.sellerEmail = sellerEmail;
