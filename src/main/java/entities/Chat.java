@@ -6,10 +6,6 @@ public class Chat {
 
     private final ArrayList<ChatMessage> chatLog;
     private User user1, user2;
-    public Chat(User user1) {
-        this.chatLog = new ArrayList<>();
-    }
-
     public Chat(User user1, User user2){
         this.chatLog = new ArrayList<>();
         this.user1 = user1;

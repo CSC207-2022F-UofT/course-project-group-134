@@ -6,19 +6,15 @@ import chat_use_case.models.ChatCreationRequestModel;
 import chat_use_case.models.ChatSendMessageModel;
 
 public class ChatInteractor implements ChatInputBoundary {
-    ChatDsBoundary dataStore;
-
-
+    ChatDsBoundary ds;
     public ChatInteractor(){
-        dataStore = ChatDsGateway.getInstance();
+        ds = ChatDsGateway.getInstance();
     }
-
     public void createChat(ChatCreationRequestModel c) {
-        dataStore.createChat(c);
+        ds.createChat(c);
 
     }
-
     public void sendMessage(ChatSendMessageModel m){
-        dataStore.sendMessage(m);
+        ds.sendMessage(m);
     }
 }

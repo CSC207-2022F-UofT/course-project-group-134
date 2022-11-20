@@ -25,8 +25,6 @@ public class ChatDsGateway implements ChatDsBoundary {
 
     private ChatDsGateway(){
         this.chats = new ArrayList<>();
-
-
     }
 
 
