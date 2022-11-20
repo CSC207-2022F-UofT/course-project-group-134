@@ -16,7 +16,7 @@ public class OrderInteractor implements OrderInputBoundary {
     }
 
     @Override
-     public void placeOrder(OrderRequestModel request) {
+     public OrderResponseModel placeOrder(OrderRequestModel request) {
         // TODO: How can the order fail?
 
         String sellerName = "null";
@@ -29,6 +29,6 @@ public class OrderInteractor implements OrderInputBoundary {
         orderDsGateway.saveOrder(orderDsRequest);
 
         OrderResponseModel responseModel = new OrderResponseModel();
-        orderPresenter.prepareSuccessView(responseModel);
+        return orderPresenter.prepareSuccessView(responseModel);
     }
 }
