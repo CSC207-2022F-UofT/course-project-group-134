@@ -16,6 +16,12 @@ public class SellerPastOrdersScreen extends JFrame{
         JPanel orderPanel = new JPanel(new GridLayout(0, 1));
 
         ArrayList<Integer> finishedOrders = orderDsGateway.getFinishedOrders(sellerEmail);
+
+        if (finishedOrders.size() == 0) {
+            JLabel noOrdersLabel = new JLabel("You have no finished orders.");
+            noOrdersLabel.setHorizontalAlignment(JLabel.CENTER);
+            orderPanel.add(noOrdersLabel);
+        }
         for (int orderNumber: finishedOrders) {
             OrderDsModel orderDsModel = orderDsGateway.getOrderInfo(orderNumber);
             JLabel orderNumberLabel = new JLabel("Order #: " + orderNumber);

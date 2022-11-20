@@ -91,6 +91,8 @@ public class SellingScreen extends JFrame {
         buttonsPanel.add(acceptButton);
         buttonsPanel.add(pastOrderButton);
 
+        pnl.add(buttonsPanel);
+
         ArrayList<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders(sellerResidence);
         String[] displayArray = new String[unfulfilledOrders.size()];
         for (int i = 0; i < unfulfilledOrders.size(); i++) {
@@ -104,12 +106,17 @@ public class SellingScreen extends JFrame {
             displayArray[i] = orderString;
         }
 
-        currentOrdersDropdown = new JComboBox<>(displayArray);
-        LabelComboboxPanel ordersPanel = new LabelComboboxPanel(
-                new JLabel("Select an order:"), currentOrdersDropdown);
+        if (unfulfilledOrders.size() > 0) {
+            currentOrdersDropdown = new JComboBox<>(displayArray);
+            LabelComboboxPanel ordersPanel = new LabelComboboxPanel(
+                    new JLabel("Select an order:"), currentOrdersDropdown);
+            pnl.add(ordersPanel);
+        } else {
+            JLabel noOrderLabel = new JLabel("There is currently no orders for this residence. ");
+            noOrderLabel.setHorizontalAlignment(JLabel.CENTER);
+            pnl.add(noOrderLabel);
+        }
 
-        pnl.add(buttonsPanel);
-        pnl.add(ordersPanel);
 
         this.add(pnl);
         this.setTitle("Selling");
