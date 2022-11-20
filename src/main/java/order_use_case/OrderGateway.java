@@ -1,12 +1,13 @@
 package order_use_case;
 
-import entities.*;
+import entities.OrderStatusType;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class OrderGateway implements OrderDsGateway{
     private final File csvFile;
@@ -14,6 +15,7 @@ public class OrderGateway implements OrderDsGateway{
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<Integer, OrderDsModel> orders = new HashMap<>();
+
 
     public OrderGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
@@ -30,7 +32,8 @@ public class OrderGateway implements OrderDsGateway{
         headers.put("residence", 5);
         headers.put("status", 6);
         headers.put("foodItems", 7);
-        headers.put("price", 8);
+        headers.put("foodQuantity", 8);
+        headers.put("price", 9);
 
         if (csvFile.length() == 0) {
             save();
@@ -50,8 +53,9 @@ public class OrderGateway implements OrderDsGateway{
                 String residence = String.valueOf(col[headers.get("residence")]);
                 String status = String.valueOf(col[headers.get("status")]);
                 String[] foodItems = (String.valueOf(col[headers.get("foodItems")])).split(";");
+                Integer[] foodQuantity =  Stream.of((String.valueOf(col[headers.get("foodQuantity")])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
                 Double price = Double.valueOf(col[headers.get("price")]);
-                OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems, price);
+                OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems, foodQuantity, price);
                 orders.put(orderID, order);
                 this.currentOrderID++;
             }
@@ -63,7 +67,7 @@ public class OrderGateway implements OrderDsGateway{
     @Override
     public void saveOrder(OrderDsRequestModel orderModel) {
         OrderDsModel order = new OrderDsModel(this.currentOrderID, orderModel.getBuyerName(), orderModel.getBuyerEmail(),
-                orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems(), orderModel.getPrice());
+                orderModel.getSellerName(), orderModel.getSellerEmail(), orderModel.getResidence(), orderModel.getStatus(), orderModel.getFoodItems(), orderModel.getFoodQuantity(), orderModel.getPrice());
         orders.put(this.currentOrderID, order);
         this.currentOrderID++;
         this.save();
@@ -76,9 +80,9 @@ public class OrderGateway implements OrderDsGateway{
             writer.newLine();
 
             for (OrderDsModel order : orders.values()) {
-                String line = String.format("%d,%s,%s,%s,%s,%s,%s,%s,%.2f",
-                order.getOrderID(), order.getBuyerName(), order.getBuyerEmail(), order.getSellerName(),
-                order.getSellerEmail(), order.getResidence(), order.getStatus(), String.join(";",order.getFoodItems()),order.getPrice());
+                String line = String.format("%d,%s,%s,%s,%s,%s,%s,%s,%s,%.2f",
+                order.getOrderID(), order.getBuyerName(), order.getBuyerEmail(), order.getSellerName(), order.getSellerEmail(), order.getResidence(),
+                        order.getStatus(), String.join(";",order.getFoodItems()), String.join(";", Stream.of(order.getFoodQuantity()).map(String::valueOf).toArray(String[]::new)), order.getPrice());
                 writer.write(line);
                 writer.newLine();
             }
@@ -156,5 +160,14 @@ public class OrderGateway implements OrderDsGateway{
             }
         }
         throw new DoesNotExistException("Seller has not accepted an order.");
+    }
+
+    public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException {
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
+            if (entry.getValue().getOrderID() == orderNumber) {
+                return entry.getValue().getPrice();
+            }
+        }
+        throw new DoesNotExistException("Order does not exist.");
     }
 }

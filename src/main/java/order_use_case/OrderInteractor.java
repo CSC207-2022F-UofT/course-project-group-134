@@ -16,19 +16,19 @@ public class OrderInteractor implements OrderInputBoundary {
     }
 
     @Override
-     public OrderResponseModel placeOrder(OrderRequestModel request) {
+     public void placeOrder(OrderRequestModel request) {
         // TODO: How can the order fail?
 
         String sellerName = "null";
         String sellerEmail = "null";
         String status = OrderStatusType.ORDERED.toString();
-        System.out.println("INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
+        System.out.println("ORDER INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
         OrderDsRequestModel orderDsRequest = new OrderDsRequestModel(request.getBuyerName(), request.getBuyerEmail(),
-                sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems(), request.getPrice());
+                sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems(), request.getFoodQuantity(), request.getPrice());
         orderDsGateway.saveOrder(orderDsRequest);
 
         OrderResponseModel responseModel = new OrderResponseModel();
-        return orderPresenter.prepareSuccessView(responseModel);
+        orderPresenter.prepareSuccessView(responseModel);
     }
 }

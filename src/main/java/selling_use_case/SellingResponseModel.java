@@ -1,9 +1,7 @@
 package selling_use_case;
 
-import entities.Order;
-
 public class SellingResponseModel {
-    private int orderNumber;
+    private final int orderNumber;
     public SellingResponseModel(int orderNumber){
         this.orderNumber = orderNumber;
     }

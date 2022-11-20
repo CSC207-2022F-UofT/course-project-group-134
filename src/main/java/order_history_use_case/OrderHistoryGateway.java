@@ -1,22 +1,21 @@
 package order_history_use_case;
 
-import entities.User;
-import entities.UserType;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class OrderHistoryGateway {
+
 
     private ArrayList<OrderHistoryResponseModel> orderList;
 
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();
 
-        String csvPath = "orders.csv";
+        String csvPath = "src/main/java/data_storage/orders.csv";
         File csvFile = new File(csvPath);
 
 
@@ -35,12 +34,13 @@ public class OrderHistoryGateway {
                 String orderResidence = String.valueOf(col[5]);
                 String orderStatus = String.valueOf(col[6]);
                 String[] foodItems = String.valueOf(col[7]).split(";");
-                double totalPrice = Double.parseDouble(col[8]);
+                Integer[] foodQuantity = Stream.of((String.valueOf(col[8])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
+                double totalPrice = Double.parseDouble(col[9]);
 
                 if(inputUsername.equals(buyerName) & inputEmail.equals(buyerEmail)){
                     OrderHistoryResponseModel newOrder = new OrderHistoryResponseModel(orderID,
                             buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems,
-                            totalPrice);
+                            foodQuantity, totalPrice);
 
                     orderList.add(newOrder);
                 }
