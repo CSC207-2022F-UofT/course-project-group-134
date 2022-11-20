@@ -14,11 +14,12 @@ public class OrderHistoryResponseModel {
     private final String residence;
     private final String orderStatus;
     private final String[] foodItems;
+    private final Integer[] foodQuantity;
     private final Double totalPrice;
 
     public OrderHistoryResponseModel(Integer orderID, String buyerName, String buyerEmail,
                                      String sellerName, String sellerEmail, String residence,
-                                     String orderStatus, String[] foodItems, double price){
+                                     String orderStatus, String[] foodItems, Integer[] foodQuantity, double price){
 
         this.orderID = orderID;
         this.buyerName = buyerName;
@@ -28,6 +29,7 @@ public class OrderHistoryResponseModel {
         this.residence = residence;
         this.orderStatus = orderStatus;
         this.foodItems = foodItems;
+        this.foodQuantity = foodQuantity;
         this.totalPrice = price;
     }
     public Integer getOrderID() {
@@ -56,5 +58,8 @@ public class OrderHistoryResponseModel {
     }
     public String[] getFoodItems() {
         return foodItems;
+    }
+    public Integer[] getFoodQuantity() {
+        return foodQuantity;
     }
 }
