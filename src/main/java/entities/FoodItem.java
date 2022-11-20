@@ -44,7 +44,7 @@ public class FoodItem implements Reviewable {
     /**
      * The collection of reviews of this food item.
      */
-    private ArrayList<Review> reviews;
+    private final ArrayList<Review> reviews;
 
     /**
      * The constructor for foodItem. This creates a food item with the given parameters. popularity and starAverage are

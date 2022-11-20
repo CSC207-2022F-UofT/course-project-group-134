@@ -1,7 +1,5 @@
 package order_history_use_case;
 
-import java.util.ArrayList;
-
 public class OrderHistoryResponseModel {
 
     //  Each order should be a ResponseModel, which means that the interactor will return an arraylist of ResponseModels

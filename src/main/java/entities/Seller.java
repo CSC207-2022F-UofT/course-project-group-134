@@ -19,7 +19,7 @@ public class Seller extends User implements Reviewable{
     /**
      * List of reviews that the seller has received.
      */
-    private ArrayList<Review> reviews;
+    private final ArrayList<Review> reviews;
     /**
      * Average 'star' value of the reviews that the seller has received.
      */

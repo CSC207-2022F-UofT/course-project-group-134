@@ -3,7 +3,7 @@ package selling_use_case;
 import java.io.IOException;
 
 public class SellingController {
-    SellingInputBoundary boundary;
+    final SellingInputBoundary boundary;
 
     public SellingController(SellingInputBoundary inputBoundary){
         this.boundary = inputBoundary;

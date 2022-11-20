@@ -1,8 +1,5 @@
 package order_history_use_case;
 
-import entities.User;
-import entities.UserType;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +8,7 @@ import java.util.ArrayList;
 
 public class OrderHistoryGateway {
 
-    private ArrayList<OrderHistoryResponseModel> orderList;
+    private final ArrayList<OrderHistoryResponseModel> orderList;
 
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();

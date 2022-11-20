@@ -2,8 +2,8 @@ package order_history_use_case;
 
 public class OrderHistoryRequestModel {
 
-    private String username;
-    private String email;
+    private final String username;
+    private final String email;
 
     public OrderHistoryRequestModel(String username,  String  email){
         this.username = username;

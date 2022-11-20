@@ -1,11 +1,7 @@
 package entities.menu_factories;
 
-import entities.FoodItem;
-import entities.Menu;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InnisCollegeMenuFactory {
