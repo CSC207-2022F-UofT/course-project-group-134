@@ -1,5 +1,7 @@
 package order_use_case;
 
+import entities.ResidenceType;
+
 public class OrderController {
 
     final OrderInputBoundary orderInteractor;

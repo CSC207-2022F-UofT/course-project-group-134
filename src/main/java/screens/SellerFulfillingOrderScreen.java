@@ -6,6 +6,8 @@ import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
 import selling_use_case.SellerMain;
 import selling_use_case.SellingController;
+import user_access_use_case.SignUpDsGateway;
+import user_access_use_case.SignUpGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +15,11 @@ import java.io.IOException;
 
 public class SellerFulfillingOrderScreen extends JFrame{
 
-    public SellerFulfillingOrderScreen(SellingController sellingController, OrderDsGateway gateway, String sellerEmail,
-                                       String sellerResidence) throws DoesNotExistException {
+    public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
 
-        int orderNumber = gateway.getOrderNumberFromSellerEmail(sellerEmail);
-        OrderDsModel orderDsModel = gateway.getOrderInfo(orderNumber);
+        int orderNumber = orderGateway.getOrderNumberFromSellerEmail(sellerEmail);
+        OrderDsModel orderDsModel = orderGateway.getOrderInfo(orderNumber);
 
         JPanel orderPanel = new JPanel(new GridLayout(0,1));
         JLabel orderNumberLabel = new JLabel("Order #: " + orderNumber);
@@ -44,7 +45,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         pnl.add(orderPanel);
         pnl.add(chatButton);
 
-        OrderStatusType orderStatus = gateway.getOrderStatus(orderNumber);
+        OrderStatusType orderStatus = orderGateway.getOrderStatus(orderNumber);
         if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
             JPanel confirmedPanel = new JPanel(new GridLayout(0,1));
             JLabel waitingForBuyerLabel1 = new JLabel("Waiting for " + orderDsModel.getBuyerName() +
@@ -58,17 +59,23 @@ public class SellerFulfillingOrderScreen extends JFrame{
         } else {
             pnl.add(orderFulfilledButton);
             orderFulfilledButton.addActionListener(actionEvent -> {
+                try {
+                    signUpGateway.subtractPrice(sellerEmail, price);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 this.dispose();
                 try {
+
                     if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
-                        gateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
+                        orderGateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
                         SellerMain.create(sellerEmail, orderDsModel.getResidence());
                         JOptionPane.showMessageDialog(null,
                                 "Successfully finished order.",
                                 "Order Finished",
                                 JOptionPane.PLAIN_MESSAGE);
                     } else { // order status is ACCEPTED
-                        gateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
+                        orderGateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
                         SellerMain.create(sellerEmail, orderDsModel.getResidence());
                     }
                 } catch (DoesNotExistException ex) {

@@ -6,6 +6,8 @@ import order_use_case.OrderDsModel;
 import order_use_case.OrderFailed;
 import selling_use_case.SellerMain;
 import selling_use_case.SellingController;
+import user_access_use_case.SignUpDsGateway;
+import user_access_use_case.SignUpGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,18 +22,27 @@ public class SellingScreen extends JFrame {
     private String sellerEmail;
 
     private String sellerResidence;
+
+    private SignUpDsGateway signUpGateway;
     private void acceptClicked(ActionEvent actionEvent) throws IOException {
 
         try {
             String orderString = (String) currentOrdersDropdown.getSelectedItem();
             String[] orderInfoList = orderString.split(", ");
             String orderNumberString = orderInfoList[0];
-            String buyerName = orderInfoList[1];
-            String residence = orderInfoList[5];
+            double price = Double.parseDouble(orderInfoList[1].substring(1));
+            double balance = signUpGateway.getRequestModelFromEmail(sellerEmail).getMealPlanBalance();
+            if (price > balance){
+                JOptionPane.showMessageDialog(null,
+                        "Please choose another order.", "Insufficient balance", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            String buyerName = orderInfoList[2];
+
             sellingController.accept(sellerEmail, orderNumberString);
             this.dispose();
             try {
-                SellerMain.create(sellerEmail, residence);
+                SellerMain.create(sellerEmail, sellerResidence);
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }
@@ -47,11 +58,12 @@ public class SellingScreen extends JFrame {
         }
     }
 
-    public SellingScreen(SellingController sellingController, OrderDsGateway orderDsGateway, String sellerEmail, String
+    public SellingScreen(SellingController sellingController, SignUpDsGateway signUpGateway, OrderDsGateway orderDsGateway, String sellerEmail, String
                          sellerResidence) {
         this.sellingController = sellingController;
         this.sellerEmail = sellerEmail;
         this.sellerResidence = sellerResidence;
+        this.signUpGateway = signUpGateway;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
         JButton acceptButton = new JButton("Accept Order");
@@ -99,6 +111,7 @@ public class SellingScreen extends JFrame {
             int orderNumber = unfulfilledOrders.get(i);
             OrderDsModel orderDsModel = orderDsGateway.getOrderInfo(orderNumber);
             String orderString = orderNumber + ", ";
+            orderString += "$" + orderDsModel.getPrice() + ", ";
             orderString += orderDsModel.getBuyerName();
             for (String foodItem : orderDsModel.getFoodItems()) {
                 orderString += ", " + foodItem;

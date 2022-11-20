@@ -69,6 +69,14 @@ public class SignUpGateway implements SignUpDsGateway {
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
         writer.write("email,password,username,userType,mealPlanBalance,residence");
         writer.newLine();
+
+        for (SignUpDsRequestModel requestModel : accounts.values()) {
+            String toWrite = requestModel.getEmail() + "," + requestModel.getPassword() + "," + requestModel.getUsername() +  ","
+                    + requestModel.getUserType() + "," + requestModel.getMealPlanBalance() + "," + requestModel.getResidence();
+            writer.write(toWrite);
+            writer.newLine();
+        }
+
         writer.close();
     }
 
@@ -116,5 +124,21 @@ public class SignUpGateway implements SignUpDsGateway {
             }
         }
         return null; // user does not exist by email.
+    }
+    public SignUpDsRequestModel getRequestModelFromEmail(String email) {
+        for (SignUpDsRequestModel data: accounts.values()) {
+            if (data.getEmail().equals(email)) {
+                return data;
+            }
+        }
+        return null;
+    }
+    public void subtractPrice(String sellerEmail, double price) throws IOException {
+        this.csvFile.delete();
+        SignUpDsRequestModel requestModel = this.getRequestModelFromEmail(sellerEmail);
+        double currentPrice = accounts.get(sellerEmail).getMealPlanBalance();
+        double newPrice = currentPrice - price;
+        accounts.get(sellerEmail).setMealPlanBalance(newPrice);
+        this.save();
     }
 }

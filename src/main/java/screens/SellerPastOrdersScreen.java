@@ -47,7 +47,7 @@ public class SellerPastOrdersScreen extends JFrame{
 
         this.add(orderPanel);
         this.setTitle("Past Orders");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 500);
         this.setLocation(500, 100);
         this.setVisible(true);

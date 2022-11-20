@@ -41,4 +41,8 @@ public class SignUpDsRequestModel {
     public String getResidence() {
         return residence;
     }
+
+    public void setMealPlanBalance(double newPrice) {
+        this.mealPlanBalance = newPrice;
+    }
 }
