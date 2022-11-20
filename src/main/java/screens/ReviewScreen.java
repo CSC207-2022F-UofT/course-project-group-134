@@ -9,10 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ReviewScreen extends JFrame {
     private JTextField reviewInput = new JTextField(15);
-    private JTextField ratingsInput = new JTextField(15);
+    private JComboBox<String> ratingsInput;
     private JTextField sellerInput = new JTextField(15);
     private ReviewController reviewController;
 
@@ -20,7 +21,7 @@ public class ReviewScreen extends JFrame {
 
     private void reviewClicked(ActionEvent actionEvent) throws IOException {
         try {
-            ReviewResponseModel response = reviewController.create(reviewInput.getText(), Integer.parseInt(ratingsInput.getText()),
+            ReviewResponseModel response = reviewController.create(reviewInput.getText(), Integer.parseInt(Objects.requireNonNull(ratingsInput.getSelectedItem()).toString()),
                     username, itemName, diningHall);
 
             this.dispose();
@@ -47,7 +48,9 @@ public class ReviewScreen extends JFrame {
         JPanel pnl = new JPanel(new GridLayout(8,1));
         LabelTextPanel reviewInfo = new LabelTextPanel(
                 new JLabel("Enter review"),reviewInput);
-        LabelTextPanel ratingsInfo = new LabelTextPanel(
+        String[] ratingsPossible = {"1","2","3","4","5"};
+        ratingsInput = new JComboBox<>(ratingsPossible);
+        LabelComboboxPanel ratingsInfo = new LabelComboboxPanel(
                 new JLabel("Enter rating"), ratingsInput);
 
         // ReviewType dropdown
