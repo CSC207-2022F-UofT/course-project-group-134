@@ -14,9 +14,13 @@ public class OrderHistoryController{
         this.inputBoundary = interactor;
     }
 
-    public ArrayList<String[]> onClick(){
+    public ArrayList<String[]> returnFinishedOrders(){
         // Returns everything that is to be displayed as a list of string arrays
-        return inputBoundary.returnViewListInteractor(this.reqMod);
+        return inputBoundary.returnFinishedOrders();
+    }
+
+    public ArrayList<String[]> returnCurrentOrders(){
+        return inputBoundary.returnCurrentOrders();
     }
 
 }
