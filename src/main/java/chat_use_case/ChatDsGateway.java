@@ -20,6 +20,8 @@ public class ChatDsGateway implements ChatDsBoundary {
 
     //todo make into an acutal db
 
+
+
     public Chat getChat(User user1, User user2){
         for(Chat c : chats){
             User[] u = c.getUsers();
@@ -34,10 +36,6 @@ public class ChatDsGateway implements ChatDsBoundary {
     @Override
     public void createChat(ChatCreationRequestModel m) {
         User[] u = m.getUsers();
-
-
-
-
         Chat c = new Chat(u[0], u[1]);
         chats.add(c);
         //todo: what if chat already exists? too bad!
