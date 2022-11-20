@@ -12,13 +12,24 @@ import entities.User;
 import java.util.ArrayList;
 
 public class ChatDsGateway implements ChatDsBoundary {
-
     ArrayList<Chat> chats ;
-    public ChatDsGateway(){
-        this.chats = new ArrayList<>();
+
+    private static ChatDsGateway instance = null;
+    private static ChatDsGateway getInstance(){
+        if(instance == null){
+            instance = new ChatDsGateway();
+        }
+        return instance;
+
     }
 
-    //todo make into an acutal db
+    private ChatDsGateway(){
+        this.chats = new ArrayList<>();
+
+
+    }
+
+
 
 
 

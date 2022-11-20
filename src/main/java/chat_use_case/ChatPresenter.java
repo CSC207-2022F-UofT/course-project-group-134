@@ -10,6 +10,10 @@ public class ChatPresenter implements ChatOutputBoundary {
 
     ChatDsBoundary ds;
 
+    public ChatPresenter(){
+
+    }
+
     @Override
     public ChatDataRecieveModel getMessageList(ChatLogRequestModel m) {
         return ds.getMessageList(m);

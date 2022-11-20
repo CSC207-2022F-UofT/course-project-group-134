@@ -8,12 +8,16 @@ import chat_use_case.models.ChatSendMessageModel;
 public class ChatInteractor implements ChatInputBoundary {
     ChatDsBoundary dataStore;
 
-    @Override
+
+    public ChatInteractor(){
+        dataStore = new ChatDsGateway();
+    }
+
     public void createChat(ChatCreationRequestModel c) {
         dataStore.createChat(c);
 
     }
-    @Override
+
     public void sendMessage(ChatSendMessageModel m){
         dataStore.sendMessage(m);
     }
