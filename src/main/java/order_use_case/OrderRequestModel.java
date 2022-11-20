@@ -6,13 +6,15 @@ public class OrderRequestModel {
     private final String buyerEmail;
     private final String residence;
     private final String[] foodItems;
+    private final Integer[] foodQuantity;
     private final Double price;
 
-    public OrderRequestModel(String buyerName, String buyerEmail, String residence, String[] foodItems, Double price) {
+    public OrderRequestModel(String buyerName, String buyerEmail, String residence, String[] foodItems, Integer[] foodQuantity, Double price) {
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;
         this.residence = residence;
         this.foodItems = foodItems;
+        this.foodQuantity = foodQuantity;
         this.price = price;
     }
 
@@ -30,6 +32,10 @@ public class OrderRequestModel {
 
     public String[] getFoodItems() {
         return foodItems;
+    }
+
+    public Integer[] getFoodQuantity() {
+        return foodQuantity;
     }
 
     public Double getPrice() {

@@ -36,5 +36,6 @@ public class GetMenusMain {
         OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor("tb3", "tb3@mail.utoronto.ca", orderHistoryOutputBoundary);
 
         OrderView orderView = new OrderView(orderController, getMenusController,"tb3", "tb3@mail.utoronto.ca", orderHistoryInteractor);
+
     }
 }

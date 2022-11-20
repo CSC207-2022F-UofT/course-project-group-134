@@ -22,16 +22,15 @@ public class OrderMain {
         OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
         OrderController orderController = new OrderController(orderInteractor);
         String[] foodItems = {"Burger", "Fries"};
+        Integer[] foodQuantity = {1,1};
         String[] foodItems2 = {"Burger", "Burger", "Poutine", "Burger"};
+        Integer[] foodQuantity3 = {1,1,1,1};
+        Integer[] foodQuantity2 = {2,2};
         
-        orderController.placeOrder("Deon Chan", "email@domain.com",
-                ResidenceType.NEW_COLLEGE.toString(), foodItems, 10.00);
-        orderController.placeOrder("Ben", "email@domain.com",
-                ResidenceType.UNIVERSITY_COLLEGE.toString(), foodItems2, 20.03953590);
-        orderController.placeOrder("Not Deon Chan", "email@domain.com",
-                ResidenceType.NEW_COLLEGE.toString(), foodItems, 31.10);
-        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca",
-                ResidenceType.TRINITY_COLLEGE.toString(), foodItems, 20.31);
+        orderController.placeOrder("Deon Chan", "email@domain.com", "New College", foodItems, foodQuantity, 10.00);
+        orderController.placeOrder("Ben", "email@domain.com", "University College", foodItems2, foodQuantity3, 20.03953590);
+        orderController.placeOrder("Not Deon Chan", "email@domain.com", "New College", foodItems, foodQuantity2, 31.10);
+        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca", "Trinity College", foodItems, foodQuantity2, 20.31);
 
     }
 

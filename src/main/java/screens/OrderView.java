@@ -179,7 +179,7 @@ public class OrderView extends JFrame implements OrderViewModel {
         for (JComboBox<String> comboBox: quantityDropdownsList){
             totalPrice += Integer.parseInt(comboBox.getSelectedItem().toString()) * foodItemPrices.get(quantityDropdownsList.indexOf(comboBox));
         }
-        totalPriceString.setText("Total Price: $" + totalPrice);
+        totalPriceString.setText(String.format("Total Price: $%.2f",totalPrice));
 
         if (Integer.parseInt(tempFoodItemQuantity.getSelectedItem().toString()) == 0){
             checkBoxes.get(quantityDropdownsList.indexOf(tempFoodItemQuantity)).setSelected(false);

@@ -3,27 +3,30 @@ package entities;
 import java.util.ArrayList;
 
 public class Chat {
-    private final User user1;
-    private final User user2;
-    private final ArrayList<String> chatLog;
 
-    public Chat(User user1, User user2) {
+    private final ArrayList<ChatMessage> chatLog;
+    private final User user1, user2;
+    public Chat() {
+        this.chatLog = new ArrayList<>();
+    }
+
+    public Chat(User user1, User user2){
         this.chatLog = new ArrayList<>();
         this.user1 = user1;
         this.user2 = user2;
     }
 
-    public ArrayList<String> getChatLog() {
+    public ArrayList<ChatMessage> getChatLog() {
         return chatLog;
     }
-
-    public User getUser1() {
-        return user1;
+    public void sendMessage(ChatMessage message){
+        chatLog.add(message);
     }
 
-    public User getUser2() {
-        return user2;
+
+    public User[] getUsers(){
+        return new User[]{user1, user2};
     }
 
-    // TODO a lot of other stuff...
+
 }
