@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class SignupScreen extends JFrame {
 
     private JTextField usernameInput = new JTextField(15);
@@ -44,7 +47,7 @@ public class SignupScreen extends JFrame {
             } catch (NumberFormatException ex) {
                 // When user types in something that is not number in balance.
                 JOptionPane.showMessageDialog(null,
-                        mealPlanInput.getText() + " is not a valid balance.",
+                        mealPlanInput.getText() + " is not a valid balance.", //TODO: Perhaps the presenter should handle this?
                         "Signup failed.", JOptionPane.WARNING_MESSAGE);
             } catch (SignUpFailed ex) {
                 System.out.println(ex.getMessage());
@@ -75,7 +78,7 @@ public class SignupScreen extends JFrame {
         balanceInfo.setVisible(false);
 
         // Usertype dropdown
-
+        // converting enum to string
         UserType[] userStates = UserType.values();
         String[] userTypeList = new String[userStates.length];
 

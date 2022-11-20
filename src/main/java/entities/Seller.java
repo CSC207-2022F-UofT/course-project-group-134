@@ -37,6 +37,7 @@ public class Seller extends User implements Reviewable{
      */
     public Seller(String name, String password, MealPlan mealPlan, String email){
         super(name, password, email);
+        super.userType = UserType.SELLER;
         this.mealPlan = mealPlan;
         this.starAverage  = 0;
         this.reviews = new ArrayList<>();

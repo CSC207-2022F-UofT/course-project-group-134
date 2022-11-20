@@ -21,6 +21,7 @@ public class Buyer extends User{
      */
     public Buyer(String name, String password, String email){
         super(name, password, email);
+        super.userType = UserType.BUYER;
     }
 
     /**
@@ -31,10 +32,5 @@ public class Buyer extends User{
      */
     public void placeOrder(Order order){
         // TODO place in database
-    }
-
-    @Override
-    public String toString() {
-        return "Buyer: " + this.getUsername();
     }
 }
