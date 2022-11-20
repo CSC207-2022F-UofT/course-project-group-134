@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class GetMenusResponseModel {
 
-    private ArrayList<String> foodItemNames;
-    private ArrayList<Double> foodItemPrices;
-    private ArrayList<String[]> foodItemAllergens;
-    private ArrayList<String[]> foodItemIngredients;
-    private ArrayList<Integer> foodItemCalories;
-    private ArrayList<Integer> foodItemPopularities;
-    private ArrayList<Double> foodItemStarAverages;
-    private ArrayList<ArrayList<String>> foodItemReviews;
+    private final ArrayList<String> foodItemNames;
+    private final ArrayList<Double> foodItemPrices;
+    private final ArrayList<String[]> foodItemAllergens;
+    private final ArrayList<String[]> foodItemIngredients;
+    private final ArrayList<Integer> foodItemCalories;
+    private final ArrayList<Integer> foodItemPopularities;
+    private final ArrayList<Double> foodItemStarAverages;
+    private final ArrayList<ArrayList<String>> foodItemReviews;
 
 
     public GetMenusResponseModel(ArrayList<String> foodItemNames, ArrayList<Double> foodItemPrices, ArrayList<String[]> foodItemAllergens, ArrayList<String[]> foodItemIngredients, ArrayList<Integer> foodItemCalories, ArrayList<Integer> foodItemPopularities, ArrayList<Double> foodItemStarAverages, ArrayList<ArrayList<String>> foodItemReviews) {

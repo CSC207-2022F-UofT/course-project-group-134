@@ -7,7 +7,6 @@ import order_use_case.OrderFailed;
 import selling_use_case.SellerMain;
 import selling_use_case.SellingController;
 import user_access_use_case.SignUpDsGateway;
-import user_access_use_case.SignUpGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,12 +17,12 @@ import java.util.ArrayList;
 public class SellingScreen extends JFrame {
 
     private JComboBox<String> currentOrdersDropdown;
-    private SellingController sellingController;
-    private String sellerEmail;
+    private final SellingController sellingController;
+    private final String sellerEmail;
 
-    private String sellerResidence;
+    private final String sellerResidence;
 
-    private SignUpDsGateway signUpGateway;
+    private final SignUpDsGateway signUpGateway;
     private void acceptClicked(ActionEvent actionEvent) throws IOException {
 
         try {

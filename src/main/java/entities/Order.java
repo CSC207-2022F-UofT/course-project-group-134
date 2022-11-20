@@ -1,13 +1,12 @@
 package entities;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Order {
-    private int orderNumber;
-    private Residence diningHall;
-    private Buyer buyer;
-    private ArrayList<FoodItem> foodItemList;
+    private final int orderNumber;
+    private final Residence diningHall;
+    private final Buyer buyer;
+    private final ArrayList<FoodItem> foodItemList;
     private Seller seller;
 
     public Order(int orderNumber, Residence diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {

@@ -15,11 +15,11 @@ public class Seller extends User implements Reviewable{
     /**
      * Seller's meal plan
      */
-    private MealPlan mealPlan;
+    private final MealPlan mealPlan;
     /**
      * List of reviews that the seller has received.
      */
-    private ArrayList<Review> reviews;
+    private final ArrayList<Review> reviews;
     /**
      * Average 'star' value of the reviews that the seller has received.
      */
