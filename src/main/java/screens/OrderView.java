@@ -3,6 +3,7 @@ package screens;
 import entities.ResidenceType;
 import get_menus_use_case.GetMenusController;
 import get_menus_use_case.GetMenusResponseModel;
+import order_history_use_case.OrderHistoryInputBoundary;
 import order_use_case.FoodItemDetailsView;
 import order_use_case.OrderController;
 
@@ -31,8 +32,10 @@ public class OrderView extends JFrame implements OrderViewModel {
     private GetMenusController getMenusController;
     private String username;
     private String email;
+    private OrderHistoryInputBoundary orderHistoryInteractor;
 
-    public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email) {
+    public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
+        this.orderHistoryInteractor = orderHistoryInteractor;
         this.orderController = orderController;
         this.email = email;
         this.username = username;
@@ -81,7 +84,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
         backButton.addActionListener(actionEvent -> {
             this.dispose();
-            new BuyerDefaultView(this.username, this.email);
+            new BuyerDefaultView(this.username, this.email, orderHistoryInteractor);
         });
 
         pnl.add(residencePanel);
