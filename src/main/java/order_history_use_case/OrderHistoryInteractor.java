@@ -1,24 +1,35 @@
 package order_history_use_case;
 
-import entities.User;
-
 import java.io.*;
-import java.util.ArrayList;;
+import java.util.ArrayList;
 
-public class OrderHistoryInteractor {
+public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
 
-    // TODO: call the presenter
+    private final ArrayList<OrderHistoryResponseModel> allOrders;
+    private final OrderHistoryOutputBoundary outputBoundary;
+    public OrderHistoryInteractor(String username, String email, OrderHistoryOutputBoundary outputBoundary)
+            throws IOException {
 
-    private User user;
-
-    public OrderHistoryInteractor(User user) throws IOException {
-        this.user = user;
-        OrderHistoryGateway gateway1 = new OrderHistoryGateway(user);
-        ArrayList<OrderHistoryRequestModel> allOrders = gateway1.getAllOrders();
-
-        // TODO: call presenter
+        OrderHistoryGateway gateway1 = new OrderHistoryGateway(username, email);
+        this.allOrders = gateway1.getAllOrders();
+        this.outputBoundary = outputBoundary;
     }
 
+
+    @Override
+    public ArrayList<String[]> returnViewListInteractor(OrderHistoryRequestModel reqMod){
+
+        ArrayList<String[]> allOrdersList  = new ArrayList<>();
+
+        for(OrderHistoryResponseModel resMod: this.allOrders){
+            allOrdersList.add(this.outputBoundary.getViewList(resMod));
+        }
+
+        return allOrdersList;
+    }
+
+   /*
+   // Scrapped function - use if needed
     public static void setPrice(OrderHistoryResponseModel responseModel){
         double price  = 0;
         String residence = responseModel.getResidence();
@@ -29,11 +40,11 @@ public class OrderHistoryInteractor {
             }
             catch (IOException e){
                 e.printStackTrace();
-                // TODO: decide whether to keep this or do continue; instead
             }
         }
 
         responseModel.setTotalPrice(price);
     }
+     */
 
 }

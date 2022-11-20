@@ -1,18 +1,21 @@
 package order_history_use_case;
 
 
-public class OrderHistoryController implements  OrderHistoryInputBoundary{
+import java.util.ArrayList;
 
-    // TODO: this should be called by the view, and it should have a method to call the interactor
+public class OrderHistoryController{
 
-    public  OrderHistoryController(){
+    private OrderHistoryRequestModel reqMod;
+    private OrderHistoryInputBoundary inputBoundary;
 
+    public OrderHistoryController(String username, String email, OrderHistoryInputBoundary interactor){
+        this.reqMod = new OrderHistoryRequestModel(username, email);
+        this.inputBoundary = interactor;
     }
 
-    /*
-    public OrderHistoryResponseModel onClick(){
-        // TODO: find a way to get the user's details after the button click and send it to the interactor
+    public ArrayList<String[]> onClick(){
+        // Returns everything that is to be displayed as a list of string arrays
+        return inputBoundary.returnViewListInteractor(this.reqMod);
     }
-     */
 
 }
