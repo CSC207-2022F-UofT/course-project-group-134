@@ -28,6 +28,6 @@ public class GetMenusMain {
         OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
         OrderController orderController = new OrderController(orderInteractor);
 
-        OrderView orderView = new OrderView(orderController, getMenusController,"tb", "tb");
+        OrderView orderView = new OrderView(orderController, getMenusController,"tb", "tb"); //TODO: get username and email
     }
 }
