@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class LoginController {
 
-    LoginInputBoundary boundary;
+    final LoginInputBoundary boundary;
 
     public LoginController(LoginInputBoundary inputBoundary){
         this.boundary = inputBoundary;

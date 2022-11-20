@@ -24,12 +24,12 @@ public class Review {
     /**
      * The reviewable object being reviewed. This is either a food item, a dining hall, or a seller.
      */
-    private Reviewable reviewRecipient;
+    private final Reviewable reviewRecipient;
 
     /**
      * The buyer who is making the review.
      */
-    private Buyer buyer;
+    private final Buyer buyer;
 
     /**
      * Constructor for the review class. This creates a review instance with the specified parameters.

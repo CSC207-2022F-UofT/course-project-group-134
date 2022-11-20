@@ -15,7 +15,7 @@ import java.util.*;
 
 public class SignUpGateway implements SignUpDsGateway {
 
-    private File csvFile;
+    private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -105,7 +105,7 @@ public class SignUpGateway implements SignUpDsGateway {
     /**
      * Reads and returns a user based off of an email query.
      * @param email The email of the user to read.
-     * @param userFactory The userfactory which creates users.
+     * @param userFactory The userFactory which creates users.
      * @return Returns either a Buyer or Seller corresponding to the user email if it exists. Otherwise, returns null.
      */
     public User readUser(String email, UserFactory userFactory) {

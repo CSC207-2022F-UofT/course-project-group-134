@@ -3,12 +3,12 @@ package user_access_use_case;
 import entities.UserType;
 
 public class SignUpRequestModel {
-    private String username;
-    private String email;
-    private String password;
-    private UserType userType;
-    private String residence;
-    private double balance;
+    private final String username;
+    private final String email;
+    private final String password;
+    private final UserType userType;
+    private final String residence;
+    private final double balance;
 
     public SignUpRequestModel(String name, String email, String password, UserType userType, String residence, double balance){
         this.username = name;

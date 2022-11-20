@@ -4,7 +4,7 @@ import entities.User;
 
 public class LoginResponseModel {
 
-    private User user;
+    private final User user;
 
     public LoginResponseModel(User user) {
         this.user = user;

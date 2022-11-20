@@ -51,7 +51,7 @@ public class BuyerScreen extends JFrame {
                 throw new RuntimeException(e);
             }
         });
-        ///Hmm TODO is this logout?
+
         JButton backButton = new JButton("Back");
         backButton.addActionListener(actionEvent -> {
             this.dispose();

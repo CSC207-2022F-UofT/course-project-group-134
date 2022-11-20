@@ -2,8 +2,8 @@ package user_login_use_case;
 
 public class LoginRequestModel {
 
-    private String email;
-    private String password;
+    private final String email;
+    private final String password;
 
     public LoginRequestModel(String email, String password) {
         this.email = email;

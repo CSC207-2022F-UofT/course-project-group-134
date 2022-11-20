@@ -4,17 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class OrderPreviewScreen extends JFrame {
-    private JPanel pnl;
-    private JButton orderButton = new JButton("Place Order");
 
-    public OrderPreviewScreen(String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
-        pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));
+    public OrderPreviewScreen(String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
+        JPanel pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));
         for (int i = 0; i < foodItems.length; i ++){
             double foodItemTotalPrice = foodItemPrices[i] * foodItemQuantities[i];
             JLabel temp = new JLabel(foodItems[i] + "(Qty: " + foodItemQuantities[i]+ ") : $" + foodItemTotalPrice);
             pnl.add(temp);
         }
         pnl.add(new JLabel("Total Price: $" + totalPrice));
+        JButton orderButton = new JButton("Place Order");
         pnl.add(orderButton);
         this.add(pnl);
         this.setTitle("Order Preview");
