@@ -2,9 +2,9 @@ package entities;
 import java.util.ArrayList;
 
 public class MealPlan {
-    private String residence;
+    private final String residence;
 
-    private ArrayList<Residence> associatedDiningHalls;
+    private final ArrayList<Residence> associatedDiningHalls;
 
     private double balance;
     private ArrayList<FoodItem> masterListOfItemsBought;

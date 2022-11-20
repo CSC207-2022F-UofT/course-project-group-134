@@ -8,17 +8,16 @@ import java.io.IOException;
 
 public class BuyerDefaultView extends JFrame {
 
-    private JPanel pnl = new JPanel(new GridLayout(2, 1));
-    private JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-    private JButton placeOrderButton = new JButton("Place new order");
-    private JButton logoutButton = new JButton("Logout");
-    private JPanel topPanel = new JPanel(new GridLayout(1, 2));
     JPanel orderHistoryPanel;
     JPanel currentOrdersPanel;
 
     public BuyerDefaultView(String username, String email){
+        JButton placeOrderButton = new JButton("Place new order");
+        JPanel topPanel = new JPanel(new GridLayout(1, 2));
         topPanel.add(placeOrderButton);
+        JButton logoutButton = new JButton("Logout");
         topPanel.add(logoutButton);
+        JPanel pnl = new JPanel(new GridLayout(2, 1));
         pnl.add(topPanel);
 
         placeOrderButton.addActionListener(actionEvent -> {
@@ -38,6 +37,7 @@ public class BuyerDefaultView extends JFrame {
             }
         });
 
+        JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.addTab("Order History", orderHistoryPanel);
         tabbedPane.addTab("Current Orders", currentOrdersPanel);
         pnl.add(tabbedPane);

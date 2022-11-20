@@ -15,7 +15,7 @@ public class Seller extends User implements Reviewable{
     /**
      * Seller's meal plan
      */
-    private MealPlan mealPlan;
+    private final MealPlan mealPlan;
     /**
      * List of reviews that the seller has received.
      */

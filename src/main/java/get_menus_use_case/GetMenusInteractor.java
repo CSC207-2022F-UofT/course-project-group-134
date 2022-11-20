@@ -4,11 +4,9 @@ import entities.Menu;
 import entities.MenuFactory;
 import entities.ResidenceType;
 
-import java.util.ArrayList;
-
 public class GetMenusInteractor implements GetMenusInputBoundary {
-    private GetMenusOutputBoundary presenter;
-    private MenuFactory menuFactory;
+    private final GetMenusOutputBoundary presenter;
+    private final MenuFactory menuFactory;
 
     public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuFactory menuFactory){
         this.presenter = presenter;

@@ -1,7 +1,5 @@
 package get_menus_use_case;
 
-import entities.ResidenceType;
-
 public class GetMenusController {
 
     private GetMenusInputBoundary inputBoundary;

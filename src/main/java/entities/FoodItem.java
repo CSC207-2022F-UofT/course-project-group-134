@@ -14,23 +14,23 @@ public class FoodItem implements Reviewable {
     /**
      * Description of the food item/what it is.
      */
-    private String description;
+    private final String description;
     /**
      * Potential allergens that this food item may have.
      */
-    private String[] allergens;
+    private final String[] allergens;
     /**
      * Ingredients of the food item.
      */
-    private String[] ingredients;
+    private final String[] ingredients;
     /**
      * Approximate number of calories in one serving of the food item.
      */
-    private int calories;
+    private final int calories;
     /**
      * Price in Canadian Dollars of the food item.
      */
-    private double price;
+    private final double price;
     /**
      * Popularity of the food item, represented by an integer number of times the item has been ordered.
      */

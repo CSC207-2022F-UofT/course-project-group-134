@@ -1,7 +1,6 @@
 package order_use_case;
 
-import entities.*;
-import user_access_use_case.SignUpGateway;
+import entities.OrderStatusType;
 
 import java.io.*;
 import java.util.ArrayList;
