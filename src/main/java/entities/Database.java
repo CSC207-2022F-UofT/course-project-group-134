@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Database {
 
-    private ArrayList<User> users;
-    private ArrayList<Seller> sellers;
-    private ArrayList<Buyer> buyers;
-    private ArrayList<Residence> diningHalls;
-    private ArrayList<Order> orders;
+    private final ArrayList<User> users;
+    private final ArrayList<Seller> sellers;
+    private final ArrayList<Buyer> buyers;
+    private final ArrayList<Residence> diningHalls;
+    private final ArrayList<Order> orders;
     private User currentUser;
 
     public Database() {

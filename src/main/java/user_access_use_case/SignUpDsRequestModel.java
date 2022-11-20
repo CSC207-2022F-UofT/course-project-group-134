@@ -1,11 +1,11 @@
 package user_access_use_case;
 
 public class SignUpDsRequestModel {
-    private String username;
-    private String password;
-    private String email;
-    private String userType;
-    private String residence;
+    private final String username;
+    private final String password;
+    private final String email;
+    private final String userType;
+    private final String residence;
     private double mealPlanBalance;
 
     public SignUpDsRequestModel(String username, String password, String email, String userType, double
@@ -40,5 +40,9 @@ public class SignUpDsRequestModel {
 
     public String getResidence() {
         return residence;
+    }
+
+    public void setMealPlanBalance(double newPrice) {
+        this.mealPlanBalance = newPrice;
     }
 }

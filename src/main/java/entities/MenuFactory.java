@@ -24,7 +24,7 @@ public class MenuFactory {
 
         // Below scanner used for the actual creation of the food items and the menu
         Scanner sc = new Scanner(new File("src/main/java/data_storage/Dining_Halls/"+ name +".csv"));
-        sc.useDelimiter(",|\n");
+        sc.useDelimiter("[,\n]");
 
         for (int i = 0; i < counter; i++) {
             String description = sc.next();

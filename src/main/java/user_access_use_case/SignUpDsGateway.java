@@ -13,4 +13,8 @@ public interface SignUpDsGateway {
     void save() throws IOException;
 
     User readUser(String email, UserFactory userFactory);
+
+    void subtractPrice(String sellerEmail, double price) throws IOException;
+
+    SignUpDsRequestModel getRequestModelFromEmail(String email);
 }

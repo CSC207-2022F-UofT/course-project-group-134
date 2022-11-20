@@ -6,6 +6,7 @@ import order_use_case.OrderDsModel;
 import order_use_case.OrderFailed;
 import selling_use_case.SellerMain;
 import selling_use_case.SellingController;
+import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,22 +17,31 @@ import java.util.ArrayList;
 public class SellingScreen extends JFrame {
 
     private JComboBox<String> currentOrdersDropdown;
-    private SellingController sellingController;
-    private String sellerEmail;
+    private final SellingController sellingController;
+    private final String sellerEmail;
 
-    private String sellerResidence;
+    private final String sellerResidence;
+
+    private final SignUpDsGateway signUpGateway;
     private void acceptClicked(ActionEvent actionEvent) throws IOException {
 
         try {
             String orderString = (String) currentOrdersDropdown.getSelectedItem();
             String[] orderInfoList = orderString.split(", ");
             String orderNumberString = orderInfoList[0];
-            String buyerName = orderInfoList[1];
-            String residence = orderInfoList[5];
+            double price = Double.parseDouble(orderInfoList[1].substring(1));
+            double balance = signUpGateway.getRequestModelFromEmail(sellerEmail).getMealPlanBalance();
+            if (price > balance){
+                JOptionPane.showMessageDialog(null,
+                        "Please choose another order.", "Insufficient balance", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            String buyerName = orderInfoList[2];
+
             sellingController.accept(sellerEmail, orderNumberString);
             this.dispose();
             try {
-                SellerMain.create(sellerEmail, residence);
+                SellerMain.create(sellerEmail, sellerResidence);
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }
@@ -47,11 +57,12 @@ public class SellingScreen extends JFrame {
         }
     }
 
-    public SellingScreen(SellingController sellingController, OrderDsGateway orderDsGateway, String sellerEmail, String
+    public SellingScreen(SellingController sellingController, SignUpDsGateway signUpGateway, OrderDsGateway orderDsGateway, String sellerEmail, String
                          sellerResidence) {
         this.sellingController = sellingController;
         this.sellerEmail = sellerEmail;
         this.sellerResidence = sellerResidence;
+        this.signUpGateway = signUpGateway;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
         JButton acceptButton = new JButton("Accept Order");
@@ -91,12 +102,15 @@ public class SellingScreen extends JFrame {
         buttonsPanel.add(acceptButton);
         buttonsPanel.add(pastOrderButton);
 
+        pnl.add(buttonsPanel);
+
         ArrayList<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders(sellerResidence);
         String[] displayArray = new String[unfulfilledOrders.size()];
         for (int i = 0; i < unfulfilledOrders.size(); i++) {
             int orderNumber = unfulfilledOrders.get(i);
             OrderDsModel orderDsModel = orderDsGateway.getOrderInfo(orderNumber);
             String orderString = orderNumber + ", ";
+            orderString += "$" + orderDsModel.getPrice() + ", ";
             orderString += orderDsModel.getBuyerName();
             for (String foodItem : orderDsModel.getFoodItems()) {
                 orderString += ", " + foodItem;
@@ -104,12 +118,17 @@ public class SellingScreen extends JFrame {
             displayArray[i] = orderString;
         }
 
-        currentOrdersDropdown = new JComboBox<>(displayArray);
-        LabelComboboxPanel ordersPanel = new LabelComboboxPanel(
-                new JLabel("Select an order:"), currentOrdersDropdown);
+        if (unfulfilledOrders.size() > 0) {
+            currentOrdersDropdown = new JComboBox<>(displayArray);
+            LabelComboboxPanel ordersPanel = new LabelComboboxPanel(
+                    new JLabel("Select an order:"), currentOrdersDropdown);
+            pnl.add(ordersPanel);
+        } else {
+            JLabel noOrderLabel = new JLabel("There is currently no orders for this residence. ");
+            noOrderLabel.setHorizontalAlignment(JLabel.CENTER);
+            pnl.add(noOrderLabel);
+        }
 
-        pnl.add(buttonsPanel);
-        pnl.add(ordersPanel);
 
         this.add(pnl);
         this.setTitle("Selling");

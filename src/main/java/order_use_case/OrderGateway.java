@@ -1,6 +1,6 @@
 package order_use_case;
 
-import entities.*;
+import entities.OrderStatusType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ public class OrderGateway implements OrderDsGateway{
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<Integer, OrderDsModel> orders = new HashMap<>();
+
 
     public OrderGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
@@ -156,5 +157,14 @@ public class OrderGateway implements OrderDsGateway{
             }
         }
         throw new DoesNotExistException("Seller has not accepted an order.");
+    }
+
+    public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException {
+        for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
+            if (entry.getValue().getOrderID() == orderNumber) {
+                return entry.getValue().getPrice();
+            }
+        }
+        throw new DoesNotExistException("Order does not exist.");
     }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FoodItemDetailsView extends JFrame {
-    private JPanel pnl = new JPanel(new GridLayout(8,1));
 
     public FoodItemDetailsView(String foodItemName,
                                Double foodItemPrice,
@@ -17,6 +16,7 @@ public class FoodItemDetailsView extends JFrame {
                                Double foodItemStarAverages,
                                ArrayList<String> foodItemReviews){
 
+        JPanel pnl = new JPanel(new GridLayout(8, 1));
         pnl.add(new JLabel("Name: " + foodItemName));
         pnl.add(new JLabel("Price: $" + foodItemPrice.toString()));
         pnl.add(new JLabel("Allergens: " + Arrays.toString(foodItemAllergens).replace("[", "").replace("]","")));
