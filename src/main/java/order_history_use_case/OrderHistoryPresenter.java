@@ -1,50 +1,38 @@
 package order_history_use_case;
 
+import entities.FoodItem;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class OrderHistoryPresenter {
+public class OrderHistoryPresenter implements OrderHistoryOutputBoundary{
 
-    // TODO: attributes (should  be the same as ResponseModel)
+    @Override
+    public String[] getViewList(OrderHistoryResponseModel resMod) {
 
-    // TODO: make a method to return an object of type OrderHistoryResponseModel
+        String foodItems = String.join(", ", resMod.getFoodItems());
 
-    private Integer orderID;
+        String[] viewList = {Integer.toString(resMod.getOrderID()), resMod.getBuyerName(),
+        resMod.getBuyerEmail(), resMod.getSellerName(), resMod.getSellerEmail(), resMod.getResidence(),
+                resMod.getOrderStatus(), foodItems, Double.toString(resMod.getTotalPrice())};
 
-    private String sellerName;
+        /*
+        Order of stuff in the view list:
+        1. orderID
+        2. buyerName
+        3. buyerEmail
+        4. sellerName
+        5. sellerEmail
+        6. residence
+        7. orderStatus
+        8. foodItems
+        9. totalPrice
 
-    private String sellerEmail;
+        You can choose not to display buyerName, buyerEmail or sellerName, sellerEmail based on whether the user
+        this method is called for is a BUYER or a SELLER.
+         */
 
-    private String residence;
-
-    private String orderStatus;
-
-    private Double totalPrice;
-    private String[] foodItems;
-    private OrderHistoryResponseModel responseModel;
-
-    public OrderHistoryPresenter(Integer orderID, String sellerName, String sellerEmail, String residence,
-                                 String orderStatus, ArrayList<String> foodItems){
-        this.orderID = orderID;
-        this.sellerEmail = sellerEmail;
-        this.sellerName = sellerName;
-        this.residence = residence;
-        this.orderStatus = orderStatus;
-        this.foodItems = foodItems.toArray(String[]::new);
-        this.totalPrice = 0.0;
-
-        OrderHistoryResponseModel orderModel = new OrderHistoryResponseModel(this.orderID, this.sellerName,
-                this.sellerEmail, this.residence, this.orderStatus, foodItems);
-        // orderModel.
-        this.responseModel = orderModel;
-    }
-
-    public OrderHistoryPresenter(OrderHistoryRequestModel requestModel){
-
-    }
-
-
-    public OrderHistoryResponseModel getResponseModel() {
-        return responseModel;
+        return viewList;
     }
 
 }

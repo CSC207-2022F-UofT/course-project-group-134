@@ -6,36 +6,55 @@ public class OrderHistoryResponseModel {
 
     //  Each order should be a ResponseModel, which means that the interactor will return an arraylist of ResponseModels
 
-    private Integer orderID;
-    private String sellerName;
-    private String sellerEmail;
-    private String residence;
-    private String orderStatus;
-    private ArrayList<String> foodItems;
-    private Double totalPrice;
+    private final Integer orderID;
+    private final String buyerName;
+    private final String buyerEmail;
+    private final String sellerName;
+    private final String sellerEmail;
+    private final String residence;
+    private final String orderStatus;
+    private final String[] foodItems;
+    private final Double totalPrice;
 
-    public OrderHistoryResponseModel(Integer orderID, String sellerName, String sellerEmail, String residence,
-                                     String orderStatus, ArrayList<String> foodItems){
+    public OrderHistoryResponseModel(Integer orderID, String buyerName, String buyerEmail,
+                                     String sellerName, String sellerEmail, String residence,
+                                     String orderStatus, String[] foodItems, double price){
 
         this.orderID = orderID;
+        this.buyerName = buyerName;
+        this.buyerEmail = buyerEmail;
         this.sellerEmail = sellerEmail;
         this.sellerName = sellerName;
         this.residence = residence;
         this.orderStatus = orderStatus;
         this.foodItems = foodItems;
-        this.totalPrice = 0.0;
-    }
-
-    // This method will be called by the presenter after calculating the price
-    public void setTotalPrice(double price){
         this.totalPrice = price;
     }
-
-    public ArrayList<String> getFoodItems() {
-        return foodItems;
+    public Integer getOrderID() {
+        return orderID;
     }
-
+    public String getBuyerName() {
+        return buyerName;
+    }
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+    public String getSellerName() {
+        return sellerName;
+    }
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
     public String getResidence() {
         return residence;
+    }
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+    public String[] getFoodItems() {
+        return foodItems;
     }
 }

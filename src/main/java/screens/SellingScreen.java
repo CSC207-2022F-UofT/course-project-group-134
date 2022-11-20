@@ -19,6 +19,7 @@ public class SellingScreen extends JFrame {
     private SellingController sellingController;
     private String sellerEmail;
 
+    private String sellerResidence;
     private void acceptClicked(ActionEvent actionEvent) throws IOException {
 
         try {
@@ -26,10 +27,11 @@ public class SellingScreen extends JFrame {
             String[] orderInfoList = orderString.split(", ");
             String orderNumberString = orderInfoList[0];
             String buyerName = orderInfoList[1];
+            String residence = orderInfoList[5];
             sellingController.accept(sellerEmail, orderNumberString);
             this.dispose();
             try {
-                SellerMain.create(sellerEmail);
+                SellerMain.create(sellerEmail, residence);
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }
@@ -45,9 +47,11 @@ public class SellingScreen extends JFrame {
         }
     }
 
-    public SellingScreen(SellingController sellingController, OrderDsGateway orderDsGateway, String sellerEmail) {
+    public SellingScreen(SellingController sellingController, OrderDsGateway orderDsGateway, String sellerEmail, String
+                         sellerResidence) {
         this.sellingController = sellingController;
         this.sellerEmail = sellerEmail;
+        this.sellerResidence = sellerResidence;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
         JButton acceptButton = new JButton("Accept Order");
@@ -72,10 +76,22 @@ public class SellingScreen extends JFrame {
                 throw new RuntimeException(e);
             }
         });
+
+
+        JButton pastOrderButton = new JButton("Past Orders");
+        pastOrderButton.addActionListener(actionEvent -> {
+            try {
+                SellerPastOrdersScreen screen = new SellerPastOrdersScreen(sellingController, orderDsGateway,sellerEmail);
+            } catch (DoesNotExistException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         buttonsPanel.add(logOutButton);
         buttonsPanel.add(acceptButton);
+        buttonsPanel.add(pastOrderButton);
 
-        ArrayList<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders();
+        ArrayList<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders(sellerResidence);
         String[] displayArray = new String[unfulfilledOrders.size()];
         for (int i = 0; i < unfulfilledOrders.size(); i++) {
             int orderNumber = unfulfilledOrders.get(i);

@@ -1,6 +1,7 @@
 package order_history_use_case;
 
-public interface OrderHistoryInputBoundary {
+import java.util.ArrayList;
 
-    // idk what this is supposed to do
+public interface OrderHistoryInputBoundary {
+    ArrayList<String[]> returnViewListInteractor(OrderHistoryRequestModel reqMod);
 }
