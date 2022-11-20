@@ -27,10 +27,14 @@ public class OrderMain {
         Integer[] foodQuantity3 = {1,1,1,1};
         Integer[] foodQuantity2 = {2,2};
         
-        orderController.placeOrder("Deon Chan", "email@domain.com", "New College", foodItems, foodQuantity, 10.00);
-        orderController.placeOrder("Ben", "email@domain.com", "University College", foodItems2, foodQuantity3, 20.03953590);
-        orderController.placeOrder("Not Deon Chan", "email@domain.com", "New College", foodItems, foodQuantity2, 31.10);
-        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca", "Trinity College", foodItems, foodQuantity2, 20.31);
+        orderController.placeOrder("Deon Chan", "email@domain.com",
+                ResidenceType.NEW_COLLEGE.toString(), foodItems, foodQuantity, 10.00);
+        orderController.placeOrder("Ben", "email@domain.com",
+                ResidenceType.UNIVERSITY_COLLEGE.toString(), foodItems2, foodQuantity3, 20.03953590);
+        orderController.placeOrder("Not Deon Chan", "email@domain.com",
+                ResidenceType.NEW_COLLEGE.toString(), foodItems, foodQuantity2, 31.10);
+        orderController.placeOrder("Vivian", "vivianyt.liu@utoronto.ca",
+                ResidenceType.TRINITY_COLLEGE.toString(), foodItems, foodQuantity2, 20.31);
 
     }
 
