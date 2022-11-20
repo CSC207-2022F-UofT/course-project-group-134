@@ -2,7 +2,7 @@ package chat_use_case;
 
 import chat_use_case.boundaries.ChatDsBoundary;
 import chat_use_case.models.ChatCreationRequestModel;
-import chat_use_case.models.ChatLogRecieveModel;
+import chat_use_case.models.ChatDataRecieveModel;
 import chat_use_case.models.ChatSendMessageModel;
 import chat_use_case.models.ChatLogRequestModel;
 import entities.Chat;
@@ -34,6 +34,10 @@ public class ChatDsGateway implements ChatDsBoundary {
     @Override
     public void createChat(ChatCreationRequestModel m) {
         User[] u = m.getUsers();
+
+
+
+
         Chat c = new Chat(u[0], u[1]);
         chats.add(c);
         //todo: what if chat already exists? too bad!
@@ -48,8 +52,12 @@ public class ChatDsGateway implements ChatDsBoundary {
     }
 
     @Override
-    public ChatLogRecieveModel getMessageList(ChatLogRequestModel rq) {
+    public ChatDataRecieveModel getMessageList(ChatLogRequestModel rq) {
         User[] u = rq.getUsers();
-        return new ChatLogRecieveModel(getChat(u[0], u[1]).getChatLog());
+        Chat c = getChat(u[0], u[1]);
+        if(c == null){
+            return new ChatDataRecieveModel(new ArrayList(), false);
+        }
+        return new ChatDataRecieveModel(c.getChatLog(), true);
     }
 }

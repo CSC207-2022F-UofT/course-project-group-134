@@ -1,7 +1,7 @@
 package chat_use_case.boundaries;
 
 import chat_use_case.models.ChatCreationRequestModel;
-import chat_use_case.models.ChatLogRecieveModel;
+import chat_use_case.models.ChatDataRecieveModel;
 import chat_use_case.models.ChatLogRequestModel;
 import chat_use_case.models.ChatSendMessageModel;
 
@@ -12,7 +12,7 @@ public interface ChatDsBoundary {
 
     public void sendMessage(ChatSendMessageModel m);
 
-    public ChatLogRecieveModel getMessageList(ChatLogRequestModel m);
+    public ChatDataRecieveModel getMessageList(ChatLogRequestModel m);
 
 
 }
