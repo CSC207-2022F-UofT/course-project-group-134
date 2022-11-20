@@ -24,4 +24,6 @@ public interface OrderDsGateway {
     boolean sellerHasOrder(String sellerEmail);
 
     int getOrderNumberFromSellerEmail(String sellerEmail) throws DoesNotExistException;
+
+    public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException;
 }
