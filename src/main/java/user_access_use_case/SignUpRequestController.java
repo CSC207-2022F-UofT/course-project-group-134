@@ -5,7 +5,7 @@ import entities.UserType;
 import java.io.IOException;
 
 public class SignUpRequestController {
-    SignUpInputBoundary boundary;
+    final SignUpInputBoundary boundary;
 
     public SignUpRequestController(SignUpInputBoundary inputBoundary){
         this.boundary = inputBoundary;

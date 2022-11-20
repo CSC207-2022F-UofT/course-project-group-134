@@ -3,7 +3,7 @@ package entities;
 /**
  * This class represents the subclass of User that is a Buyer. A buyer is a (RAVENOUS) User who seeks sustenance by
  * means of purchasing or otherwise receiving food from Sellers on our service.
- *
+ * <p>
  * The Buyer class has no additional parameters other than the ones it inherits from the User class.
  *
  * @author Vivian Liu

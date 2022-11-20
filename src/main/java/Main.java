@@ -1,13 +1,11 @@
-import entities.*;
-import screens.LoginScreen;
+import review_use_case.ReviewMain;
 import screens.WelcomeScreen;
-import user_access_use_case.*;
-
-import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         WelcomeScreen welcomeScreen = new WelcomeScreen();
+        // TODO fix
+        ReviewMain.create();
     }
 }

@@ -4,7 +4,6 @@ package selling_use_case;
 
 import entities.OrderStatusType;
 import order_use_case.OrderDsGateway;
-import order_use_case.OrderGateway;
 
 public class SellingInteractor implements SellingInputBoundary {
 
@@ -16,8 +15,8 @@ public class SellingInteractor implements SellingInputBoundary {
         this.orderDsGateway = sellingDsGateway;
         this.sellingPresenter = presenter;
     }
-    // TODO: we should ensure selling don't take on another order while having one unfulfilled
-    public SellingResponseModel accept(SellingRequestModel requestModel){
+
+    public void accept(SellingRequestModel requestModel){
         int orderNumber = requestModel.getOrderNumber();
         String sellerEmail = requestModel.getSellerEmail();
         if (!this.orderDsGateway.orderExistsById(orderNumber)){
@@ -30,7 +29,7 @@ public class SellingInteractor implements SellingInputBoundary {
         orderDsGateway.updateOrder(orderNumber, OrderStatusType.ACCEPTED, sellerEmail);
 
         SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrderNumber());
-        return sellingPresenter.prepareSuccessView(sellingResponseModel);
+        sellingPresenter.prepareSuccessView(sellingResponseModel);
 
     }
 

@@ -1,7 +1,7 @@
 package entities;
 
 public class ResidenceFactory {
-    private MenuFactory menuFactory;
+    private final MenuFactory menuFactory;
 
     public ResidenceFactory(MenuFactory menuFactory){
         this.menuFactory = menuFactory;

@@ -1,7 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
-
 /**
  * This class represents a User. A User is the representation of a person using our app within our service
  * and stores the login information (username, password, and email) of the person.
@@ -15,9 +13,9 @@ public abstract class User {
     /**
      * This represents the number of times the user has been reported.
      */
-    private int numReported;
+    private int numReported = 0;
     private String[] chats;
-    private String email;
+    private final String email;
     protected UserType userType;
 
     /**
@@ -32,7 +30,6 @@ public abstract class User {
         this.username = name;
         this.password = password;
         this.email = email;
-        this.numReported = 0;
     }
 
     /**
@@ -79,12 +76,6 @@ public abstract class User {
         return userType;
     }
 
-    /**
-     * Transfers the user's role from buyer to seller or seller to buyer. TODO: implement this function
-     */
-    public void transferRole(){
-        //TODO figure out later
-    }
 
     /**
      * This user gets reported (This increases numReported by 1).

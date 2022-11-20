@@ -2,8 +2,8 @@ package entities;
 
 public class UserFactory {
 
-    private BuyerFactory buyerFactory;
-    private SellerFactory sellerFactory;
+    private final BuyerFactory buyerFactory;
+    private final SellerFactory sellerFactory;
 
     public UserFactory(BuyerFactory buyerFactory, SellerFactory sellerFactory) {
         this.buyerFactory = buyerFactory;
