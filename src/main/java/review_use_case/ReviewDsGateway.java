@@ -1,9 +1,9 @@
 package review_use_case;
 
 import entities.Review;
-import entities.ReviewFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public interface ReviewDsGateway {
 
@@ -11,5 +11,5 @@ public interface ReviewDsGateway {
 
     void save() throws IOException;
 
-    Review readReview(String review, int ratings, ReviewFactory reviewFactory);
+    ArrayList<Review> getReviewFromName(String itemName);
 }

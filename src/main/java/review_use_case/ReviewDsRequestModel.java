@@ -5,13 +5,13 @@ public class ReviewDsRequestModel {
     private int ratings;
     private String dininghall;
     private String username;
-    private String reviewType;
+    private String itemName;
 
-    public ReviewDsRequestModel(String reviewString, int ratings, String dininghall, String reviewType, String username){
+    public ReviewDsRequestModel(String reviewString, int ratings, String dininghall, String itemName, String username){
         this.reviewString = reviewString;
         this.ratings = ratings;
         this.dininghall = dininghall;
-        this.reviewType = reviewType;
+        this.itemName = itemName;
         this.username = username;
     }
 
@@ -27,8 +27,8 @@ public class ReviewDsRequestModel {
         return this.dininghall;
     }
 
-    public String getReviewType(){
-        return this.reviewType;
+    public String getItemName(){
+        return this.itemName;
     }
 
     public String getUsername(){

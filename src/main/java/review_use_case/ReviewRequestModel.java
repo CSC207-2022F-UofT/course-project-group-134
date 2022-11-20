@@ -1,19 +1,17 @@
 package review_use_case;
 
-import entities.ReviewType;
-
 public class ReviewRequestModel {
     private String reviewString;
     private int ratings;
     private String dininghall;
     private String username;
-    private ReviewType reviewType;
+    private String itemName;
 
-    public ReviewRequestModel(String reviewString, int ratings, String dininghall, ReviewType reviewType, String username){
+    public ReviewRequestModel(String reviewString, int ratings, String dininghall, String itemName, String username){
         this.reviewString = reviewString;
         this.ratings = ratings;
         this.dininghall = dininghall;
-        this.reviewType = reviewType;
+        this.itemName = itemName;
         this.username = username;
     }
 
@@ -29,8 +27,8 @@ public class ReviewRequestModel {
         return this.dininghall;
     }
 
-    public ReviewType getReviewType(){
-        return this.reviewType;
+    public String getItemName(){
+        return this.itemName;
     }
 
     public String getUsername(){

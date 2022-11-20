@@ -1,7 +1,5 @@
 package review_use_case;
 
-import entities.ReviewType;
-
 import java.io.IOException;
 
 public class ReviewController {
@@ -11,21 +9,10 @@ public class ReviewController {
         this.boundary = inputBoundary;
     }
 
-    public ReviewResponseModel create(String username, String reviewString, int ratings, String dininghall,
-                                      String reviewTypeString) throws IOException {
+    public ReviewResponseModel create(String reviewString, int ratings, String username,
+                                      String itemName, String dininghall) throws IOException {
         ReviewRequestModel requestModel;
-        ReviewType reviewType;
-        if (reviewTypeString.equals("FOOD_ITEM")) {
-            reviewType = ReviewType.FOOD_ITEM;
-        }
-        else if(reviewTypeString.equals("SELLER")){
-            reviewType = ReviewType.SELLER;
-        }
-        else {
-            reviewType = ReviewType.DINING_HALL;
-        }
-        requestModel = new ReviewRequestModel(username, ratings, reviewString, reviewType, dininghall);
-        System.out.println("here2");
+        requestModel = new ReviewRequestModel(reviewString, ratings, dininghall, itemName, username);
         return boundary.create(requestModel);
     }
 }
