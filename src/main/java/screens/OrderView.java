@@ -3,6 +3,7 @@ package screens;
 import entities.ResidenceType;
 import get_menus_use_case.GetMenusController;
 import get_menus_use_case.GetMenusResponseModel;
+import order_history_use_case.OrderHistoryInputBoundary;
 import order_use_case.FoodItemDetailsView;
 import order_use_case.OrderController;
 
@@ -14,24 +15,27 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class OrderView extends JFrame implements OrderViewModel {
-    private final JPanel pnl = new JPanel(new GridLayout(4,1));
+    private JPanel pnl = new JPanel(new GridLayout(4,1));
 
-    private final JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
-    private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
-    private final JPanel menusPanel = new JPanel(new GridLayout(1,2));
+    private JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+    private JButton backButton = new JButton("Back to home");
+    private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+    private JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
-    private final JButton orderButton = new JButton("Preview Order");
+    private JButton orderButton = new JButton("Preview Order");
     Double totalPrice = 0.0;
-    private final JLabel totalPriceString = new JLabel("Total Price: $0");
+    private JLabel totalPriceString = new JLabel("Total Price: $0");
 
-    private final JComboBox<String> residenceDropdown;
-    private final ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
-    private final OrderController orderController;
-    private final GetMenusController getMenusController;
-    private final String username;
-    private final String email;
+    private JComboBox<String> residenceDropdown;
+    private ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
+    private OrderController orderController;
+    private GetMenusController getMenusController;
+    private String username;
+    private String email;
+    private OrderHistoryInputBoundary orderHistoryInteractor;
 
-    public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email) {
+    public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
+        this.orderHistoryInteractor = orderHistoryInteractor;
         this.orderController = orderController;
         this.email = email;
         this.username = username;
@@ -76,12 +80,11 @@ public class OrderView extends JFrame implements OrderViewModel {
             orderClicked();
         });
 
-        JButton backButton = new JButton("Back to home");
         pnl.add(backButton);
 
         backButton.addActionListener(actionEvent -> {
             this.dispose();
-            new BuyerDefaultView(this.username, this.email);
+            new BuyerDefaultView(this.username, this.email, orderHistoryInteractor);
         });
 
         pnl.add(residencePanel);
@@ -203,6 +206,6 @@ public class OrderView extends JFrame implements OrderViewModel {
         String[] foodItemsArr = new String[selectedFoodItems.size()];
         Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
         Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
-        new OrderPreviewScreen(selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        new OrderPreviewScreen(this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
     }
 }
