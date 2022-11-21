@@ -1,16 +1,16 @@
 package entities;
 
-import get_menus_use_case.MenuFactory;
+import get_menus_use_case.MenuGateway;
 
 public class ResidenceFactory {
-    private final MenuFactory menuFactory;
+    private final MenuGateway menuGateway;
 
-    public ResidenceFactory(MenuFactory menuFactory){
-        this.menuFactory = menuFactory;
+    public ResidenceFactory(MenuGateway menuGateway){
+        this.menuGateway = menuGateway;
     }
 
     public Residence createDiningHall(ResidenceType type) throws Exception {
-        Menu menu = this.menuFactory.createMenu(type);
+        Menu menu = this.menuGateway.createMenu(type);
         return new Residence(type.name(), type.name(), menu);
     }
 //NOTE: the below main method is a sample to test the running of DiningHallFactory

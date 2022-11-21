@@ -7,11 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MenuFactory {
+public class MenuGateway implements  MenuGatewayInterface{
 
     public Menu createMenu(ResidenceType type) throws Exception
     {
-        System.out.println("In MenuFactory");
         String name = type.name();
         ArrayList<FoodItem> foodItems = new ArrayList<>();
 

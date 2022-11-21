@@ -110,8 +110,4 @@ public class BuyerDefaultView extends JFrame {
         GetMenusMain.create();
         this.dispose();
     }
-
-    public void reviewButtonClicked(){
-
-    }
 }

@@ -14,8 +14,8 @@ public class GetMenusMain {
 
     public static void create() throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
-        MenuFactory menuFactory = new MenuFactory();
-        GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuFactory);
+        MenuGatewayInterface menuGateway = new MenuGateway();
+        GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
         GetMenusController getMenusController = new GetMenusController(getMenusInteractor);
 
         OrderDsGateway orders;

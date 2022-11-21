@@ -5,20 +5,19 @@ import entities.ResidenceType;
 
 public class GetMenusInteractor implements GetMenusInputBoundary {
     private final GetMenusOutputBoundary presenter;
-    private final MenuFactory menuFactory;
+    private final MenuGatewayInterface menuGatewayInterface;
 
-    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuFactory menuFactory){
+    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway){
         this.presenter = presenter;
-        this.menuFactory = menuFactory;
+        this.menuGatewayInterface = menuGateway;
     }
     @Override
     public GetMenusResponseModel getFoodItemNames(String residenceName) throws Exception {
-        System.out.println("In Interactor");
 
         ResidenceType[] arr = ResidenceType.values();
         for (ResidenceType residenceType : arr) {
             if (residenceType.name().equals(residenceName)) {
-                Menu menu = this.menuFactory.createMenu(residenceType);
+                Menu menu = this.menuGatewayInterface.createMenu(residenceType);
                 GetMenusResponseModel responseModel = new GetMenusResponseModel(
                         menu.getFoodItemNames(),
                         menu.getFoodItemPrices(),
@@ -29,7 +28,6 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
                         menu.getFoodItemStarAverages(),
                         menu.getFoodItemReviews()
                 );
-                System.out.println("About to go to presenter");
                 return presenter.prepareSuccessView(responseModel);
             }
         }
