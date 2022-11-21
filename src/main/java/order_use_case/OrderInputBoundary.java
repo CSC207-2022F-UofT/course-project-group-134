@@ -1,5 +1,7 @@
 package order_use_case;
 
+import order_history_use_case.OrderHistoryResponseModel;
+
 public interface OrderInputBoundary {
-    void placeOrder(OrderRequestModel request);
+    OrderResponseModel placeOrder(OrderRequestModel request);
 }
