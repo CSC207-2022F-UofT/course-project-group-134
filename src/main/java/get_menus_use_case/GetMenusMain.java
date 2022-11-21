@@ -1,6 +1,5 @@
 package get_menus_use_case;
 
-import entities.MenuFactory;
 import entities.OrderFactory;
 import order_history_use_case.OrderHistoryInputBoundary;
 import order_history_use_case.OrderHistoryInteractor;
@@ -15,8 +14,8 @@ public class GetMenusMain {
 
     public static void create(String username, String email) throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
-        MenuFactory menuFactory = new MenuFactory();
-        GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuFactory);
+        MenuGatewayInterface menuGateway = new MenuGateway();
+        GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
         GetMenusController getMenusController = new GetMenusController(getMenusInteractor);
 
         OrderDsGateway orders;
