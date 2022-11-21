@@ -206,6 +206,6 @@ public class OrderView extends JFrame implements OrderViewModel {
         String[] foodItemsArr = new String[selectedFoodItems.size()];
         Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
         Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
-        new OrderPreviewScreen(selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        new OrderPreviewScreen(this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
     }
 }

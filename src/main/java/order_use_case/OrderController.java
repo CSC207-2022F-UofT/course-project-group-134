@@ -7,7 +7,7 @@ public class OrderController {
         this.orderInteractor = orderInteractor;
     }
 
-    OrderResponseModel placeOrder(String buyerName, String buyerEmail, String residence, String[] foodItems, Integer[] foodQuantity, Double price) {
+    public OrderResponseModel placeOrder(String buyerName, String buyerEmail, String residence, String[] foodItems, Integer[] foodQuantity, Double price) {
         OrderRequestModel requestModel = new OrderRequestModel(buyerName, buyerEmail, residence, foodItems, foodQuantity, price);
         return orderInteractor.placeOrder(requestModel);
     }

@@ -17,34 +17,30 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
 
 
     @Override
-    public ArrayList<String[]> returnViewListInteractor(OrderHistoryRequestModel reqMod){
+    public ArrayList<String[]> returnFinishedOrders(){
 
         ArrayList<String[]> allOrdersList  = new ArrayList<>();
 
         for(OrderHistoryResponseModel resMod: this.allOrders){
-            allOrdersList.add(this.outputBoundary.getViewList(resMod));
+            if (resMod.getOrderStatus().equals("FINISHED")) {
+                allOrdersList.add(this.outputBoundary.getViewList(resMod));
+            }
         }
 
         return allOrdersList;
     }
 
-   /*
-   // Scrapped function - use if needed
-    public static void setPrice(OrderHistoryResponseModel responseModel){
-        double price  = 0;
-        String residence = responseModel.getResidence();
-        for(String foodName: responseModel.getFoodItems()){
+    @Override
+    public ArrayList<String[]> returnCurrentOrders(){
+        ArrayList<String[]> allOrdersList  = new ArrayList<>();
 
-            try {
-                price += OrderHistoryGateway.fetchPrice(foodName, residence);
-            }
-            catch (IOException e){
-                e.printStackTrace();
+        for(OrderHistoryResponseModel resMod: this.allOrders) {
+            if (!resMod.getOrderStatus().equals("FINISHED")) {
+                allOrdersList.add(this.outputBoundary.getViewList(resMod));
             }
         }
 
-        responseModel.setTotalPrice(price);
+        return allOrdersList;
     }
-     */
 
 }
