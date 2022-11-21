@@ -37,7 +37,7 @@ public class OrderPreviewScreen extends JFrame {
         OrderDsGateway orders;
         try {
             orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
-            System.out.println("File Created!");
+            //System.out.println("File Created!");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
@@ -48,5 +48,7 @@ public class OrderPreviewScreen extends JFrame {
         OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
         OrderController orderController = new OrderController(orderInteractor);
         orderController.placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
+
+        JOptionPane.showMessageDialog(null, "Order has been sent", "Order Sucess", JOptionPane.PLAIN_MESSAGE);
     }
 }
