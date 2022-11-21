@@ -1,5 +1,7 @@
 package entities;
 
+import get_menus_use_case.MenuFactory;
+
 public class ResidenceFactory {
     private final MenuFactory menuFactory;
 

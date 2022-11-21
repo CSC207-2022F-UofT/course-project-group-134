@@ -1,7 +1,6 @@
 package get_menus_use_case;
 
 import entities.Menu;
-import entities.MenuFactory;
 import entities.ResidenceType;
 
 public class GetMenusInteractor implements GetMenusInputBoundary {

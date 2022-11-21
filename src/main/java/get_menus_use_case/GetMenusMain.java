@@ -1,6 +1,5 @@
 package get_menus_use_case;
 
-import entities.MenuFactory;
 import entities.OrderFactory;
 import order_history_use_case.OrderHistoryInputBoundary;
 import order_history_use_case.OrderHistoryInteractor;
