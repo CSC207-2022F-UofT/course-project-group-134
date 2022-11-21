@@ -86,9 +86,9 @@ public class ReviewScreen extends JFrame {
         pnl.add(buttonsPanel);
         this.add(pnl);
         this.setTitle("Review");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(450, 400);
-        this.setLocation(500, 100);
+        this.setLocation(700, 100);
         this.setVisible(true);
 
 
