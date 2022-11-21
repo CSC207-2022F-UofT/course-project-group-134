@@ -190,6 +190,11 @@ public class OrderView extends JFrame implements OrderViewModel {
     }
 
     public void orderClicked(){
+        if (totalPrice <= 0) {
+            JOptionPane.showMessageDialog(null, "Please order something!", "Order Failed", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+
         ArrayList<String> selectedFoodItems = new ArrayList<>();
         ArrayList<Integer> selectedFoodItemQuantities = new ArrayList<>();
         ArrayList<Double> selectedFoodItemPrices = new ArrayList<>();
