@@ -32,7 +32,7 @@ public class OrderView extends JFrame implements OrderViewModel {
     private GetMenusController getMenusController;
     private String username;
     private String email;
-    private OrderHistoryInputBoundary orderHistoryInteractor;
+    OrderHistoryInputBoundary orderHistoryInteractor;
 
     public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
         this.orderHistoryInteractor = orderHistoryInteractor;
@@ -206,6 +206,6 @@ public class OrderView extends JFrame implements OrderViewModel {
         String[] foodItemsArr = new String[selectedFoodItems.size()];
         Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
         Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
-        new OrderPreviewScreen(this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        new OrderPreviewScreen(this, this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
     }
 }

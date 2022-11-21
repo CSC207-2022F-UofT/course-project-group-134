@@ -1,7 +1,7 @@
 package screens;
 
 import order_use_case.OrderFailed;
-import user_login_use_case.LoginController;
+import java.user_login_use_case.LoginController;
 
 import javax.swing.*;
 import java.awt.*;

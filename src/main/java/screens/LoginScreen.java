@@ -6,9 +6,9 @@ import entities.UserType;
 import order_use_case.BuyerMain;
 import order_use_case.DoesNotExistException;
 import selling_use_case.SellerMain;
-import user_login_use_case.LoginController;
-import user_login_use_case.LoginFailed;
-import user_login_use_case.LoginResponseModel;
+import java.user_login_use_case.LoginController;
+import java.user_login_use_case.LoginFailed;
+import java.user_login_use_case.LoginResponseModel;
 
 import javax.swing.*;
 import java.awt.*;

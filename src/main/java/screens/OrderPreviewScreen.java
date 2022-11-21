@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class OrderPreviewScreen extends JFrame {
 
-    public OrderPreviewScreen(String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
+    public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         JPanel pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));
         for (int i = 0; i < foodItems.length; i ++){
             double foodItemTotalPrice = foodItemPrices[i] * foodItemQuantities[i];
@@ -19,7 +19,10 @@ public class OrderPreviewScreen extends JFrame {
         pnl.add(new JLabel("Total Price: $" + totalPrice));
         JButton orderButton = new JButton("Place Order");
         orderButton.addActionListener(actionEvent -> {
-            orderClicked(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
+            placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
+            this.dispose();
+            orderView.dispose();
+            new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
         });
         pnl.add(orderButton);
         this.add(pnl);
@@ -30,7 +33,7 @@ public class OrderPreviewScreen extends JFrame {
         this.setVisible(true);
     }
 
-    public void orderClicked(String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double totalPrice) {
+    public void placeOrder(String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double totalPrice) {
         OrderDsGateway orders;
         try {
             orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
