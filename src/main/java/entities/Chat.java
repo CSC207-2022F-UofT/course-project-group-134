@@ -12,6 +12,12 @@ public class Chat {
         this.user2 = user2;
     }
 
+    public Chat(User user1, User user2, ArrayList<ChatMessage> chatlog){
+        this.chatLog = chatlog;
+        this.user1 = user1;
+        this.user2 = user2;
+    }
+
     public ArrayList<ChatMessage> getChatLog() {
         return chatLog;
     }

@@ -12,6 +12,7 @@ import entities.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChatScreen extends JFrame {
@@ -32,7 +33,7 @@ public class ChatScreen extends JFrame {
     private JButton updateMessagesButton;
 
 
-    public ChatScreen(User sender, User receiver){
+    public ChatScreen(User sender, User receiver) throws IOException {
         this.ci = new ChatInteractor();
         this.co = new ChatPresenter();
         this.sender = sender;
