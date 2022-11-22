@@ -4,7 +4,6 @@ public class GetMenusPresenter implements GetMenusOutputBoundary{
 
     @Override
     public GetMenusResponseModel prepareSuccessView(GetMenusResponseModel responseModel) {
-        System.out.println("In presenter");
         System.out.println(responseModel.getFoodItemNames().toString());
         return responseModel;
         /*return orderViewModel.showMenus(
