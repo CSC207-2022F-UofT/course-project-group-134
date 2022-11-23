@@ -8,8 +8,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class OrderPreviewScreen extends JFrame {
+    private OrderView orderView;
 
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
+        this.orderView = orderView;
         JPanel pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));
         for (int i = 0; i < foodItems.length; i ++){
             double foodItemTotalPrice = foodItemPrices[i] * foodItemQuantities[i];
@@ -20,9 +22,6 @@ public class OrderPreviewScreen extends JFrame {
         JButton orderButton = new JButton("Place Order");
         orderButton.addActionListener(actionEvent -> {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
-            this.dispose();
-            orderView.dispose();
-            new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
         });
         pnl.add(orderButton);
         this.add(pnl);
@@ -50,5 +49,21 @@ public class OrderPreviewScreen extends JFrame {
         orderController.placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
 
         JOptionPane.showMessageDialog(null, "Order has been sent", "Order Sucess", JOptionPane.PLAIN_MESSAGE);
+        this.dispose();
+        orderView.dispose();
+        //new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
+        try {
+            BuyerMain.create(userUsername, userEmail);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    ex.getMessage(), "Something inted.", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    @Override
+    public void dispose() {
+        this.orderView.orderPreviewClosed = true;
+        super.dispose();
     }
 }
