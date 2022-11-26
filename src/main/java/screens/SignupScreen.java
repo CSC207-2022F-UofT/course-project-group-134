@@ -67,9 +67,9 @@ public class SignupScreen extends JFrame {
     public SignupScreen(SignUpRequestController signupController) {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(8,1));
-        LabelTextPanel usernameInfo = new LabelTextPanel(
+
+        LabelTextPanel emailInfo = new LabelTextPanel(LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Choose username"), usernameInput);
-        LabelTextPanel emailInfo = new LabelTextPanel(
                 new JLabel("Choose email"), emailInput);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Choose password"), passwordInput);
