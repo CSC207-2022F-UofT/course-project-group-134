@@ -14,19 +14,17 @@ import user_access_use_case.*;
 import java.io.IOException;
 
 public class ChatMain {
-    public class SignUpMain {
 
-        public void create() throws IOException {
-            ChatDsGateway chat;
-            try {
-                chat = ChatDsGateway.getInstance();
-            } catch (IOException e) {
-                throw new RuntimeException("Could not create file.");
-            }
-            ChatPresenter presenter = new ChatPresenter();
-            ChatInputBoundary interactor = new ChatInteractor();
-            ChatScreen chatScreen = new ChatScreen();
+    public static void create() throws IOException {
+        ChatDsGateway chat;
+        try {
+            chat = ChatDsGateway.getInstance();
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
         }
+        ChatPresenter presenter = new ChatPresenter();
+        ChatInputBoundary interactor = new ChatInteractor();
+        ChatScreen chatScreen = new ChatScreen();
     }
 }
 

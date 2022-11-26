@@ -22,9 +22,9 @@ public class SignupScreen extends JFrame {
     private final JPasswordField passwordInput = new JPasswordField(15);
     private final JPasswordField confirmInput = new JPasswordField(15);
     private final JTextField mealPlanInput = new JTextField(15);
-    private final JComboBox<String> userTypeDropdown;
-    private final JComboBox<String> residenceDropdown;
-    private final SignUpRequestController signupController;
+    private JComboBox<String> userTypeDropdown;
+    private JComboBox<String> residenceDropdown;
+    private SignUpRequestController signupController;
 
     private void signupClicked(ActionEvent actionEvent) throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
@@ -68,8 +68,9 @@ public class SignupScreen extends JFrame {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(8,1));
 
-        LabelTextPanel emailInfo = new LabelTextPanel(LabelTextPanel usernameInfo = new LabelTextPanel(
+        LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Choose username"), usernameInput);
+        LabelTextPanel emailInfo = new LabelTextPanel(
                 new JLabel("Choose email"), emailInput);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Choose password"), passwordInput);
