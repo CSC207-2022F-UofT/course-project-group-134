@@ -29,7 +29,7 @@ public class LoginScreen extends JFrame {
                 SellerMain.create(user.getEmail(), ((Seller)user).getMealPlan().getResidence());
             }
             else {
-                BuyerMain.create();
+                BuyerMain.create(user.getUsername(), user.getEmail());
             }
             this.dispose();
             JOptionPane.showMessageDialog(null,
