@@ -1,5 +1,6 @@
 package screens;
 
+import chat_use_case.models.ChatMain;
 import entities.OrderStatusType;
 import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
@@ -11,6 +12,7 @@ import order_use_case.OrderGateway;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +32,10 @@ public class BuyerDefaultView extends JFrame {
     private String username;
     private String email;
     private OrderDsGateway orders;
+
+    private void chatClicked(ActionEvent actionEvent) throws IOException {
+        ChatMain.create();
+    }
 
     public BuyerDefaultView(String username, String email, OrderHistoryInputBoundary orderHistoryInteractor){
         try {
@@ -126,9 +132,19 @@ public class BuyerDefaultView extends JFrame {
             if (orderStatus != OrderStatusType.ORDERED) {
                 JPanel rightPanel = new JPanel(new GridLayout(2,1));
                 JButton chatButton = new JButton("Chat");
+                chatButton.addActionListener(actionEvent -> {
+                    try {
+                        chatClicked(actionEvent);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 rightPanel.add(chatButton);
                 JButton buyerConfirmButton = new JButton("Confirm Delivery");
                 rightPanel.add(buyerConfirmButton);
+                if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
+                    buyerConfirmButton.setVisible(false);
+                }
                 orderPanel.add(rightPanel);
                 buyerConfirmButton.addActionListener(actionEvent -> {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
