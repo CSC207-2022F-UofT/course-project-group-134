@@ -1,7 +1,5 @@
 package entities;
 
-import entities.entityInterfaces.Reviewable;
-
 /**
  * This class represents a review that a buyer has made on an instance of a reviewable class, consisting of an integer
  * rating score and an accompanying string that represents the body of the review.
@@ -22,36 +20,36 @@ public class Review {
     private int rating;
 
     /**
-     * The reviewable object being reviewed. This is either a food item, a dining hall, or a seller.
+     * The item name of the review.
      */
-    private final Reviewable reviewRecipient;
+    private final String itemName;
 
     /**
-     * The buyer who is making the review.
+     * The buyer username who is making the review.
      */
-    private final Buyer buyer;
+    private final String buyerUsername;
 
     /**
      * Constructor for the review class. This creates a review instance with the specified parameters.
      *
      * @param reviewString The text body of the review.
      * @param rating The numerical score of the review. This is an integer from 0 to 5 inclusive.
-     * @param reviewRecipient The recipient of the review (the object being reviewed).
-     * @param buyer The buyer who is issuing/reviewing the reviewRecipient.
+     * @param itemName The item name for the review (the object being reviewed).
+     * @param buyerUsername The buyer username who is issuing/reviewing the item.
      */
-    public Review(String reviewString, int rating, Reviewable reviewRecipient, Buyer buyer){
-        this.buyer = buyer;
-        this.reviewRecipient = reviewRecipient;
+    public Review(String reviewString, int rating, String itemName, String buyerUsername){
+        this.buyerUsername = buyerUsername;
+        this.itemName = itemName;
         this.reviewString = reviewString;
         this.rating = rating;
     }
 
     /**
-     * Gets the buyer who issued/reviewed this review.
+     * Gets the buyer username who issued/reviewed this review.
      * @return The buyer who issued/reviewed this review.
      */
-    public Buyer getBuyer() {
-        return this.buyer;
+    public String getBuyer() {
+        return this.buyerUsername;
     }
 
     /**
@@ -71,11 +69,11 @@ public class Review {
     }
 
     /**
-     * Gets the object getting reviewed (in other words, the review recipient).
-     * @return The object getting reviewed
+     * Gets the name of the item getting reviewed (in other words, the review recipient).
+     * @return The name of the item getting reviewed
      */
-    public Reviewable getReviewRecipient() {
-        return this.reviewRecipient;
+    public String getItemName() {
+        return this.itemName;
     }
 
     /**
