@@ -49,8 +49,16 @@ public class ChatScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String inputMessage = userMessageBox.getText();
                 userMessageBox.setText(null);
-                ci.sendMessage(new ChatSendMessageModel(sender, receiver, inputMessage));
-                updateChat();
+                try {
+                    ci.sendMessage(new ChatSendMessageModel(sender, receiver, inputMessage));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                try {
+                    updateChat();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 //TODO: Which one is this current user? How can we differentiate?
             }
         });
@@ -64,13 +72,17 @@ public class ChatScreen extends JFrame {
         updateMessagesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateChat();
+                try {
+                    updateChat();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         this.setSize(400,400);
     }
 
-    private void updateChat(){
+    private void updateChat() throws IOException {
         ChatLogRequestModel request = new ChatLogRequestModel(sender, receiver);
         this.messages = co.getMessageList(request).getChatMessages();//TODO: discussy the sussy. Should I use the 'this' keyword?
         displayChat();

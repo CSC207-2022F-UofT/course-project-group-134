@@ -22,7 +22,11 @@ public class OrderPreviewScreen extends JFrame {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
             this.dispose();
             orderView.dispose();
-            new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
+            try {
+                BuyerMain.create(userUsername, userEmail);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         pnl.add(orderButton);
         this.add(pnl);
