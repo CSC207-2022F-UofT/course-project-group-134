@@ -2,17 +2,26 @@ package get_menus_use_case;
 import entities.FoodItem;
 import entities.Menu;
 import entities.ResidenceType;
+import entities.Review;
+import order_history_use_case.OrderHistoryResponseModel;
+import review_use_case.ReviewGateway;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class MenuGateway implements  MenuGatewayInterface{
 
+    private  ArrayList<FoodItem> foodItems;
+    private ResidenceType type;
     public Menu createMenu(ResidenceType type) throws Exception
     {
         String name = type.name();
-        ArrayList<FoodItem> foodItems = new ArrayList<>();
+        this.foodItems = new ArrayList<>();
+        this.type = type;
 
         // Below scanner used for finding the number of lines in the csv file
         Scanner scTemp = new Scanner(new File("src/main/java/data_storage/Dining_Halls/"+ name +".csv"));
@@ -36,11 +45,16 @@ public class MenuGateway implements  MenuGatewayInterface{
             int calories = Integer.parseInt(sc.next());
             double price = Double.parseDouble(sc.next());
             FoodItem foodItem = new FoodItem(description, allergens, ingredients, calories, price);
-            foodItems.add(foodItem);
-
+            this.foodItems.add(foodItem);
         }
-        sc.close();  //closes the scanner
+
         return new Menu(foodItems);
+    }
+
+    // Takes in the name of a food item and returns all the reviews associated with the item in the given dining hall
+    public ArrayList<Review> getFoodReviews(String foodItem, ResidenceType residenceType) throws IOException {
+        ReviewGateway gateway = new ReviewGateway("reviews.csv");
+        return gateway.getReviewFromName(foodItem, residenceType);
     }
 
     //NOTE: the below main method is a sample to test the running of MenuFactory

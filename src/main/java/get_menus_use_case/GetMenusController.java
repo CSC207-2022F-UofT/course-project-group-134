@@ -11,4 +11,6 @@ public class GetMenusController {
     public GetMenusResponseModel getFoodItemNames(String residenceName) throws Exception {
         return this.inputBoundary.getFoodItemNames(residenceName);
     }
+
+    // TODO: Create method to return reviews for a given food item + residenceName
 }

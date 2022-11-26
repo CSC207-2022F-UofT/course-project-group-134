@@ -1,7 +1,12 @@
 package get_menus_use_case;
 
+import entities.FoodItem;
 import entities.Menu;
 import entities.ResidenceType;
+import entities.Review;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GetMenusInteractor implements GetMenusInputBoundary {
     private final GetMenusOutputBoundary presenter;
@@ -10,6 +15,7 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
     public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway){
         this.presenter = presenter;
         this.menuGatewayInterface = menuGateway;
+
     }
     @Override
     public GetMenusResponseModel getFoodItemNames(String residenceName) throws Exception {
@@ -18,6 +24,13 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
         for (ResidenceType residenceType : arr) {
             if (residenceType.name().equals(residenceName)) {
                 Menu menu = this.menuGatewayInterface.createMenu(residenceType);
+
+                HashMap<String, ArrayList<Review>> foodReviews = new HashMap<>();
+
+                for(String foodItem: menu.getFoodItemNames()){
+                    foodReviews.put(foodItem, menuGatewayInterface.getFoodReviews(foodItem, residenceType));
+                }
+
                 GetMenusResponseModel responseModel = new GetMenusResponseModel(
                         menu.getFoodItemNames(),
                         menu.getFoodItemPrices(),
@@ -26,7 +39,7 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
                         menu.getFoodItemCalories(),
                         menu.getFoodItemPopularities(),
                         menu.getFoodItemStarAverages(),
-                        menu.getFoodItemReviews()
+                        foodReviews
                 );
                 return presenter.prepareSuccessView(responseModel);
             }
