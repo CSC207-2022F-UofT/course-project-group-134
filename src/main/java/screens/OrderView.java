@@ -32,7 +32,10 @@ public class OrderView extends JFrame implements OrderViewModel {
     private GetMenusController getMenusController;
     private String username;
     private String email;
+
+    private OrderPreviewScreen orderPreviewScreen;
     OrderHistoryInputBoundary orderHistoryInteractor;
+    boolean orderPreviewClosed = true;
 
     public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
         this.orderHistoryInteractor = orderHistoryInteractor;
@@ -195,6 +198,11 @@ public class OrderView extends JFrame implements OrderViewModel {
             return;
         }
 
+        if (!orderPreviewClosed) {
+            JOptionPane.showMessageDialog(null, "Place an order or close the screen.", "Order Failed", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+
         ArrayList<String> selectedFoodItems = new ArrayList<>();
         ArrayList<Integer> selectedFoodItemQuantities = new ArrayList<>();
         ArrayList<Double> selectedFoodItemPrices = new ArrayList<>();
@@ -211,6 +219,7 @@ public class OrderView extends JFrame implements OrderViewModel {
         String[] foodItemsArr = new String[selectedFoodItems.size()];
         Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
         Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
-        new OrderPreviewScreen(this, this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        orderPreviewScreen = new OrderPreviewScreen(this, this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        orderPreviewClosed = false;
     }
 }

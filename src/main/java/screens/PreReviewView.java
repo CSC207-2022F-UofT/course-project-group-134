@@ -6,7 +6,6 @@ import review_use_case.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -14,7 +13,7 @@ public class PreReviewView extends JFrame {
 
     private JComboBox<String> foodItems;
     private String foodItemsString;
-    private ArrayList<String> foodItemsArray;
+    private String[] foodItemsArray;
     private String residence;
     private JButton reviewButton = new JButton("Review");
     private JPanel pnl= new JPanel(new GridLayout(2,1));
@@ -23,17 +22,13 @@ public class PreReviewView extends JFrame {
     public PreReviewView(String foodItemsString, String residence, String username){
         this.residence = residence;
         this.foodItemsString = foodItemsString;
-        this.foodItemsArray = new ArrayList<>(Arrays.asList(foodItemsString.split(",")));
-        for(int i = 0; i < this.foodItemsArray.size(); i++){
-            this.foodItemsArray.set(i, this.foodItemsArray.get(i).split("\\(")[0]);
-        }
-        String[] temp = new String[foodItemsArray.size()];
-        for(int i = 0; i < this.foodItemsArray.size(); i++){
-            temp[i] = foodItemsArray.get(i);
-        }
+        this.foodItemsArray = foodItemsString.split(",");
+        //for (int i= 0; i < this.foodItemsArray.length; i++){
+
+        //}
 
         this.username  = username;
-        foodItems = new JComboBox<>(temp);
+        foodItems = new JComboBox<>(foodItemsArray);
 
         reviewButton.addActionListener(actionEvent -> {
             try {

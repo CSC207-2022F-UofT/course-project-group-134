@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class GetMenusMain {
 
-    public static void create() throws Exception {
+    public static void create(String username, String email) throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
         MenuGatewayInterface menuGateway = new MenuGateway();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
@@ -32,9 +32,9 @@ public class GetMenusMain {
         OrderController orderController = new OrderController(orderInteractor);
 
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
-        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor("tb3", "tb3@mail.utoronto.ca", orderHistoryOutputBoundary);
+        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
 
-        OrderView orderView = new OrderView(orderController, getMenusController,"tb3", "tb3@mail.utoronto.ca", orderHistoryInteractor);
+        OrderView orderView = new OrderView(orderController, getMenusController,username, email, orderHistoryInteractor);
 
     }
 }
