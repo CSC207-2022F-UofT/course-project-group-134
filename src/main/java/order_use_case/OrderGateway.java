@@ -133,7 +133,6 @@ public class OrderGateway implements OrderDsGateway{
         orders.get(orderNumber).setStatus(status.toString());
         save();
     }
-    // TODO: check later if we can combine with method below
 
     public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail){
         this.csvFile.delete();

@@ -6,6 +6,7 @@ import review_use_case.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class PreReviewView extends JFrame {
@@ -22,6 +23,9 @@ public class PreReviewView extends JFrame {
         this.residence = residence;
         this.foodItemsString = foodItemsString;
         this.foodItemsArray = foodItemsString.split(",");
+        //for (int i= 0; i < this.foodItemsArray.length; i++){
+
+        //}
 
         this.username  = username;
         foodItems = new JComboBox<>(foodItemsArray);

@@ -48,7 +48,7 @@ public class BuyerDefaultView extends JFrame {
 
         placeOrderButton.addActionListener(actionEvent -> {
             try {
-                placeNewOrderClicked();
+                placeNewOrderClicked(username, email);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -85,8 +85,8 @@ public class BuyerDefaultView extends JFrame {
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
-            for (String s : tempOrder) {
-                tempOrderPanel.add(new JLabel(ordersInfoHeaders[Arrays.asList(tempOrder).indexOf(s)] + ": "+ s));
+            for (int i = 0; i < tempOrder.length; i++) {
+                tempOrderPanel.add(new JLabel(ordersInfoHeaders[i] + ": "+ tempOrder[i]));
             }
             tempOrderPanel.add(new JLabel(" "));
             this.getOrderHistoryPanel.add(tempOrderPanel);
@@ -111,11 +111,13 @@ public class BuyerDefaultView extends JFrame {
         for (String[] tempOrder : currentOrders) {
             JPanel orderPanel = new JPanel(new GridLayout(1,2));
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
+
             for (String s : tempOrder) {
                 //int currentIndex = Arrays.asList(tempOrder).indexOf(s);
                 if (!s.equals("null")) {
                     tempOrderPanel.add(new JLabel(ordersInfoHeaders[Arrays.asList(tempOrder).indexOf(s)] + ": " + s));
                 }
+
             }
             tempOrderPanel.add(new JLabel(" "));
             orderPanel.add(tempOrderPanel);
@@ -154,8 +156,8 @@ public class BuyerDefaultView extends JFrame {
         tabbedPane.setComponentAt(1, this.currentOrdersPanel);
     }
 
-    public void placeNewOrderClicked() throws Exception {
-        GetMenusMain.create(this.username, this.email);
+    public void placeNewOrderClicked(String username, String email) throws Exception {
+        GetMenusMain.create(username, email);
         this.dispose();
     }
 }

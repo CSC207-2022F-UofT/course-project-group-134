@@ -22,6 +22,14 @@ public class OrderPreviewScreen extends JFrame {
         JButton orderButton = new JButton("Place Order");
         orderButton.addActionListener(actionEvent -> {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
+
+            this.dispose();
+            orderView.dispose();
+            try {
+                BuyerMain.create(userUsername, userEmail);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         pnl.add(orderButton);
         this.add(pnl);

@@ -9,7 +9,7 @@ import screens.BuyerDefaultView;
 import java.io.IOException;
 
 public class BuyerMain {
-    public static void create(String username, String email) throws IOException {
+    public static void create(String username, String email) throws IOException, IOException {
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
         OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
         BuyerDefaultView buyerDefaultView = new BuyerDefaultView(username, email, orderHistoryInteractor);
