@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LoginScreen extends JFrame {
 
     private final JTextField emailInput = new JTextField(15);;
-    private final JTextField passwordInput = new JTextField(15);;
+    private final JPasswordField passwordInput = new JPasswordField(15);;
     private final LoginController loginController;
 
     private void loginClicked(ActionEvent actionEvent) throws IOException {

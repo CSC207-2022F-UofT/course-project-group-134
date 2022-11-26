@@ -10,7 +10,7 @@ public class ReviewMain {
     public static void create(String username, String itemName, String diningHall) throws IOException {
         ReviewDsGateway review;
         try {
-            review = new ReviewGateway("./reviews.csv");
+            review = new ReviewGateway("./src/main/java/data_storage/reviews.csv");
         } catch (IOException e){
             throw new RuntimeException("Could not create file.");
         }
