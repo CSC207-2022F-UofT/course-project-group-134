@@ -23,13 +23,6 @@ public class OrderPreviewScreen extends JFrame {
         orderButton.addActionListener(actionEvent -> {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
 
-            this.dispose();
-            orderView.dispose();
-            try {
-                BuyerMain.create(userUsername, userEmail);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         });
         pnl.add(orderButton);
         this.add(pnl);
@@ -59,7 +52,6 @@ public class OrderPreviewScreen extends JFrame {
         JOptionPane.showMessageDialog(null, "Order has been sent", "Order Sucess", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
         orderView.dispose();
-        //new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
         try {
             BuyerMain.create(userUsername, userEmail);
         } catch (IOException ex) {
