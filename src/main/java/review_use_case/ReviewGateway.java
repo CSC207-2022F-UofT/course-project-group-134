@@ -73,7 +73,16 @@ public class ReviewGateway implements ReviewDsGateway {
         reviews.add(newReview);
     }
 
-    public ArrayList<Review> getReviewFromName(String itemName, ResidenceType residenceType) {
-        return null;
+    public ArrayList<Review> getReviewsFromName(String itemName, ResidenceType diningHall) {
+        ArrayList<Review> list = new ArrayList<>();
+        for (ReviewDsRequestModel dsModel : reviews) {
+            if ((dsModel.getItemName()).equals(itemName) &&
+                    dsModel.getDininghall().equals(diningHall.toString())){
+                Review review = new Review(dsModel.getReviewString(), dsModel.getRatings(),
+                        dsModel.getItemName(), dsModel.getUsername());
+                list.add(review);
+            }
+        }
+        return list;
     }
 }

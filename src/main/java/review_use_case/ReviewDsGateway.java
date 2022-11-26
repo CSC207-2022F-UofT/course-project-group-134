@@ -12,5 +12,5 @@ public interface ReviewDsGateway {
 
     void save() throws IOException;
 
-    ArrayList<Review> getReviewFromName(String itemName, ResidenceType residence);
+    ArrayList<Review> getReviewsFromName(String itemName, ResidenceType residence);
 }
