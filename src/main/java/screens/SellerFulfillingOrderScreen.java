@@ -32,8 +32,8 @@ public class SellerFulfillingOrderScreen extends JFrame{
         foodItemsLabel.setHorizontalAlignment(JLabel.CENTER);
         orderPanel.add(foodItemsLabel);
 
-        for (String foodItem : orderDsModel.getFoodItems()) {
-            JLabel foodItemLabel = new JLabel(foodItem);
+        for (int j = 0; j < orderDsModel.getFoodItems().length; j ++){
+            JLabel foodItemLabel = new JLabel(orderDsModel.getFoodItems()[j] + "(" + orderDsModel.getFoodQuantity()[j] + ")");
             foodItemLabel.setHorizontalAlignment(JLabel.CENTER);
             orderPanel.add(foodItemLabel);
         }

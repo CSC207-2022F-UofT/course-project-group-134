@@ -112,8 +112,9 @@ public class SellingScreen extends JFrame {
             String orderString = orderNumber + ", ";
             orderString += "$" + orderDsModel.getPrice() + ", ";
             orderString += orderDsModel.getBuyerName();
-            for (String foodItem : orderDsModel.getFoodItems()) {
-                orderString += ", " + foodItem;
+
+            for (int j = 0; j < orderDsModel.getFoodItems().length; j++){
+                orderString += ", " + orderDsModel.getFoodItems()[j] + "(" + orderDsModel.getFoodQuantity()[j] + ")";
             }
             displayArray[i] = orderString;
         }
