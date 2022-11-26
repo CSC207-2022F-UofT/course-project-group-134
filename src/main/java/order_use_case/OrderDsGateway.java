@@ -19,7 +19,7 @@ public interface OrderDsGateway {
 
     void setOrderStatus(int orderNumber, OrderStatusType status);
 
-    void updateOrder(int orderNumber, OrderStatusType status, String sellerUsername);
+    void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail);
 
     boolean sellerHasOrder(String sellerEmail);
 
