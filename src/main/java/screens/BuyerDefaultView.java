@@ -32,7 +32,7 @@ public class BuyerDefaultView extends JFrame {
     private OrderDsGateway orders;
 
     private void chatClicked(ActionEvent actionEvent) throws IOException {
-        ChatInteractor.ChatMain.create();
+        ChatInteractor.ChatMain.create("","");
     }
 
     public BuyerDefaultView(String username, String email, OrderHistoryInputBoundary orderHistoryInteractor){
