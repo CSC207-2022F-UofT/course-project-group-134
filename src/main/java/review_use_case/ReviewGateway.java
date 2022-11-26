@@ -1,11 +1,10 @@
 package review_use_case;
 
+import entities.ResidenceType;
 import entities.Review;
-import entities.ReviewFactory;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public class ReviewGateway implements ReviewDsGateway {
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, ReviewDsRequestModel> reviews = new HashMap<>();
+    private final ArrayList<ReviewDsRequestModel> reviews = new ArrayList<>();
 
     public ReviewGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
@@ -46,7 +45,7 @@ public class ReviewGateway implements ReviewDsGateway {
                 String dininghall = String.valueOf(col[headers.get("dininghall")]);
 
                 ReviewDsRequestModel user = new ReviewDsRequestModel(review, rating, dininghall ,itemName, username);
-                reviews.put(review, user);
+                reviews.add(user);
             }
 
             reader.close();
@@ -61,10 +60,6 @@ public class ReviewGateway implements ReviewDsGateway {
         writer.close();
     }
 
-    public Review readReview(String review, int ratings, ReviewFactory reviewFactory) {
-        return null;
-    }
-
     public void save(ReviewDsRequestModel newReview) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
 
@@ -75,10 +70,10 @@ public class ReviewGateway implements ReviewDsGateway {
         writer.newLine();
         writer.close();
 
-        reviews.put(newReview.getReviewString(), newReview);
+        reviews.add(newReview);
     }
 
-    public ArrayList<Review> getReviewFromName(String itemName) {
+    public ArrayList<Review> getReviewFromName(String itemName, ResidenceType residenceType) {
         return null;
     }
 }

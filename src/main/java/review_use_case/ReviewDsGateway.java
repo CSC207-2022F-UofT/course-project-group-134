@@ -1,5 +1,6 @@
 package review_use_case;
 
+import entities.ResidenceType;
 import entities.Review;
 
 import java.io.IOException;
@@ -11,5 +12,5 @@ public interface ReviewDsGateway {
 
     void save() throws IOException;
 
-    ArrayList<Review> getReviewFromName(String itemName);
+    ArrayList<Review> getReviewFromName(String itemName, ResidenceType residence);
 }
