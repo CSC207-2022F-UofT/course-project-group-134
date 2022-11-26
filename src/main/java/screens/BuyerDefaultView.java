@@ -5,35 +5,25 @@ import entities.OrderStatusType;
 import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
-import order_history_use_case.OrderHistoryInteractor;
-import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BuyerDefaultView extends JFrame {
 
-    private JPanel pnl = new JPanel(new GridLayout(2, 1));
-    private JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-    private JButton placeOrderButton = new JButton("Place new order");
-    private JButton logoutButton = new JButton("Logout");
-    private JPanel topPanel = new JPanel(new GridLayout(1, 2));
-    private JPanel getOrderHistoryPanel;
-    private JPanel currentOrdersInnerPanel;
+    private final JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
     JScrollPane orderHistoryPanel;
     JScrollPane currentOrdersPanel;
-    private OrderHistoryController orderHistoryController;
-    private String username;
-    private String email;
-    private OrderDsGateway orders;
+    private final OrderHistoryController orderHistoryController;
+    private final String username;
+    private final OrderDsGateway orders;
 
-    private void chatClicked(ActionEvent actionEvent) throws IOException {
+    private void chatClicked() throws IOException {
         ChatMain.create();
     }
 
@@ -46,10 +36,13 @@ public class BuyerDefaultView extends JFrame {
         }
 
         this.username = username;
-        this.email = email;
         this.orderHistoryController = new OrderHistoryController(username, email, orderHistoryInteractor);
+        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JButton placeOrderButton = new JButton("Place new order");
         topPanel.add(placeOrderButton);
+        JButton logoutButton = new JButton("Logout");
         topPanel.add(logoutButton);
+        JPanel pnl = new JPanel(new GridLayout(2, 1));
         pnl.add(topPanel);
 
         placeOrderButton.addActionListener(actionEvent -> {
@@ -87,7 +80,7 @@ public class BuyerDefaultView extends JFrame {
 
     private void createOrderHistoryPanel(){
         ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
-        getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),2));
+        JPanel getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(), 2));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
@@ -95,14 +88,14 @@ public class BuyerDefaultView extends JFrame {
                 tempOrderPanel.add(new JLabel(ordersInfoHeaders[i] + ": "+ tempOrder[i]));
             }
             tempOrderPanel.add(new JLabel(" "));
-            this.getOrderHistoryPanel.add(tempOrderPanel);
+            getOrderHistoryPanel.add(tempOrderPanel);
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
                 new PreReviewView(tempOrder[7], tempOrder[5], username);
             });
 
-            this.getOrderHistoryPanel.add(reviewButton);
+            getOrderHistoryPanel.add(reviewButton);
         }
         this.orderHistoryPanel = new JScrollPane(getOrderHistoryPanel);
         tabbedPane.setComponentAt(0, this.orderHistoryPanel);
@@ -111,7 +104,7 @@ public class BuyerDefaultView extends JFrame {
     private void createCurrentOrdersPanel(){
 
         ArrayList<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
-        currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
+        JPanel currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(), 1));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         //System.out.println(currentOrders.toString());
         for (String[] tempOrder : currentOrders) {
@@ -134,7 +127,7 @@ public class BuyerDefaultView extends JFrame {
                 JButton chatButton = new JButton("Chat");
                 chatButton.addActionListener(actionEvent -> {
                     try {
-                        chatClicked(actionEvent);
+                        chatClicked();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -163,7 +156,7 @@ public class BuyerDefaultView extends JFrame {
                 });
             }
 
-            this.currentOrdersInnerPanel.add(orderPanel);
+            currentOrdersInnerPanel.add(orderPanel);
         }
         this.currentOrdersPanel = new JScrollPane(currentOrdersInnerPanel);
         tabbedPane.setComponentAt(1, this.currentOrdersPanel);

@@ -4,12 +4,7 @@ import chat_use_case.ChatDsGateway;
 import chat_use_case.ChatInteractor;
 import chat_use_case.ChatPresenter;
 import chat_use_case.boundaries.ChatInputBoundary;
-import entities.BuyerFactory;
-import entities.SellerFactory;
-import entities.UserFactory;
 import screens.ChatScreen;
-import screens.SignupScreen;
-import user_access_use_case.*;
 
 import java.io.IOException;
 

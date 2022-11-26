@@ -3,14 +3,13 @@ package screens;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
-import selling_use_case.SellingController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class SellerPastOrdersScreen extends JFrame{
-    public SellerPastOrdersScreen(SellingController sellingController, OrderDsGateway orderDsGateway, String sellerEmail
+    public SellerPastOrdersScreen(OrderDsGateway orderDsGateway, String sellerEmail
     ) throws DoesNotExistException {
 
         JPanel orderPanel = new JPanel(new GridLayout(0, 1));

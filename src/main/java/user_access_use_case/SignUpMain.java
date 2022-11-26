@@ -23,6 +23,6 @@ public class SignUpMain {
         SignUpInputBoundary interactor = new SignUpRegisterInteractor(
                 user, presenter, userFactory);
         SignUpRequestController signupController = new SignUpRequestController(interactor);
-        SignupScreen signupScreen = new SignupScreen(signupController);
+        new SignupScreen(signupController);
     }
 }

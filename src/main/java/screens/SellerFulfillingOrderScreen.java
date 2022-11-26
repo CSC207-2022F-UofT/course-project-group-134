@@ -1,5 +1,6 @@
 package screens;
 
+import chat_use_case.models.ChatMain;
 import entities.OrderStatusType;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
@@ -12,6 +13,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class SellerFulfillingOrderScreen extends JFrame{
+
+    private void chatClicked() throws IOException {
+        ChatMain.create();
+    }
 
     public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
@@ -39,6 +44,13 @@ public class SellerFulfillingOrderScreen extends JFrame{
         }
 
         JButton chatButton = new JButton("Chat");
+        chatButton.addActionListener(actionEvent -> {
+            try {
+                chatClicked();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         JButton orderFulfilledButton = new JButton("ORDER FULFILLED!");
         pnl.add(orderPanel);
         pnl.add(chatButton);

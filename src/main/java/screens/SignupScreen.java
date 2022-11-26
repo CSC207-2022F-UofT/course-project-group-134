@@ -22,11 +22,11 @@ public class SignupScreen extends JFrame {
     private final JPasswordField passwordInput = new JPasswordField(15);
     private final JPasswordField confirmInput = new JPasswordField(15);
     private final JTextField mealPlanInput = new JTextField(15);
-    private JComboBox<String> userTypeDropdown;
-    private JComboBox<String> residenceDropdown;
-    private SignUpRequestController signupController;
+    private final JComboBox<String> userTypeDropdown;
+    private final JComboBox<String> residenceDropdown;
+    private final SignUpRequestController signupController;
 
-    private void signupClicked(ActionEvent actionEvent) throws IOException {
+    private void signupClicked() throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
         String confirmString = String.valueOf(confirmInput.getPassword());
 
@@ -41,7 +41,7 @@ public class SignupScreen extends JFrame {
                         mealPlanInput.getText());
 
                 this.dispose();
-                WelcomeScreen screen = new WelcomeScreen();
+                new WelcomeScreen();
                 JOptionPane.showMessageDialog(null,
                         "Login with " + response.getName() + ".",
                         "Signup succeeded.",
@@ -134,7 +134,7 @@ public class SignupScreen extends JFrame {
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(actionEvent -> {
             try {
-                signupClicked(actionEvent);
+                signupClicked();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -143,7 +143,7 @@ public class SignupScreen extends JFrame {
         backButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                WelcomeScreen screen = new WelcomeScreen();
+                new WelcomeScreen();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

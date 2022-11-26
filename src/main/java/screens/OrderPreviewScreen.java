@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class OrderPreviewScreen extends JFrame {
-    private OrderView orderView;
+    private final OrderView orderView;
 
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         this.orderView = orderView;
