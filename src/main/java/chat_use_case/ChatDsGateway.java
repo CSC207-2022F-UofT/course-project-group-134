@@ -94,7 +94,7 @@ public class ChatDsGateway implements ChatDsBoundary {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 String[] emails = br.readLine().split(",");
-                SignUpDsGateway userGateway = new SignUpGateway("./src/main/java/data_storage/users.csv");
+                SignUpDsGateway userGateway = new SignUpGateway();
                 BuyerFactory buyerFactory = new BuyerFactory();
                 SellerFactory sellerFactory = new SellerFactory();
                 UserFactory userFactory = new UserFactory(buyerFactory, sellerFactory);

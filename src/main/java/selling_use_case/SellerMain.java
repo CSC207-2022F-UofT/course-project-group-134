@@ -17,7 +17,7 @@ public class SellerMain {
         SignUpDsGateway signupGateway;
         try {
             orderGateway = new OrderGateway("./src/main/java/data_storage/orders.csv");
-            signupGateway = new SignUpGateway("./src/main/java/data_storage/users.csv");
+            signupGateway = new SignUpGateway();
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
