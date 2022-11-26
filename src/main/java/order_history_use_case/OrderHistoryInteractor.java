@@ -9,7 +9,7 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
     private final OrderHistoryOutputBoundary outputBoundary;
     public OrderHistoryInteractor(String username, String email, OrderHistoryOutputBoundary outputBoundary)
             throws IOException {
-
+        System.out.println("interactor says email is " + email);
         OrderHistoryGateway gateway1 = new OrderHistoryGateway(username, email);
         this.allOrders = gateway1.getAllOrders();
         this.outputBoundary = outputBoundary;

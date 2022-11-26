@@ -17,6 +17,9 @@ public class OrderHistoryGateway {
 
         String csvPath = "src/main/java/data_storage/orders.csv";
         File csvFile = new File(csvPath);
+        if (!csvFile.exists()){
+            csvFile.createNewFile();
+        }
 
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
@@ -37,11 +40,12 @@ public class OrderHistoryGateway {
                 Integer[] foodQuantity = Stream.of((String.valueOf(col[8])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
                 double totalPrice = Double.parseDouble(col[9]);
 
-                if(inputUsername.equals(buyerName) & inputEmail.equals(buyerEmail)){
+                if(inputUsername.equals(buyerName) && inputEmail.equals(buyerEmail)){
                     OrderHistoryResponseModel newOrder = new OrderHistoryResponseModel(orderID,
                             buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems,
                             foodQuantity, totalPrice);
-
+                    System.out.println("input email = " + inputEmail);
+                    System.out.println("buyer email = " + buyerEmail);
                     orderList.add(newOrder);
                 }
 

@@ -22,11 +22,12 @@ public class OrderInteractor implements OrderInputBoundary {
         String sellerName = "null";
         String sellerEmail = "null";
         String status = OrderStatusType.ORDERED.toString();
-        System.out.println("ORDER INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
         OrderDsRequestModel orderDsRequest = new OrderDsRequestModel(request.getBuyerName(), request.getBuyerEmail(),
                 sellerName, sellerEmail, request.getResidence(), status, request.getFoodItems(), request.getFoodQuantity(), request.getPrice());
         orderDsGateway.saveOrder(orderDsRequest);
+
+        System.out.println("ORDER INTERACTOR: SENT ORDER MADE BY " + request.getBuyerName());
 
         OrderResponseModel responseModel = new OrderResponseModel();
         return orderPresenter.prepareSuccessView(responseModel);
