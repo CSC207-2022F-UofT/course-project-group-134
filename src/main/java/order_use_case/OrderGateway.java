@@ -98,7 +98,7 @@ public class OrderGateway implements OrderDsGateway{
     }
 
     public ArrayList<Integer> getUnfulfilledOrders(String sellerResidence) {
-        ArrayList<Integer> orders = new ArrayList<Integer>();
+        ArrayList<Integer> orders = new ArrayList<>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
             if (entry.getValue().getStatus().equals(OrderStatusType.ORDERED.toString()) &&
                     entry.getValue().getResidence().equals(sellerResidence)){

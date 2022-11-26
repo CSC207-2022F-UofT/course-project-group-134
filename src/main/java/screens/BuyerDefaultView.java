@@ -142,6 +142,9 @@ public class BuyerDefaultView extends JFrame {
                 rightPanel.add(chatButton);
                 JButton buyerConfirmButton = new JButton("Confirm Delivery");
                 rightPanel.add(buyerConfirmButton);
+                if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
+                    buyerConfirmButton.setVisible(false);
+                }
                 orderPanel.add(rightPanel);
                 buyerConfirmButton.addActionListener(actionEvent -> {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
