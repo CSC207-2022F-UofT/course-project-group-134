@@ -5,16 +5,18 @@ import chat_use_case.boundaries.ChatInputBoundary;
 import chat_use_case.models.ChatCreationRequestModel;
 import chat_use_case.models.ChatSendMessageModel;
 
-public class ChatInteractor implements ChatInputBoundary {
-    ChatDsBoundary dataStore;
+import java.io.IOException;
 
-    @Override
-    public void createChat(ChatCreationRequestModel c) {
-        dataStore.createChat(c);
+public class ChatInteractor implements ChatInputBoundary {
+    ChatDsBoundary ds;
+    public ChatInteractor() throws IOException {
+        ds = ChatDsGateway.getInstance();
+    }
+    public void createChat(ChatCreationRequestModel c) throws IOException {
+        ds.createChat(c);
 
     }
-    @Override
-    public void sendMessage(ChatSendMessageModel m){
-        dataStore.sendMessage(m);
+    public void sendMessage(ChatSendMessageModel m) throws IOException{
+        ds.sendMessage(m);
     }
 }
