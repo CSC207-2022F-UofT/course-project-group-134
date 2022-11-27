@@ -4,5 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface GetMenusOutputBoundary{
-    HashMap<String, ArrayList<String[]>> prepareSuccessView(GetMenusResponseModel responseModel);
+    ArrayList<String[]> getFoodDetails(GetMenusResponseModel responseModel);
+    HashMap<String, ArrayList<String[]>> getFoodReviews(GetMenusResponseModel responseModel);
 }

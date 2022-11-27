@@ -54,7 +54,7 @@ public class MenuGateway implements  MenuGatewayInterface{
     // Takes in the name of a food item and returns all the reviews associated with the item in the given dining hall
     public ArrayList<Review> getFoodReviews(String foodItem, ResidenceType residenceType) throws IOException {
         ReviewGateway gateway = new ReviewGateway("reviews.csv");
-        return gateway.getReviewFromName(foodItem, residenceType);
+        return gateway.getReviewsFromName(foodItem, residenceType);
     }
 
     //NOTE: the below main method is a sample to test the running of MenuFactory

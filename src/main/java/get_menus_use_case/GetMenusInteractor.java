@@ -5,6 +5,7 @@ import entities.Menu;
 import entities.ResidenceType;
 import entities.Review;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,13 +13,11 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
     private final GetMenusOutputBoundary presenter;
     private final MenuGatewayInterface menuGatewayInterface;
 
-    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway){
+    private GetMenusResponseModel resMod;
+
+    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway, String residenceName) throws Exception {
         this.presenter = presenter;
         this.menuGatewayInterface = menuGateway;
-
-    }
-    @Override
-    public GetMenusResponseModel getFoodItemNames(String residenceName) throws Exception {
 
         ResidenceType[] arr = ResidenceType.values();
         for (ResidenceType residenceType : arr) {
@@ -27,11 +26,11 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
 
                 HashMap<String, ArrayList<Review>> foodReviews = new HashMap<>();
 
-                for(String foodItem: menu.getFoodItemNames()){
+                for (String foodItem : menu.getFoodItemNames()) {
                     foodReviews.put(foodItem, menuGatewayInterface.getFoodReviews(foodItem, residenceType));
                 }
 
-                GetMenusResponseModel responseModel = new GetMenusResponseModel(
+                this.resMod = new GetMenusResponseModel(
                         menu.getFoodItemNames(),
                         menu.getFoodItemPrices(),
                         menu.getFoodItemAllergens(),
@@ -41,9 +40,23 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
                         menu.getFoodItemStarAverages(),
                         foodReviews
                 );
-                return presenter.prepareSuccessView(responseModel);
+
+                break;
             }
         }
-        return null;
+
+
+    }
+
+    @Override
+    public ArrayList<String[]> getFoodDetails() {
+        return presenter.getFoodDetails(this.resMod);
+
+    }
+
+    @Override
+    public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+
+        return presenter.getFoodReviews(this.resMod);
     }
 }
