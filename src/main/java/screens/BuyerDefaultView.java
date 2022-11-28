@@ -1,29 +1,42 @@
 package screens;
 
-import chat_use_case.models.ChatMain;
+import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
 import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
+
+import order_history_use_case.OrderHistoryInteractor;
+import order_use_case.BuyerMain;
+import order_use_case.DoesNotExistException;
+
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BuyerDefaultView extends JFrame {
 
-    private final JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+    private JPanel pnl = new JPanel(new GridLayout(2, 1));
+    private JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+    private JButton placeOrderButton = new JButton("Place new order");
+    private JButton logoutButton = new JButton("Logout");
+    private JPanel topPanel = new JPanel(new GridLayout(1, 2));
+    private JPanel getOrderHistoryPanel;
+    private JPanel currentOrdersInnerPanel;
     JScrollPane orderHistoryPanel;
     JScrollPane currentOrdersPanel;
-    private final OrderHistoryController orderHistoryController;
-    private final String username;
-    private final OrderDsGateway orders;
+    private OrderHistoryController orderHistoryController;
+    private String username;
+    private String email;
+    private OrderDsGateway orders;
 
-    private void chatClicked() throws IOException {
+    private void chatClicked(ActionEvent actionEvent) throws IOException {
         ChatInteractor.ChatMain.create("","");
     }
 
@@ -36,13 +49,10 @@ public class BuyerDefaultView extends JFrame {
         }
 
         this.username = username;
+        this.email = email;
         this.orderHistoryController = new OrderHistoryController(username, email, orderHistoryInteractor);
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
-        JButton placeOrderButton = new JButton("Place new order");
         topPanel.add(placeOrderButton);
-        JButton logoutButton = new JButton("Logout");
         topPanel.add(logoutButton);
-        JPanel pnl = new JPanel(new GridLayout(2, 1));
         pnl.add(topPanel);
 
         placeOrderButton.addActionListener(actionEvent -> {
@@ -80,7 +90,7 @@ public class BuyerDefaultView extends JFrame {
 
     private void createOrderHistoryPanel(){
         ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
-        JPanel getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(), 2));
+        getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),2));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
@@ -88,14 +98,14 @@ public class BuyerDefaultView extends JFrame {
                 tempOrderPanel.add(new JLabel(ordersInfoHeaders[i] + ": "+ tempOrder[i]));
             }
             tempOrderPanel.add(new JLabel(" "));
-            getOrderHistoryPanel.add(tempOrderPanel);
+            this.getOrderHistoryPanel.add(tempOrderPanel);
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
                 new PreReviewView(tempOrder[7], tempOrder[5], username);
             });
 
-            getOrderHistoryPanel.add(reviewButton);
+            this.getOrderHistoryPanel.add(reviewButton);
         }
         this.orderHistoryPanel = new JScrollPane(getOrderHistoryPanel);
         tabbedPane.setComponentAt(0, this.orderHistoryPanel);
@@ -104,7 +114,7 @@ public class BuyerDefaultView extends JFrame {
     private void createCurrentOrdersPanel(){
 
         ArrayList<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
-        JPanel currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(), 1));
+        currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         //System.out.println(currentOrders.toString());
         for (String[] tempOrder : currentOrders) {
@@ -127,7 +137,7 @@ public class BuyerDefaultView extends JFrame {
                 JButton chatButton = new JButton("Chat");
                 chatButton.addActionListener(actionEvent -> {
                     try {
-                        chatClicked();
+                        chatClicked(actionEvent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -135,28 +145,38 @@ public class BuyerDefaultView extends JFrame {
                 rightPanel.add(chatButton);
                 JButton buyerConfirmButton = new JButton("Confirm Delivery");
                 rightPanel.add(buyerConfirmButton);
+                if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
+                    buyerConfirmButton.setVisible(false);
+                }
                 orderPanel.add(rightPanel);
                 buyerConfirmButton.addActionListener(actionEvent -> {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
                         this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.FINISHED);
                         JOptionPane.showMessageDialog(null, "Successfully finished order.", "Order Finished", JOptionPane.PLAIN_MESSAGE);
-                        this.createOrderHistoryPanel();
-                        this.createCurrentOrdersPanel();
-                        this.revalidate();
-                        this.repaint();
+                        //this.createOrderHistoryPanel();
+                        //this.createCurrentOrdersPanel();
+                        try {
+                            BuyerMain.create(username, email);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        this.dispose();
                         System.out.println("REMOVE ORDER FROM VIEW LIST???");
                     } else {
                         this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
-                        this.createCurrentOrdersPanel();
-                        this.revalidate();
-                        this.repaint();
+                        this.dispose();
+                        try {
+                            BuyerMain.create(username, email);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         System.out.println("Change status please.");
                     }
                 });
             }
 
-            currentOrdersInnerPanel.add(orderPanel);
+            this.currentOrdersInnerPanel.add(orderPanel);
         }
         this.currentOrdersPanel = new JScrollPane(currentOrdersInnerPanel);
         tabbedPane.setComponentAt(1, this.currentOrdersPanel);
