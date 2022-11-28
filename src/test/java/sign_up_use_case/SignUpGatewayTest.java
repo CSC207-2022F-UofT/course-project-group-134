@@ -22,7 +22,8 @@ public class SignUpGatewayTest {
     @BeforeEach
     void setUp() throws Exception {
         try {
-            gateway = new SignUpGateway("./src/test/resources/users.csv");
+            gateway = new SignUpGateway();
+            gateway = new SignUpGateway();
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

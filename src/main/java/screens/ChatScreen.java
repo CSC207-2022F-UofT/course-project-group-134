@@ -1,8 +1,15 @@
 package screens;
 
-import chat_use_case.models.ChatMain;
-import order_use_case.DoesNotExistException;
-import selling_use_case.SellerMain;
+import chat_use_case.ChatInteractor;
+import chat_use_case.ChatPresenter;
+import chat_use_case.boundaries.ChatInputBoundary;
+import chat_use_case.boundaries.ChatOutputBoundary;
+import entities.BuyerFactory;
+import entities.SellerFactory;
+import entities.User;
+import entities.UserFactory;
+import user_access_use_case.SignUpDsGateway;
+import user_access_use_case.SignUpGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +20,21 @@ public class ChatScreen extends JFrame{
     private final JTextField messageInput = new JTextField(15);
     private JTextArea messageDisplay = new JTextArea();
 
+    private ChatInputBoundary input;
+
+    private ChatOutputBoundary output;
+
+    private final String userEmail, recipiantEmail;
     private void sendClicked(ActionEvent actionEvent) throws IOException {
+
 
     }
 
-    public ChatScreen() {
+    private void updateChatLog(){
+
+    }
+
+    public ChatScreen(String userEmail, String recipiantEmail) throws IOException {
         JPanel pnl = new JPanel(new GridLayout(0,1));
         pnl.add(messageDisplay);
         messageDisplay.setEditable(false);
@@ -43,6 +60,16 @@ public class ChatScreen extends JFrame{
         this.setSize(450, 400);
         this.setLocation(500, 100);
         this.setVisible(true);
+        output = new ChatPresenter();
+        input = new ChatInteractor();
+
+        this.userEmail = userEmail;
+        this.recipiantEmail = recipiantEmail;
+
+
+
+
+
 
     }
 }

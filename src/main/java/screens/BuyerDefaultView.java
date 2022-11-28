@@ -1,13 +1,15 @@
 package screens;
 
-import chat_use_case.models.ChatMain;
+import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
 import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
+
 import order_history_use_case.OrderHistoryInteractor;
 import order_use_case.BuyerMain;
 import order_use_case.DoesNotExistException;
+
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
@@ -35,7 +37,7 @@ public class BuyerDefaultView extends JFrame {
     private OrderDsGateway orders;
 
     private void chatClicked(ActionEvent actionEvent) throws IOException {
-        ChatMain.create();
+        ChatInteractor.ChatMain.create("","");
     }
 
     public BuyerDefaultView(String username, String email, OrderHistoryInputBoundary orderHistoryInteractor){
