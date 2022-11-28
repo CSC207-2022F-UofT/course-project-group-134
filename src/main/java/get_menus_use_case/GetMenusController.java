@@ -1,5 +1,8 @@
 package get_menus_use_case;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class GetMenusController {
 
     private final GetMenusInputBoundary inputBoundary;
@@ -8,7 +11,12 @@ public class GetMenusController {
         this.inputBoundary = inputBoundary;
     }
 
-    public GetMenusResponseModel getFoodItemNames(String residenceName) throws Exception {
-        return this.inputBoundary.getFoodItemNames(residenceName);
+    public ArrayList<String[]> getFoodDetails() throws Exception {
+        return this.inputBoundary.getFoodDetails();
     }
+
+    public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+        return this.inputBoundary.getFoodReviews();
+    }
+
 }
