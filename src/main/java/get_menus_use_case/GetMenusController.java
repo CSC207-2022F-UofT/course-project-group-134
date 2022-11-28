@@ -19,4 +19,8 @@ public class GetMenusController {
         return this.inputBoundary.getFoodReviews();
     }
 
+    public void setUpInteractor(String residenceName) throws Exception {
+        this.inputBoundary.setUpInteractor(residenceName);
+    }
+
 }

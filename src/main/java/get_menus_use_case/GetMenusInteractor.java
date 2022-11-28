@@ -15,10 +15,14 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
 
     private GetMenusResponseModel resMod;
 
-    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway, String residenceName) throws Exception {
+    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway) throws Exception {
         this.presenter = presenter;
         this.menuGatewayInterface = menuGateway;
 
+
+    }
+
+    public void setUpInteractor(String residenceName) throws Exception {
         ResidenceType[] arr = ResidenceType.values();
         for (ResidenceType residenceType : arr) {
             if (residenceType.name().equals(residenceName)) {
@@ -44,8 +48,6 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
                 break;
             }
         }
-
-
     }
 
     @Override

@@ -5,6 +5,11 @@ import entities.OrderStatusType;
 import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
+
+import order_history_use_case.OrderHistoryInteractor;
+import order_use_case.BuyerMain;
+import order_use_case.DoesNotExistException;
+
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
@@ -148,17 +153,24 @@ public class BuyerDefaultView extends JFrame {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
                         this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.FINISHED);
                         JOptionPane.showMessageDialog(null, "Successfully finished order.", "Order Finished", JOptionPane.PLAIN_MESSAGE);
-                        this.createOrderHistoryPanel();
-                        this.createCurrentOrdersPanel();
-                        this.revalidate();
-                        this.repaint();
+                        //this.createOrderHistoryPanel();
+                        //this.createCurrentOrdersPanel();
+                        try {
+                            BuyerMain.create(username, email);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        this.dispose();
                         System.out.println("REMOVE ORDER FROM VIEW LIST???");
                     } else {
                         this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
-                        this.createCurrentOrdersPanel();
-                        this.revalidate();
-                        this.repaint();
+                        this.dispose();
+                        try {
+                            BuyerMain.create(username, email);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         System.out.println("Change status please.");
                     }
                 });

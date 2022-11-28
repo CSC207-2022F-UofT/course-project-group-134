@@ -11,7 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class OrderView extends JFrame implements OrderViewModel {
@@ -62,17 +64,10 @@ public class OrderView extends JFrame implements OrderViewModel {
                             totalPriceString.setText("Total Price: $" + totalPrice);
                             orderButton.setVisible(true);
                             totalPriceString.setVisible(true);
-                            GetMenusResponseModel responseModel = getMenusController.getFoodItemNames((String) residenceDropdown.getSelectedItem());
-                            showMenus(
-                                    responseModel.getFoodItemNames(),
-                                    responseModel.getFoodItemPrices(),
-                                    responseModel.getFoodItemAllergens(),
-                                    responseModel.getFoodItemIngredients(),
-                                    responseModel.getFoodItemCalories(),
-                                    responseModel.getFoodItemPopularities(),
-                                    responseModel.getFoodItemStarAverages(),
-                                    responseModel.getFoodItemReviews()
-                            );
+                            getMenusController.setUpInteractor((String) residenceDropdown.getSelectedItem());
+                            ArrayList<String[]> foodDetails = getMenusController.getFoodDetails();
+                            HashMap<String, ArrayList<String[]>> foodReviews = getMenusController.getFoodReviews();
+                            showMenus(foodDetails, foodReviews);
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -102,7 +97,7 @@ public class OrderView extends JFrame implements OrderViewModel {
         this.add(pnl);
 
         this.setTitle("Create Order");
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 400);
         this.setLocation(500, 100);
         this.setVisible(true);
@@ -111,9 +106,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
 
     @Override
-    public void showMenus(ArrayList<String> foodItemNames, ArrayList<Double> foodItemPrices, ArrayList<String[]> foodItemAllergens, ArrayList<String[]> foodItemIngredients, ArrayList<Integer> foodItemCalories, ArrayList<Integer> foodItemPopularities, ArrayList<Double> foodItemStarAverages, ArrayList<ArrayList<String>> foodItemReviews) {
-        System.out.println("In view");
-        System.out.println(foodItemNames.get(0));
+    public void showMenus(ArrayList<String[]> foodDetails, HashMap<String, ArrayList<String[]>> foodReviews) {
 
         menusPanel.removeAll();
         bottomPanel.removeAll();
@@ -123,10 +116,16 @@ public class OrderView extends JFrame implements OrderViewModel {
 
         String[] quantities = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        for (int i= 0; i < 2; i++){
+        for (int i= 0; i < foodDetails.size(); i++){
             JPanel tempFoodItemPanel = new JPanel(new GridLayout(1,3));
 
             JComboBox<String> tempFoodItemQuantity = new JComboBox<>(quantities);
+
+            ArrayList<Double> foodItemPrices = new ArrayList<>();
+            for (String[] strArr: foodDetails){
+                foodItemPrices.add(Double.parseDouble(strArr[1]));
+            }
+
             tempFoodItemQuantity.addActionListener(actionEvent -> {
                 foodItemQuantityExtracted(foodItemPrices, tempFoodItemQuantity);
             });
@@ -137,21 +136,21 @@ public class OrderView extends JFrame implements OrderViewModel {
             LabelComboboxPanel quantitiesPanel = new LabelComboboxPanel(
                     new JLabel("Quantity"), tempFoodItemQuantity);
 
-            String itemName = foodItemNames.get(i);
-            Double itemPrice = foodItemPrices.get(i);
-            String[] itemAllergens = foodItemAllergens.get(i);
-            String[] itemIngredients = foodItemIngredients.get(i);
-            int itemCalories = foodItemCalories.get(i);
-            int itemPopularity = foodItemPopularities.get(i);
-            Double itemStarAverage = foodItemStarAverages.get(i);
-            ArrayList<String> itemReviews = foodItemReviews.get(i);
+            String itemName = foodDetails.get(i)[0];
+            Double itemPrice = Double.parseDouble(foodDetails.get(i)[1]);
+            String[] itemAllergens = foodDetails.get(i)[2].split(",");
+            String[] itemIngredients = foodDetails.get(i)[3].split(",");
+            int itemCalories = Integer.parseInt(foodDetails.get(i)[4]);
+            int itemPopularity = Integer.parseInt(foodDetails.get(i)[5]);
+            Double itemStarAverage = Double.parseDouble(foodDetails.get(i)[6]);
+            ArrayList<String[]> itemReviews = foodReviews.get(itemName);
 
             tempDetailsButton.addActionListener(actionEvent -> {
                 FoodItemDetailsView foodItemDetailsView = new FoodItemDetailsView(
                      itemName, itemPrice, itemAllergens, itemIngredients, itemCalories, itemPopularity, itemStarAverage, itemReviews);
             });
 
-            JCheckBox tempCheckBox = new JCheckBox(foodItemNames.get(i) + " ($" + foodItemPrices.get(i).toString() + ")");
+            JCheckBox tempCheckBox = new JCheckBox(foodDetails.get(i)[0] + " ($" + foodItemPrices.get(i).toString() + ")");
             tempCheckBox.addActionListener(actionEvent -> {
                 if (tempCheckBox.isSelected()){
                     quantityDropdownsList.get(checkBoxes.indexOf(tempCheckBox)).setSelectedIndex(1);
@@ -180,11 +179,11 @@ public class OrderView extends JFrame implements OrderViewModel {
     private void foodItemQuantityExtracted(ArrayList<Double> foodItemPrices, JComboBox<String> tempFoodItemQuantity) {
         totalPrice = 0.0;
         for (JComboBox<String> comboBox: quantityDropdownsList){
-            totalPrice += Integer.parseInt(comboBox.getSelectedItem().toString()) * foodItemPrices.get(quantityDropdownsList.indexOf(comboBox));
+            totalPrice += Integer.parseInt(Objects.requireNonNull(comboBox.getSelectedItem()).toString()) * foodItemPrices.get(quantityDropdownsList.indexOf(comboBox));
         }
         totalPriceString.setText(String.format("Total Price: $%.2f",totalPrice));
 
-        if (Integer.parseInt(tempFoodItemQuantity.getSelectedItem().toString()) == 0){
+        if (Integer.parseInt(Objects.requireNonNull(tempFoodItemQuantity.getSelectedItem()).toString()) == 0){
             checkBoxes.get(quantityDropdownsList.indexOf(tempFoodItemQuantity)).setSelected(false);
         }
         else if (Integer.parseInt(tempFoodItemQuantity.getSelectedItem().toString()) > 0){

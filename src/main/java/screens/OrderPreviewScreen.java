@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class OrderPreviewScreen extends JFrame {
-    private OrderView orderView;
+    private final OrderView orderView;
 
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         this.orderView = orderView;
@@ -23,13 +23,6 @@ public class OrderPreviewScreen extends JFrame {
         orderButton.addActionListener(actionEvent -> {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
 
-            this.dispose();
-            orderView.dispose();
-            try {
-                BuyerMain.create(userUsername, userEmail);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         });
         pnl.add(orderButton);
         this.add(pnl);
@@ -59,7 +52,6 @@ public class OrderPreviewScreen extends JFrame {
         JOptionPane.showMessageDialog(null, "Order has been sent", "Order Sucess", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
         orderView.dispose();
-        //new BuyerDefaultView(userUsername, userEmail, orderView.orderHistoryInteractor);
         try {
             BuyerMain.create(userUsername, userEmail);
         } catch (IOException ex) {
