@@ -6,9 +6,7 @@ import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 
-import order_history_use_case.OrderHistoryInteractor;
 import order_use_case.BuyerMain;
-import order_use_case.DoesNotExistException;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
@@ -22,25 +20,79 @@ import java.util.Arrays;
 
 public class BuyerDefaultView extends JFrame {
 
+
     private JPanel pnl = new JPanel(new GridLayout(2, 1));
+    /**
+     *The main JPanel for this view.  The two rows are for:
+     * 1) placing an order/logging out
+     * 2) the list of past orders and current orders
+     */
     private JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+    /**
+     * A JTabbedPane with two tabs (with a scrolling layout- i.e., the pages can be scrolled up/down):
+     * 1) the list of past orders
+     * 2) the list of current orders
+     */
     private JButton placeOrderButton = new JButton("Place new order");
+    /**
+     * A button which takes the user to the page for placing an order (this is the OrderView
+     * and involves the GetMenus use case)
+     */
     private JButton logoutButton = new JButton("Logout");
+    /**
+     * Clicking this button logs out the user and takes them back to the Welcome Screen
+     */
     private JPanel topPanel = new JPanel(new GridLayout(1, 2));
-    private JPanel getOrderHistoryPanel;
+    /**
+     * The first row of pnl.  Includes the LOGOUT button and PLACE ORDER button
+     */
+    private JScrollPane orderHistoryPanel;
+    /**
+     * The left half of the tabbedPane - shows the user their past orders
+     */
+    private JScrollPane currentOrdersPanel;
+    /**
+     * The right half of the tabbedPane - shows the user their current orders
+     */
+    private JPanel orderHistoryInnerPanel;
+    /**
+     * The inner part of orderHistoryPanel.  This is embedded into the JScrollPane and this is where
+     * the information about the orders resides.  The ScrollPane is just used to enable the scrolling feature
+     */
     private JPanel currentOrdersInnerPanel;
-    JScrollPane orderHistoryPanel;
-    JScrollPane currentOrdersPanel;
+    /**
+     * The inner part of currentOrdersPanel.  Similar to orderHistoryInnerPanel
+     */
     private OrderHistoryController orderHistoryController;
+    /**
+     * The Controller for the Order History use case.  Used for loading info into the orderHistoryInnerPanel
+     */
     private String username;
+    /**
+     * The username of the currently logged-in user
+     */
     private String email;
+    /**
+     * The email id of the currently logged-in user
+     */
     private OrderDsGateway orders;
+    /**
+     * The Gateway for the Order use case.  Used when the user wants to make a new order.
+     */
+
 
     private void chatClicked(ActionEvent actionEvent) throws IOException {
         ChatInteractor.ChatMain.create("","");
     }
 
+    /**
+     *
+     * @param username The username of the currently logged-in user
+     * @param email The email-id of the currently logged-in user
+     * @param orderHistoryInteractor The Use Case Interactor to be used for the OrderHistory use case
+     */
     public BuyerDefaultView(String username, String email, OrderHistoryInputBoundary orderHistoryInteractor){
+
         try {
             orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
             //System.out.println("File Created!");
@@ -90,7 +142,7 @@ public class BuyerDefaultView extends JFrame {
 
     private void createOrderHistoryPanel(){
         ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
-        getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),2));
+        orderHistoryInnerPanel = new JPanel(new GridLayout(orderHistory.size(),2));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
@@ -98,16 +150,16 @@ public class BuyerDefaultView extends JFrame {
                 tempOrderPanel.add(new JLabel(ordersInfoHeaders[i] + ": "+ tempOrder[i]));
             }
             tempOrderPanel.add(new JLabel(" "));
-            this.getOrderHistoryPanel.add(tempOrderPanel);
+            this.orderHistoryInnerPanel.add(tempOrderPanel);
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
                 new PreReviewView(tempOrder[7], tempOrder[5], username);
             });
 
-            this.getOrderHistoryPanel.add(reviewButton);
+            this.orderHistoryInnerPanel.add(reviewButton);
         }
-        this.orderHistoryPanel = new JScrollPane(getOrderHistoryPanel);
+        this.orderHistoryPanel = new JScrollPane(orderHistoryInnerPanel);
         tabbedPane.setComponentAt(0, this.orderHistoryPanel);
     }
 
