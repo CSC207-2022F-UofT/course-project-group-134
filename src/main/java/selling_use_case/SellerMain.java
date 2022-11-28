@@ -25,11 +25,11 @@ public class SellerMain {
         SellingInputBoundary interactor = new SellingInteractor(presenter, orderGateway);
         SellingController sellingController = new SellingController(interactor);
         if (orderGateway.sellerHasOrder(sellerEmail)){
-            SellerFulfillingOrderScreen fulfillingOrderScreen = new SellerFulfillingOrderScreen(
+            new SellerFulfillingOrderScreen(
                     signupGateway, orderGateway, sellerEmail,
                     orderGateway.getPriceFromOrderNumber(orderGateway.getOrderNumberFromSellerEmail(sellerEmail)));
         } else {
-            SellingScreen sellingScreen = new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence);
+            new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence);
         }
     }
 }

@@ -17,36 +17,30 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class OrderView extends JFrame implements OrderViewModel {
-    private JPanel pnl = new JPanel(new GridLayout(4,1));
+    private final JPanel pnl = new JPanel(new GridLayout(4,1));
 
-    private JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
-    private JButton backButton = new JButton("Back to home");
-    private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
-    private JPanel menusPanel = new JPanel(new GridLayout(1,2));
+    private final JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+    private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+    private final JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
-    private JButton orderButton = new JButton("Preview Order");
+    private final JButton orderButton = new JButton("Preview Order");
     Double totalPrice = 0.0;
-    private JLabel totalPriceString = new JLabel("Total Price: $0");
+    private final JLabel totalPriceString = new JLabel("Total Price: $0");
 
-    private JComboBox<String> residenceDropdown;
-    private ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
-    private OrderController orderController;
-    private GetMenusController getMenusController;
-    private String username;
-    private String email;
+    private final JComboBox<String> residenceDropdown;
+    private final ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
+    private final String username;
+    private final String email;
 
-    private OrderPreviewScreen orderPreviewScreen;
     OrderHistoryInputBoundary orderHistoryInteractor;
     boolean orderPreviewClosed = true;
 
     public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
         this.orderHistoryInteractor = orderHistoryInteractor;
-        this.orderController = orderController;
         this.email = email;
         this.username = username;
         ResidenceType[] residenceStates = ResidenceType.values();
         String[] residenceTypeList = new String[residenceStates.length];
-        this.getMenusController = getMenusController;
 
         for (int i = 0; i < residenceStates.length; i++) {
             residenceTypeList[i] = residenceStates[i].toString();
@@ -78,6 +72,7 @@ public class OrderView extends JFrame implements OrderViewModel {
             orderClicked();
         });
 
+        JButton backButton = new JButton("Back to home");
         pnl.add(backButton);
 
         backButton.addActionListener(actionEvent -> {
@@ -146,7 +141,7 @@ public class OrderView extends JFrame implements OrderViewModel {
             ArrayList<String[]> itemReviews = foodReviews.get(itemName);
 
             tempDetailsButton.addActionListener(actionEvent -> {
-                FoodItemDetailsView foodItemDetailsView = new FoodItemDetailsView(
+                new FoodItemDetailsView(
                      itemName, itemPrice, itemAllergens, itemIngredients, itemCalories, itemPopularity, itemStarAverage, itemReviews);
             });
 
@@ -218,7 +213,7 @@ public class OrderView extends JFrame implements OrderViewModel {
         String[] foodItemsArr = new String[selectedFoodItems.size()];
         Integer[] foodQuantArr = new Integer[selectedFoodItemQuantities.size()];
         Double[] foodPricesArr = new Double[selectedFoodItemPrices.size()];
-        orderPreviewScreen = new OrderPreviewScreen(this, this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
+        OrderPreviewScreen orderPreviewScreen = new OrderPreviewScreen(this, this.username, this.email, selectedResidence, selectedFoodItems.toArray(foodItemsArr), selectedFoodItemQuantities.toArray(foodQuantArr), selectedFoodItemPrices.toArray(foodPricesArr), totalPrice);
         orderPreviewClosed = false;
     }
 }

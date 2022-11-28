@@ -18,6 +18,6 @@ public class ReviewMain {
         ReviewFactory reviewFactory = new ReviewFactory();
         ReviewInputBoundary interactor = new ReviewInteractor(review, presenter, reviewFactory);
         ReviewController reviewController = new ReviewController(interactor);
-        ReviewScreen reviewScreen = new ReviewScreen(reviewController, username, itemName, diningHall);
+        new ReviewScreen(reviewController, username, itemName, diningHall);
     }
 }
