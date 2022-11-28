@@ -12,7 +12,7 @@ public class BuyerMain {
     public static void create(String username, String email) throws IOException, IOException {
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
         OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
-        BuyerDefaultView buyerDefaultView = new BuyerDefaultView(username, email, orderHistoryInteractor);
+        new BuyerDefaultView(username, email, orderHistoryInteractor);
        // TODO: fill this later once we have all the order classe created.
     }
 }

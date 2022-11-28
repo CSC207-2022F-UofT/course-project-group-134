@@ -23,6 +23,6 @@ public class LoginMain {
         UserFactory userFactory = new UserFactory(buyerFactory, sellerFactory);
         LoginInputBoundary interactor = new LoginInteractor(user, presenter, userFactory);
         LoginController loginController = new LoginController(interactor);
-        LoginScreen loginScreen = new LoginScreen(loginController);
+        new LoginScreen(loginController);
     }
 }

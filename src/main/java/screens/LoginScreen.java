@@ -12,7 +12,6 @@ import user_login_use_case.LoginResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class LoginScreen extends JFrame {
@@ -21,7 +20,7 @@ public class LoginScreen extends JFrame {
     private final JPasswordField passwordInput = new JPasswordField(15);;
     private final LoginController loginController;
 
-    private void loginClicked(ActionEvent actionEvent) throws IOException {
+    private void loginClicked() throws IOException {
         try {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
@@ -60,7 +59,7 @@ public class LoginScreen extends JFrame {
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(actionEvent -> {
             try {
-                loginClicked(actionEvent);
+                loginClicked();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -69,7 +68,7 @@ public class LoginScreen extends JFrame {
         backButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                WelcomeScreen screen = new WelcomeScreen();
+                new WelcomeScreen();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

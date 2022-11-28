@@ -12,14 +12,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ReviewScreen extends JFrame {
-    private JTextField reviewInput = new JTextField(15);
-    private JComboBox<String> ratingsInput;
-    private JTextField sellerInput = new JTextField(15);
-    private ReviewController reviewController;
+    private final JTextField reviewInput = new JTextField(15);
+    private final JComboBox<String> ratingsInput;
+    private final JTextField sellerInput = new JTextField(15);
+    private final ReviewController reviewController;
 
     String username, itemName, diningHall;
 
-    private void reviewClicked(ActionEvent actionEvent) throws IOException {
+    private void reviewClicked() throws IOException {
         try {
             ReviewResponseModel response = reviewController.create(reviewInput.getText(), Integer.parseInt(Objects.requireNonNull(ratingsInput.getSelectedItem()).toString()),
                     username, itemName, diningHall);
@@ -70,7 +70,7 @@ public class ReviewScreen extends JFrame {
         JButton reviewButton = new JButton("Post");
         reviewButton.addActionListener(actionEvent ->{
             try {
-                reviewClicked(actionEvent);
+                reviewClicked();
             } catch (IOException e ){
                 throw new RuntimeException(e);
             }

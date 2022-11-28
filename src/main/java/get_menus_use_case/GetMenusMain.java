@@ -34,7 +34,7 @@ public class GetMenusMain {
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
         OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
 
-        OrderView orderView = new OrderView(orderController, getMenusController,username, email, orderHistoryInteractor);
+        new OrderView(orderController, getMenusController,username, email, orderHistoryInteractor);
 
     }
 }

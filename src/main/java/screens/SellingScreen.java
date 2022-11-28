@@ -10,7 +10,6 @@ import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public class SellingScreen extends JFrame {
     private final String sellerResidence;
 
     private final SignUpDsGateway signUpGateway;
-    private void acceptClicked(ActionEvent actionEvent) throws IOException {
+    private void acceptClicked() throws IOException {
 
         try {
             String orderString = (String) currentOrdersDropdown.getSelectedItem();
@@ -68,7 +67,7 @@ public class SellingScreen extends JFrame {
         JButton acceptButton = new JButton("Accept Order");
         acceptButton.addActionListener(actionEvent -> {
             try {
-                acceptClicked(actionEvent);
+                acceptClicked();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -78,7 +77,7 @@ public class SellingScreen extends JFrame {
         logOutButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                WelcomeScreen screen = new WelcomeScreen();
+                new WelcomeScreen();
                 JOptionPane.showMessageDialog(null,
                         "Successfully logged out.",
                         "Logout succeeded",
@@ -92,7 +91,7 @@ public class SellingScreen extends JFrame {
         JButton pastOrderButton = new JButton("Past Orders");
         pastOrderButton.addActionListener(actionEvent -> {
             try {
-                SellerPastOrdersScreen screen = new SellerPastOrdersScreen(sellingController, orderDsGateway,sellerEmail);
+                new SellerPastOrdersScreen(orderDsGateway,sellerEmail);
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }

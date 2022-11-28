@@ -10,12 +10,12 @@ import java.io.IOException;
 
 public class WelcomeScreen extends JFrame {
 
-    private void loginClicked(ActionEvent event) {
+    private void loginClicked() {
         LoginMain.create();
         this.dispose();
     }
 
-    private void signupClicked(ActionEvent event) throws IOException {
+    private void signupClicked() throws IOException {
         SignUpMain.create();
         this.dispose();
     }
@@ -26,14 +26,16 @@ public class WelcomeScreen extends JFrame {
 
         signupButton.addActionListener(event -> {
             try {
-                signupClicked(event);
+                signupClicked();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         pnl.add(signupButton);
         JButton loginButton = new JButton("Log in");
-        loginButton.addActionListener(this::loginClicked);
+        loginButton.addActionListener(actionEvent -> {
+            loginClicked();
+        });
         pnl.add(loginButton);
         this.add(pnl);
         this.setTitle("Welcome");
