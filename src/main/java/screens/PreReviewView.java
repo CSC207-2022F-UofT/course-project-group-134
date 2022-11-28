@@ -23,9 +23,9 @@ public class PreReviewView extends JFrame {
         this.residence = residence;
         this.foodItemsString = foodItemsString;
         this.foodItemsArray = foodItemsString.split(",");
-        //for (int i= 0; i < this.foodItemsArray.length; i++){
-
-        //}
+        for (int i= 0; i < this.foodItemsArray.length; i++){
+            this.foodItemsArray[i] = this.foodItemsArray[i].split("\\(")[0].strip();
+        }
 
         this.username  = username;
         foodItems = new JComboBox<>(foodItemsArray);

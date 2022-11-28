@@ -14,7 +14,7 @@ public class FoodItemDetailsView extends JFrame {
                                Integer foodItemCalories,
                                Integer foodItemPopularities,
                                Double foodItemStarAverages,
-                               ArrayList<String> foodItemReviews){
+                               ArrayList<String[]> foodItemReviews){
 
         JPanel pnl = new JPanel(new GridLayout(8, 1));
         pnl.add(new JLabel("Name: " + foodItemName));
@@ -23,8 +23,26 @@ public class FoodItemDetailsView extends JFrame {
         pnl.add(new JLabel("Ingredients: " + Arrays.toString(foodItemIngredients).replace("[", "").replace("]","")));
         pnl.add(new JLabel("Calories: " + foodItemCalories));
         pnl.add(new JLabel("Popularity: " + foodItemPopularities.toString()));
-        pnl.add(new JLabel("Star Average: " + foodItemStarAverages.toString()));
-        pnl.add(new JLabel("Reviews: " + foodItemReviews.toString().replace("[", "").replace("]","")));
+
+        double starTotal = 0.0;
+        for (String[] review: foodItemReviews){
+            starTotal += Integer.parseInt(review[1]);
+        }
+
+        double starAverage = starTotal/foodItemReviews.size();
+
+        pnl.add(new JLabel("Star Average: " + starAverage));
+
+        JPanel reviewPanel = new JPanel(new GridLayout(foodItemReviews.size() + 1, 1));
+
+        reviewPanel.add(new JLabel("Reviews:"));
+        for (String[] review : foodItemReviews){
+            reviewPanel.add(new JLabel(review[2]+": " +review[0] + " (" + review[1] + " stars)"));
+        }
+
+        pnl.add(reviewPanel);
+
+        //pnl.add(new JLabel("Reviews: " + foodItemReviews.toString().replace("[", "").replace("]","")));
 
         this.add(pnl);
         this.setTitle("Food Item Information");

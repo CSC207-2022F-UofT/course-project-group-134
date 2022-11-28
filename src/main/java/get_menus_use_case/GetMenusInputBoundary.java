@@ -7,4 +7,6 @@ public interface GetMenusInputBoundary {
 
     ArrayList<String[]> getFoodDetails();
     HashMap<String, ArrayList<String[]>> getFoodReviews();
+
+    void setUpInteractor(String residenceName) throws Exception;
 }
