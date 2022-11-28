@@ -21,7 +21,15 @@ public class SignUpGateway implements SignUpDsGateway {
 
     private final Map<String, SignUpDsRequestModel> accounts = new HashMap<>();
 
-    // this constructor takes in the path to a csvFile and parses all the information
+    private static final String defaultCSVPath = "./src/main/java/data_storage/users.csv";
+
+    // this constructor takes in the path to a csvFile and parses all the information'
+
+    public SignUpGateway() throws IOException{
+        this(defaultCSVPath);
+    }
+
+
     public SignUpGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
@@ -125,6 +133,15 @@ public class SignUpGateway implements SignUpDsGateway {
         }
         return null; // user does not exist by email.
     }
+
+    public User readUser(String email){
+        BuyerFactory buyerFactory = new BuyerFactory();
+        SellerFactory sellerFactory = new SellerFactory();
+        UserFactory userFactory = new UserFactory(buyerFactory, sellerFactory);
+        return readUser(email,userFactory);
+
+    }
+
     public SignUpDsRequestModel getRequestModelFromEmail(String email) {
         for (SignUpDsRequestModel data: accounts.values()) {
             if (data.getEmail().equals(email)) {
