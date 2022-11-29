@@ -2,10 +2,11 @@ package order_history_use_case;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
 
-    private final ArrayList<OrderHistoryResponseModel> allOrders;
+    private final List<OrderHistoryResponseModel> allOrders;
     private final OrderHistoryOutputBoundary outputBoundary;
     public OrderHistoryInteractor(String username, String email, OrderHistoryOutputBoundary outputBoundary)
             throws IOException {
@@ -17,9 +18,8 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
 
 
     @Override
-    public ArrayList<String[]> returnFinishedOrders(){
-
-        ArrayList<String[]> allOrdersList  = new ArrayList<>();
+    public List<String[]> returnFinishedOrders(){
+        List<String[]> allOrdersList  = new ArrayList<>();
 
         for(OrderHistoryResponseModel resMod: this.allOrders){
             if (resMod.getOrderStatus().equals("FINISHED")) {
@@ -31,8 +31,8 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
     }
 
     @Override
-    public ArrayList<String[]> returnCurrentOrders(){
-        ArrayList<String[]> allOrdersList  = new ArrayList<>();
+    public List<String[]> returnCurrentOrders(){
+        List<String[]> allOrdersList  = new ArrayList<>();
 
         for(OrderHistoryResponseModel resMod: this.allOrders) {
             if (!resMod.getOrderStatus().equals("FINISHED")) {

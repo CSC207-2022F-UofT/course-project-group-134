@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a menu of foodItems that a dining hall serves.
@@ -11,14 +12,14 @@ public class Menu{
     /**
      * The list of food items that the menu has
      */
-    private final ArrayList<FoodItem> foodItems;
+    private final List<FoodItem> foodItems;
 
 
     /**
      * Constructor for Menu. Creates a new menu with the given arraylist of food items.
      * @param foodItems An arraylist of food items representing the food items that the Menu has on it.
      */
-    public Menu(ArrayList<FoodItem> foodItems){
+    public Menu(List<FoodItem> foodItems){
         this.foodItems = foodItems;
     }
 
@@ -34,44 +35,44 @@ public class Menu{
      * Gets the food items that the Menu has.
      * @return The ArrayList of food items in the menu that represents the food items on the menu.
      */
-    public ArrayList<FoodItem> getFoodItems() {
+    public List<FoodItem> getFoodItems() {
         return foodItems;
     }
 
-    public ArrayList<String> getFoodItemNames(){
-        ArrayList<String> foodItemNames = new ArrayList<>();
+    public List<String> getFoodItemNames(){
+        List<String> foodItemNames = new ArrayList<>();
         for (FoodItem foodItem : this.foodItems){
             foodItemNames.add(foodItem.getDescription());
         }
         return foodItemNames;
     }
 
-    public ArrayList<Double> getFoodItemPrices(){
-        ArrayList<Double> foodItemPrices = new ArrayList<>();
+    public List<Double> getFoodItemPrices(){
+        List<Double> foodItemPrices = new ArrayList<>();
         for (FoodItem foodItem : this.foodItems){
             foodItemPrices.add(foodItem.getPrice());
         }
         return foodItemPrices;
     }
 
-    public ArrayList<String[]> getFoodItemAllergens(){
-        ArrayList<String[]> foodItemAllergens = new ArrayList<>();
+    public List<String[]> getFoodItemAllergens(){
+        List<String[]> foodItemAllergens = new ArrayList<>();
         for (FoodItem foodItem : this.foodItems){
             foodItemAllergens.add(foodItem.getAllergens());
         }
         return foodItemAllergens;
     }
 
-    public ArrayList<String[]> getFoodItemIngredients(){
-        ArrayList<String[]> foodItemIngredients = new ArrayList<>();
+    public List<String[]> getFoodItemIngredients(){
+        List<String[]> foodItemIngredients = new ArrayList<>();
         for (FoodItem foodItem : this.foodItems){
             foodItemIngredients.add(foodItem.getIngredients());
         }
         return foodItemIngredients;
     }
 
-    public ArrayList<Integer> getFoodItemCalories(){
-        ArrayList<Integer> foodItemCalories = new ArrayList<>();
+    public List<Integer> getFoodItemCalories(){
+        List<Integer> foodItemCalories = new ArrayList<>();
         for (FoodItem foodItem : this.foodItems){
             foodItemCalories.add(foodItem.getCalories());
         }

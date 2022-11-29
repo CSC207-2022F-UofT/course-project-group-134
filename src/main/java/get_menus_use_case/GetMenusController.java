@@ -2,6 +2,7 @@ package get_menus_use_case;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetMenusController {
 
@@ -29,6 +30,7 @@ public class GetMenusController {
      * @return Return what the input boundary returns when getFoodReviews is called on it
      */
     public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+
         return this.inputBoundary.getFoodReviews();
     }
 

@@ -12,11 +12,12 @@ import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BuyerDefaultView extends JFrame {
 
@@ -143,6 +144,7 @@ public class BuyerDefaultView extends JFrame {
     private void createOrderHistoryPanel(){
         ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
         orderHistoryInnerPanel = new JPanel(new GridLayout(orderHistory.size(),2));
+
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
             JPanel tempOrderPanel = new JPanel(new GridLayout(tempOrder.length + 1, 1));
@@ -164,8 +166,7 @@ public class BuyerDefaultView extends JFrame {
     }
 
     private void createCurrentOrdersPanel(){
-
-        ArrayList<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
+        List<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
         currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         //System.out.println(currentOrders.toString());

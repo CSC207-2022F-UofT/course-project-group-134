@@ -1,6 +1,6 @@
 package screens;
 
-import chat_use_case.models.ChatMain;
+import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class SellerFulfillingOrderScreen extends JFrame{
 
     private void chatClicked() throws IOException {
-        ChatMain.create();
+        ChatInteractor.ChatMain.create("","");
     }
 
     public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {

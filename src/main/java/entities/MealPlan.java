@@ -1,13 +1,14 @@
 package entities;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MealPlan {
     private final String residence;
 
-    private final ArrayList<Residence> associatedDiningHalls;
+    private final List<Residence> associatedDiningHalls;
 
     private double balance;
-    private final ArrayList<FoodItem> masterListOfItemsBought;
+    private final List<FoodItem> masterListOfItemsBought;
 
     public MealPlan(String residence, double balance){
         this.residence = residence;
@@ -20,7 +21,7 @@ public class MealPlan {
         return balance;
     }
 
-    public ArrayList<Residence> getAssociatedDiningHalls() {
+    public List<Residence> getAssociatedDiningHalls() {
         // TODO: implement this by getting the set of dining halls from residence
         return associatedDiningHalls;
     }

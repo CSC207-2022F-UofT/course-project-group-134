@@ -9,9 +9,9 @@ import selling_use_case.SellingController;
 import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class SellingScreen extends JFrame {
 
@@ -103,7 +103,7 @@ public class SellingScreen extends JFrame {
 
         pnl.add(buttonsPanel);
 
-        ArrayList<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders(sellerResidence);
+        List<Integer> unfulfilledOrders = orderDsGateway.getUnfulfilledOrders(sellerResidence);
         String[] displayArray = new String[unfulfilledOrders.size()];
         for (int i = 0; i < unfulfilledOrders.size(); i++) {
             int orderNumber = unfulfilledOrders.get(i);

@@ -5,6 +5,7 @@ import entities.Review;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ReviewDsGateway {
 
@@ -12,5 +13,5 @@ public interface ReviewDsGateway {
 
     void save() throws IOException;
 
-    ArrayList<Review> getReviewsFromName(String itemName, ResidenceType residence);
+    List<Review> getReviewsFromName(String itemName, ResidenceType residence);
 }

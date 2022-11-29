@@ -5,13 +5,13 @@ import entities.FoodItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OrderHistoryPresenter implements OrderHistoryOutputBoundary{
 
     @Override
     public String[] getViewList(OrderHistoryResponseModel resMod) {
-
-        ArrayList<String> foodItems = new ArrayList<String>();
+        List<String> foodItems = new ArrayList<String>();
 
         for(int i=0; i < resMod.getFoodItems().length; i++) {
             foodItems.add(resMod.getFoodItems()[i] + "(" + resMod.getFoodQuantity()[i].toString() + ")");
