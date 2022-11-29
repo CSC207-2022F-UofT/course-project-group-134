@@ -21,7 +21,7 @@ public class GetMenusController {
      *
      * @return Return what the input boundary returns when getFoodDetails is called on it
      */
-    public ArrayList<String[]> getFoodDetails() {
+    public List<String[]> getFoodDetails() {
         return this.inputBoundary.getFoodDetails();
     }
 
@@ -29,7 +29,7 @@ public class GetMenusController {
      *
      * @return Return what the input boundary returns when getFoodReviews is called on it
      */
-    public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+    public HashMap<String, List<String[]>> getFoodReviews(){
 
         return this.inputBoundary.getFoodReviews();
     }
