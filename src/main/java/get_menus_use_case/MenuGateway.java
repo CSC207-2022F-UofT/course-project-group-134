@@ -18,7 +18,15 @@ public class MenuGateway implements  MenuGatewayInterface{
 
     private List<FoodItem> foodItems;
     private ResidenceType type;
-    public Menu createMenu(ResidenceType type) throws Exception {
+
+    /**
+     *
+     * @param type the residence whose menu we wish to fetch
+     * @return return the Menu object containing the created Menu (in a way, this class is like a Menu Factory)
+     */
+    public Menu createMenu(ResidenceType type) throws Exception
+    {
+
         String name = type.name();
         this.foodItems = new ArrayList<>();
         this.type = type;

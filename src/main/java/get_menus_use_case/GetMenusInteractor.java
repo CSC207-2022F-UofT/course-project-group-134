@@ -13,13 +13,21 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
 
     private GetMenusResponseModel resMod;
 
-    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway) throws Exception {
+    /**
+     *
+     * @param presenter The presenter for this use case; it is an Output Boundary here to invert the dependency
+     * @param menuGateway The Gateway class for this usecase - used to get data from csv files
+     */
+
+    public GetMenusInteractor(GetMenusOutputBoundary presenter, MenuGatewayInterface menuGateway) {
         this.presenter = presenter;
         this.menuGatewayInterface = menuGateway;
-
-
     }
 
+    /**
+     * @param residenceName The name of the residence from which to get the menu (each residence has a menu)
+     * This method sets up the interactor by appropriately setting up the response model based on the residence given
+     */
     public void setUpInteractor(String residenceName) throws Exception {
         ResidenceType[] arr = ResidenceType.values();
         for (ResidenceType residenceType : arr) {
@@ -48,12 +56,18 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
         }
     }
 
+    /**
+     * @return Return what the presenter returns when getFoodDetails is called on it
+     */
     @Override
     public List<String[]> getFoodDetails() {
         return presenter.getFoodDetails(this.resMod);
 
     }
 
+    /**
+     * @return Return what the presenter returns when getFoodReviews is called on it
+     */
     @Override
     public HashMap<String, List<String[]>> getFoodReviews(){
 
