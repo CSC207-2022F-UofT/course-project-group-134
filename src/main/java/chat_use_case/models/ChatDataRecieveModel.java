@@ -3,19 +3,20 @@ package chat_use_case.models;
 import entities.ChatMessage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatDataRecieveModel {
 
 
-    private final ArrayList<ChatMessage> chatMessages;
+    private final List<ChatMessage> chatMessages;
 
     private final boolean chat_exists;
-    public ChatDataRecieveModel(ArrayList<ChatMessage> messages, boolean chat_exists){
+    public ChatDataRecieveModel(List<ChatMessage> messages, boolean chat_exists){
         this.chatMessages = messages; this.chat_exists = chat_exists;
     }
 
 
-    public ArrayList<ChatMessage> getChatMessages(){
+    public List<ChatMessage> getChatMessages(){
         return chatMessages;
     }
 

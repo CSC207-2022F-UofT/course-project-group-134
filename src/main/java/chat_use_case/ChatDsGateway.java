@@ -12,9 +12,10 @@ import user_access_use_case.SignUpGateway;
 import java.io.*;
 import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatDsGateway implements ChatDsBoundary {
-    ArrayList<Chat> chats ;
+    List<Chat> chats ;
     private int managed_chats = 1;
 
     private static final String STORAGE_LOCATION = "./src/main/java/data_storage/chat_store";
@@ -87,8 +88,8 @@ public class ChatDsGateway implements ChatDsBoundary {
         out.close();
     }
 
-    private ArrayList<Chat> read(){
-        ArrayList<Chat> rtn = new ArrayList<Chat>();
+    private List<Chat> read(){
+        List<Chat> rtn = new ArrayList<Chat>();
 
         for(File f : storage_dir.listFiles()){
             try {

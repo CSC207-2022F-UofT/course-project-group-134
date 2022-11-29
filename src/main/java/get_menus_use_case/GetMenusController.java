@@ -2,6 +2,7 @@ package get_menus_use_case;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetMenusController {
 
@@ -11,11 +12,11 @@ public class GetMenusController {
         this.inputBoundary = inputBoundary;
     }
 
-    public ArrayList<String[]> getFoodDetails() throws Exception {
+    public List<String[]> getFoodDetails() throws Exception {
         return this.inputBoundary.getFoodDetails();
     }
 
-    public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+    public HashMap<String, List<String[]>> getFoodReviews(){
         return this.inputBoundary.getFoodReviews();
     }
 

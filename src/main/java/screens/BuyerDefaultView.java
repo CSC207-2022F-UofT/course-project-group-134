@@ -6,19 +6,18 @@ import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 
-import order_history_use_case.OrderHistoryInteractor;
 import order_use_case.BuyerMain;
-import order_use_case.DoesNotExistException;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BuyerDefaultView extends JFrame {
 
@@ -89,7 +88,7 @@ public class BuyerDefaultView extends JFrame {
     }
 
     private void createOrderHistoryPanel(){
-        ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
+        List<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
         getOrderHistoryPanel = new JPanel(new GridLayout(orderHistory.size(),2));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         for (String[] tempOrder : orderHistory) {
@@ -112,8 +111,7 @@ public class BuyerDefaultView extends JFrame {
     }
 
     private void createCurrentOrdersPanel(){
-
-        ArrayList<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
+        List<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
         currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
         //System.out.println(currentOrders.toString());

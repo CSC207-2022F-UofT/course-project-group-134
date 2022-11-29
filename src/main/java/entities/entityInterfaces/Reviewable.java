@@ -2,10 +2,10 @@ package entities.entityInterfaces;
 
 import entities.Review;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Reviewable {
-    ArrayList<Review> getReviews();
+    List<Review> getReviews();
 
     void addReview(Review review);
 

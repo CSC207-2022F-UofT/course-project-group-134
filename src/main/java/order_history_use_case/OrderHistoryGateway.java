@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class OrderHistoryGateway {
 
 
-    private ArrayList<OrderHistoryResponseModel> orderList;
+    private List<OrderHistoryResponseModel> orderList;
 
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();
@@ -21,38 +22,36 @@ public class OrderHistoryGateway {
             csvFile.createNewFile();
         }
 
+        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+        reader.readLine(); // skip header
 
-            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header
+        String row;
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
 
-            String row;
-            while ((row = reader.readLine()) != null) {
-                String[] col = row.split(",");
+            int orderID = Integer.parseInt(col[0]);
+            String buyerName = String.valueOf(col[1]);
+            String buyerEmail = String.valueOf(col[2]);
+            String sellerName = String.valueOf(col[3]);
+            String sellerEmail = String.valueOf(col[4]);
+            String orderResidence = String.valueOf(col[5]);
+            String orderStatus = String.valueOf(col[6]);
+            String[] foodItems = String.valueOf(col[7]).split(";");
+            Integer[] foodQuantity = Stream.of((String.valueOf(col[8])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
+            double totalPrice = Double.parseDouble(col[9]);
 
-                int orderID = Integer.parseInt(col[0]);
-                String buyerName = String.valueOf(col[1]);
-                String buyerEmail = String.valueOf(col[2]);
-                String sellerName = String.valueOf(col[3]);
-                String sellerEmail = String.valueOf(col[4]);
-                String orderResidence = String.valueOf(col[5]);
-                String orderStatus = String.valueOf(col[6]);
-                String[] foodItems = String.valueOf(col[7]).split(";");
-                Integer[] foodQuantity = Stream.of((String.valueOf(col[8])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
-                double totalPrice = Double.parseDouble(col[9]);
-
-                if(inputUsername.equals(buyerName) && inputEmail.equals(buyerEmail)){
-                    OrderHistoryResponseModel newOrder = new OrderHistoryResponseModel(orderID,
-                            buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems,
-                            foodQuantity, totalPrice);
-                    System.out.println("input email = " + inputEmail);
-                    System.out.println("buyer email = " + buyerEmail);
-                    orderList.add(newOrder);
-                }
-
+            if(inputUsername.equals(buyerName) && inputEmail.equals(buyerEmail)){
+                OrderHistoryResponseModel newOrder = new OrderHistoryResponseModel(orderID,
+                        buyerName, buyerEmail, sellerName, sellerEmail, orderResidence, orderStatus, foodItems,
+                        foodQuantity, totalPrice);
+                System.out.println("input email = " + inputEmail);
+                System.out.println("buyer email = " + buyerEmail);
+                orderList.add(newOrder);
             }
 
-            reader.close();
+        }
 
+        reader.close();
     }
 
     /*
@@ -97,7 +96,7 @@ public class OrderHistoryGateway {
 
     */
 
-    public ArrayList<OrderHistoryResponseModel> getAllOrders(){
+    public List<OrderHistoryResponseModel> getAllOrders(){
         return orderList;
     }
 }

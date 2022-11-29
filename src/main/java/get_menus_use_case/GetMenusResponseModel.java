@@ -4,21 +4,22 @@ import entities.Review;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetMenusResponseModel {
 
-    private final ArrayList<String> foodItemNames;
-    private final ArrayList<Double> foodItemPrices;
-    private final ArrayList<String[]> foodItemAllergens;
-    private final ArrayList<String[]> foodItemIngredients;
-    private final ArrayList<Integer> foodItemCalories;
-    private final ArrayList<Integer> foodItemPopularities;
-    private final ArrayList<Double> foodItemStarAverages;
-    private final HashMap<String, ArrayList<Review>> foodItemReviews;
+    private final List<String> foodItemNames;
+    private final List<Double> foodItemPrices;
+    private final List<String[]> foodItemAllergens;
+    private final List<String[]> foodItemIngredients;
+    private final List<Integer> foodItemCalories;
+    private final List<Integer> foodItemPopularities;
+    private final List<Double> foodItemStarAverages;
+    private final HashMap<String, List<Review>> foodItemReviews;
 
 
 
-    public GetMenusResponseModel(ArrayList<String> foodItemNames, ArrayList<Double> foodItemPrices, ArrayList<String[]> foodItemAllergens, ArrayList<String[]> foodItemIngredients, ArrayList<Integer> foodItemCalories, ArrayList<Integer> foodItemPopularities, ArrayList<Double> foodItemStarAverages, HashMap<String, ArrayList<Review>> foodItemReviews) {
+    public GetMenusResponseModel(List<String> foodItemNames, List<Double> foodItemPrices, List<String[]> foodItemAllergens, List<String[]> foodItemIngredients, List<Integer> foodItemCalories, List<Integer> foodItemPopularities, List<Double> foodItemStarAverages, HashMap<String, List<Review>> foodItemReviews) {
         this.foodItemNames = foodItemNames;
         this.foodItemPrices = foodItemPrices;
         this.foodItemAllergens = foodItemAllergens;
@@ -31,35 +32,35 @@ public class GetMenusResponseModel {
 
 
 
-    public ArrayList<String> getFoodItemNames() {
+    public List<String> getFoodItemNames() {
         return foodItemNames;
     }
 
-    public ArrayList<Double> getFoodItemPrices() {
+    public List<Double> getFoodItemPrices() {
         return foodItemPrices;
     }
 
-    public ArrayList<String[]> getFoodItemAllergens() {
+    public List<String[]> getFoodItemAllergens() {
         return foodItemAllergens;
     }
 
-    public ArrayList<String[]> getFoodItemIngredients() {
+    public List<String[]> getFoodItemIngredients() {
         return foodItemIngredients;
     }
 
-    public ArrayList<Integer> getFoodItemCalories() {
+    public List<Integer> getFoodItemCalories() {
         return foodItemCalories;
     }
 
-    public ArrayList<Integer> getFoodItemPopularities() {
+    public List<Integer> getFoodItemPopularities() {
         return foodItemPopularities;
     }
 
-    public ArrayList<Double> getFoodItemStarAverages() {
+    public List<Double> getFoodItemStarAverages() {
         return foodItemStarAverages;
     }
 
-    public HashMap<String, ArrayList<Review>> getFoodItemReviews() {
+    public HashMap<String, List<Review>> getFoodItemReviews() {
         return foodItemReviews;
     }
 }

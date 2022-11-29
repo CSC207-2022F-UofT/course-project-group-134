@@ -16,6 +16,7 @@ public class UserFactory {
 
     public Seller createSeller(UserType type, String name, String password, MealPlan mealPlan, String email){
         return sellerFactory.create(name, password, mealPlan, email);
-        }
     }
+
+}
 

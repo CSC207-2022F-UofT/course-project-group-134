@@ -7,8 +7,9 @@ import entities.Review;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface MenuGatewayInterface {
     Menu createMenu(ResidenceType type) throws Exception;
-    public ArrayList<Review> getFoodReviews(String foodItem, ResidenceType residenceName) throws IOException;
+    List<Review> getFoodReviews(String foodItem, ResidenceType residenceName) throws IOException;
 }

@@ -6,6 +6,7 @@ import entities.Review;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReviewGateway implements ReviewDsGateway {
@@ -13,7 +14,7 @@ public class ReviewGateway implements ReviewDsGateway {
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final ArrayList<ReviewDsRequestModel> reviews = new ArrayList<>();
+    private final List<ReviewDsRequestModel> reviews = new ArrayList<>();
 
     public ReviewGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
@@ -73,8 +74,8 @@ public class ReviewGateway implements ReviewDsGateway {
         reviews.add(newReview);
     }
 
-    public ArrayList<Review> getReviewsFromName(String itemName, ResidenceType diningHall) {
-        ArrayList<Review> list = new ArrayList<>();
+    public List<Review> getReviewsFromName(String itemName, ResidenceType diningHall) {
+        List<Review> list = new ArrayList<>();
         for (ReviewDsRequestModel dsModel : reviews) {
             if ((dsModel.getItemName()).equals(itemName) &&
                     dsModel.getDininghall().equals(diningHall.toString())){

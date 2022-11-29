@@ -2,6 +2,7 @@ package entities;
 import entities.entityInterfaces.Reviewable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the subclass of User that is a seller. A seller sells or otherwise provides food to a buyer.
@@ -19,7 +20,7 @@ public class Seller extends User implements Reviewable{
     /**
      * List of reviews that the seller has received.
      */
-    private final ArrayList<Review> reviews;
+    private final List<Review> reviews;
     /**
      * Average 'star' value of the reviews that the seller has received.
      */
@@ -82,7 +83,7 @@ public class Seller extends User implements Reviewable{
      * Gets the list of reviews of this seller.
      * @return The list of reviews of this seller.
      */
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return this.reviews;
     }
 

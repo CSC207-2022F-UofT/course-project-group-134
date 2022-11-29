@@ -1,8 +1,8 @@
 package order_history_use_case;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface OrderHistoryInputBoundary {
-    ArrayList<String[]> returnFinishedOrders();
-    ArrayList<String[]> returnCurrentOrders();
+    List<String[]> returnFinishedOrders();
+    List<String[]> returnCurrentOrders();
 }
