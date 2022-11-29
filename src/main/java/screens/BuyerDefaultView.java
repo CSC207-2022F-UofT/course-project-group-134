@@ -20,65 +20,65 @@ import java.util.Arrays;
 
 public class BuyerDefaultView extends JFrame {
 
-
-    private JPanel pnl = new JPanel(new GridLayout(2, 1));
     /**
      *The main JPanel for this view.  The two rows are for:
      * 1) placing an order/logging out
      * 2) the list of past orders and current orders
      */
-    private JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+    private JPanel pnl = new JPanel(new GridLayout(2, 1));
     /**
      * A JTabbedPane with two tabs (with a scrolling layout- i.e., the pages can be scrolled up/down):
      * 1) the list of past orders
      * 2) the list of current orders
      */
-    private JButton placeOrderButton = new JButton("Place new order");
+    private final JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
     /**
      * A button which takes the user to the page for placing an order (this is the OrderView
      * and involves the GetMenus use case)
      */
-    private JButton logoutButton = new JButton("Logout");
+    private final JButton placeOrderButton = new JButton("Place new order");
     /**
      * Clicking this button logs out the user and takes them back to the Welcome Screen
      */
-    private JPanel topPanel = new JPanel(new GridLayout(1, 2));
+    private final JButton logoutButton = new JButton("Logout");
     /**
      * The first row of pnl.  Includes the LOGOUT button and PLACE ORDER button
      */
-    private JScrollPane orderHistoryPanel;
+    private final JPanel topPanel = new JPanel(new GridLayout(1, 2));
     /**
      * The left half of the tabbedPane - shows the user their past orders
      */
-    private JScrollPane currentOrdersPanel;
+    private JScrollPane orderHistoryPanel;
     /**
      * The right half of the tabbedPane - shows the user their current orders
      */
-    private JPanel orderHistoryInnerPanel;
+    private JScrollPane currentOrdersPanel;
     /**
      * The inner part of orderHistoryPanel.  This is embedded into the JScrollPane and this is where
      * the information about the orders resides.  The ScrollPane is just used to enable the scrolling feature
      */
-    private JPanel currentOrdersInnerPanel;
+    private JPanel orderHistoryInnerPanel;
     /**
      * The inner part of currentOrdersPanel.  Similar to orderHistoryInnerPanel
      */
-    private OrderHistoryController orderHistoryController;
+    private JPanel currentOrdersInnerPanel;
     /**
      * The Controller for the Order History use case.  Used for loading info into the orderHistoryInnerPanel
      */
-    private String username;
+    private final OrderHistoryController orderHistoryController;
     /**
      * The username of the currently logged-in user
      */
-    private String email;
+    private final String username;
     /**
      * The email id of the currently logged-in user
      */
-    private OrderDsGateway orders;
+    private final String email;
     /**
      * The Gateway for the Order use case.  Used when the user wants to make a new order.
      */
+    private final OrderDsGateway orders;
+
 
 
     private void chatClicked(ActionEvent actionEvent) throws IOException {
@@ -215,7 +215,7 @@ public class BuyerDefaultView extends JFrame {
                         this.dispose();
                         System.out.println("REMOVE ORDER FROM VIEW LIST???");
                     } else {
-                        this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
+                        this.orders.setOrderStatus(Integer.parseInt(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
                         this.dispose();
                         try {
