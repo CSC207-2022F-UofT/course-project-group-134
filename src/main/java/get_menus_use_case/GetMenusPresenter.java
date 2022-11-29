@@ -20,9 +20,9 @@ public class GetMenusPresenter implements GetMenusOutputBoundary{
         5. Popularities
         6. Star average
      */
-    public ArrayList<String[]> getFoodDetails(GetMenusResponseModel responseModel){
+    public List<String[]> getFoodDetails(GetMenusResponseModel responseModel){
 
-        ArrayList<String[]> foodDetailsArray = new ArrayList<>();
+        List<String[]> foodDetailsArray = new ArrayList<>();
 
         for(int i = 0; i < responseModel.getFoodItemNames().size(); i++){
             String[] foodDetails = {responseModel.getFoodItemNames().get(i),

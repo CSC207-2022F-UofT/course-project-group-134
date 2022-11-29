@@ -142,7 +142,7 @@ public class BuyerDefaultView extends JFrame {
     }
 
     private void createOrderHistoryPanel(){
-        ArrayList<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
+        List<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
         orderHistoryInnerPanel = new JPanel(new GridLayout(orderHistory.size(),2));
 
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
