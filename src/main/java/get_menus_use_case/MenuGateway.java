@@ -10,15 +10,15 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class MenuGateway implements  MenuGatewayInterface{
 
-    private  ArrayList<FoodItem> foodItems;
+    private List<FoodItem> foodItems;
     private ResidenceType type;
-    public Menu createMenu(ResidenceType type) throws Exception
-    {
+    public Menu createMenu(ResidenceType type) throws Exception {
         String name = type.name();
         this.foodItems = new ArrayList<>();
         this.type = type;
@@ -52,7 +52,7 @@ public class MenuGateway implements  MenuGatewayInterface{
     }
 
     // Takes in the name of a food item and returns all the reviews associated with the item in the given dining hall
-    public ArrayList<Review> getFoodReviews(String foodItem, ResidenceType residenceType) throws IOException {
+    public List<Review> getFoodReviews(String foodItem, ResidenceType residenceType) throws IOException {
         ReviewGateway gateway = new ReviewGateway("src/main/java/data_storage/reviews.csv");
         return gateway.getReviewsFromName(foodItem, residenceType);
     }

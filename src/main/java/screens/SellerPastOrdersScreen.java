@@ -5,8 +5,8 @@ import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.GridLayout;
+import java.util.List;
 
 public class SellerPastOrdersScreen extends JFrame{
     public SellerPastOrdersScreen(OrderDsGateway orderDsGateway, String sellerEmail
@@ -14,7 +14,7 @@ public class SellerPastOrdersScreen extends JFrame{
 
         JPanel orderPanel = new JPanel(new GridLayout(0, 1));
 
-        ArrayList<Integer> finishedOrders = orderDsGateway.getFinishedOrders(sellerEmail);
+        List<Integer> finishedOrders = orderDsGateway.getFinishedOrders(sellerEmail);
 
         if (finishedOrders.size() == 0) {
             JLabel noOrdersLabel = new JLabel("You have no finished orders.");

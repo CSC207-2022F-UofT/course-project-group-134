@@ -3,10 +3,7 @@ package order_use_case;
 import entities.OrderStatusType;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class OrderGateway implements OrderDsGateway{
@@ -97,8 +94,8 @@ public class OrderGateway implements OrderDsGateway{
         return this.orders.containsKey(orderNumber);
     }
 
-    public ArrayList<Integer> getUnfulfilledOrders(String sellerResidence) {
-        ArrayList<Integer> orders = new ArrayList<>();
+    public List<Integer> getUnfulfilledOrders(String sellerResidence) {
+        List<Integer> orders = new ArrayList<>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
             if (entry.getValue().getStatus().equals(OrderStatusType.ORDERED.toString()) &&
                     entry.getValue().getResidence().equals(sellerResidence)){
@@ -108,8 +105,8 @@ public class OrderGateway implements OrderDsGateway{
         return orders;
     }
 
-    public ArrayList<Integer> getFinishedOrders(String sellerEmail) {
-        ArrayList<Integer> finishedOrders = new ArrayList<Integer>();
+    public List<Integer> getFinishedOrders(String sellerEmail) {
+        List<Integer> finishedOrders = new ArrayList<Integer>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
             if (entry.getValue().getStatus().equals(OrderStatusType.FINISHED.toString()) &&
             entry.getValue().getSellerEmail().equals(sellerEmail)){

@@ -117,7 +117,7 @@ public class SignUpGateway implements SignUpDsGateway {
      * @return Returns either a Buyer or Seller corresponding to the user email if it exists. Otherwise, returns null.
      */
     public User readUser(String email, UserFactory userFactory) {
-        for (SignUpDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data : accounts.values()) {
             if (data.getEmail().equals(email)) {
                 if (data.getUserType().equals(UserType.SELLER.toString())) {
                     MealPlan mealPlan = new MealPlan(data.getResidence(), data.getMealPlanBalance());
@@ -139,7 +139,6 @@ public class SignUpGateway implements SignUpDsGateway {
         SellerFactory sellerFactory = new SellerFactory();
         UserFactory userFactory = new UserFactory(buyerFactory, sellerFactory);
         return readUser(email,userFactory);
-
     }
 
     public SignUpDsRequestModel getRequestModelFromEmail(String email) {
@@ -152,7 +151,6 @@ public class SignUpGateway implements SignUpDsGateway {
     }
     public void subtractPrice(String sellerEmail, double price) throws IOException {
         this.csvFile.delete();
-        SignUpDsRequestModel requestModel = this.getRequestModelFromEmail(sellerEmail);
         double currentPrice = accounts.get(sellerEmail).getMealPlanBalance();
         double newPrice = currentPrice - price;
         accounts.get(sellerEmail).setMealPlanBalance(newPrice);

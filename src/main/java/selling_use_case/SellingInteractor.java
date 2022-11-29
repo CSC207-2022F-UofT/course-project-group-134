@@ -1,7 +1,5 @@
 package selling_use_case;
 
-//import entities.DiningHallTypes;
-
 import entities.OrderStatusType;
 import order_use_case.OrderDsGateway;
 

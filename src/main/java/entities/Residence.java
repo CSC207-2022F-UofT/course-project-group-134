@@ -3,13 +3,14 @@ package entities;
 import entities.entityInterfaces.Reviewable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Residence implements Reviewable {
 
     private final String location;
     private final String name;
     private final Menu menu;
-    private final ArrayList<Review> reviews;
+    private final List<Review> reviews;
     double starAverage;
 
     public Residence(String location, String name, Menu menu) {
@@ -28,7 +29,7 @@ public class Residence implements Reviewable {
     }
     public String getName(){return name;}
 
-    public ArrayList<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 

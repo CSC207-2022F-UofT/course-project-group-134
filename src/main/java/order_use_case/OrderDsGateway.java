@@ -3,14 +3,14 @@ package order_use_case;
 
 import entities.OrderStatusType;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface OrderDsGateway {
     void saveOrder(OrderDsRequestModel orderModel);
 
-    ArrayList<Integer> getUnfulfilledOrders(String sellerResidence);
+    List<Integer> getUnfulfilledOrders(String sellerResidence);
 
-    ArrayList<Integer> getFinishedOrders(String sellerEmail);
+    List<Integer> getFinishedOrders(String sellerEmail);
 
     OrderDsModel getOrderInfo(int orderNumber);
 
@@ -25,5 +25,5 @@ public interface OrderDsGateway {
 
     int getOrderNumberFromSellerEmail(String sellerEmail) throws DoesNotExistException;
 
-    public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException;
+    double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException;
 }

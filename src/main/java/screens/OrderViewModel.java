@@ -1,8 +1,8 @@
 package screens;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface OrderViewModel {
-    public void showMenus(ArrayList<String[]> foodDetails, HashMap<String, ArrayList<String[]>> foodReviews);
+    void showMenus(List<String[]> foodDetails, HashMap<String, List<String[]>> foodReviews);
 }

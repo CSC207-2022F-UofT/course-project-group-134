@@ -1,13 +1,11 @@
 package get_menus_use_case;
 
-import entities.FoodItem;
 import entities.Menu;
 import entities.ResidenceType;
 import entities.Review;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetMenusInteractor implements GetMenusInputBoundary {
     private final GetMenusOutputBoundary presenter;
@@ -28,7 +26,7 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
             if (residenceType.name().equals(residenceName)) {
                 Menu menu = this.menuGatewayInterface.createMenu(residenceType);
 
-                HashMap<String, ArrayList<Review>> foodReviews = new HashMap<>();
+                HashMap<String, List<Review>> foodReviews = new HashMap<>();
 
                 for (String foodItem : menu.getFoodItemNames()) {
                     foodReviews.put(foodItem, menuGatewayInterface.getFoodReviews(foodItem, residenceType));
@@ -51,13 +49,13 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
     }
 
     @Override
-    public ArrayList<String[]> getFoodDetails() {
+    public List<String[]> getFoodDetails() {
         return presenter.getFoodDetails(this.resMod);
 
     }
 
     @Override
-    public HashMap<String, ArrayList<String[]>> getFoodReviews(){
+    public HashMap<String, List<String[]>> getFoodReviews(){
 
         return presenter.getFoodReviews(this.resMod);
     }

@@ -2,8 +2,8 @@ package order_use_case;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class FoodItemDetailsView extends JFrame {
 
@@ -14,7 +14,7 @@ public class FoodItemDetailsView extends JFrame {
                                Integer foodItemCalories,
                                Integer foodItemPopularities,
                                Double foodItemStarAverages,
-                               ArrayList<String[]> foodItemReviews){
+                               List<String[]> foodItemReviews){
 
         JPanel pnl = new JPanel(new GridLayout(8, 1));
         pnl.add(new JLabel("Name: " + foodItemName));

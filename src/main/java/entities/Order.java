@@ -1,15 +1,15 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
     private final int orderNumber;
     private final Residence diningHall;
     private final Buyer buyer;
-    private final ArrayList<FoodItem> foodItemList;
+    private final List<FoodItem> foodItemList;
     private Seller seller;
 
-    public Order(int orderNumber, Residence diningHall, Buyer buyer, ArrayList<FoodItem> foodItemList) {
+    public Order(int orderNumber, Residence diningHall, Buyer buyer, List<FoodItem> foodItemList) {
         this.orderNumber = orderNumber;
         this.diningHall = diningHall;
         this.buyer = buyer;
@@ -35,7 +35,7 @@ public class Order {
         return buyer;
     }
 
-    public ArrayList<FoodItem> getFoodItemList() {
+    public List<FoodItem> getFoodItemList() {
         return foodItemList;
     }
 

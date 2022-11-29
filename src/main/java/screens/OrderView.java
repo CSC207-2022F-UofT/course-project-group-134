@@ -2,25 +2,24 @@ package screens;
 
 import entities.ResidenceType;
 import get_menus_use_case.GetMenusController;
-import get_menus_use_case.GetMenusResponseModel;
 import order_history_use_case.OrderHistoryInputBoundary;
 import order_use_case.FoodItemDetailsView;
 import order_use_case.OrderController;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class OrderView extends JFrame implements OrderViewModel {
     private final JPanel pnl = new JPanel(new GridLayout(4,1));
 
     private final JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
-    private final ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+    private final List<JCheckBox> checkBoxes = new ArrayList<>();
     private final JPanel menusPanel = new JPanel(new GridLayout(1,2));
     private JComboBox<String> diningHallsDropdown;
     private final JButton orderButton = new JButton("Preview Order");
@@ -59,8 +58,8 @@ public class OrderView extends JFrame implements OrderViewModel {
                             orderButton.setVisible(true);
                             totalPriceString.setVisible(true);
                             getMenusController.setUpInteractor((String) residenceDropdown.getSelectedItem());
-                            ArrayList<String[]> foodDetails = getMenusController.getFoodDetails();
-                            HashMap<String, ArrayList<String[]>> foodReviews = getMenusController.getFoodReviews();
+                            List<String[]> foodDetails = getMenusController.getFoodDetails();
+                            HashMap<String, List<String[]>> foodReviews = getMenusController.getFoodReviews();
                             showMenus(foodDetails, foodReviews);
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
@@ -101,7 +100,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
 
     @Override
-    public void showMenus(ArrayList<String[]> foodDetails, HashMap<String, ArrayList<String[]>> foodReviews) {
+    public void showMenus(List<String[]> foodDetails, HashMap<String, List<String[]>> foodReviews) {
 
         menusPanel.removeAll();
         bottomPanel.removeAll();
@@ -116,7 +115,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
             JComboBox<String> tempFoodItemQuantity = new JComboBox<>(quantities);
 
-            ArrayList<Double> foodItemPrices = new ArrayList<>();
+            List<Double> foodItemPrices = new ArrayList<>();
             for (String[] strArr: foodDetails){
                 foodItemPrices.add(Double.parseDouble(strArr[1]));
             }
@@ -138,7 +137,7 @@ public class OrderView extends JFrame implements OrderViewModel {
             int itemCalories = Integer.parseInt(foodDetails.get(i)[4]);
             int itemPopularity = Integer.parseInt(foodDetails.get(i)[5]);
             Double itemStarAverage = Double.parseDouble(foodDetails.get(i)[6]);
-            ArrayList<String[]> itemReviews = foodReviews.get(itemName);
+            List<String[]> itemReviews = foodReviews.get(itemName);
 
             tempDetailsButton.addActionListener(actionEvent -> {
                 new FoodItemDetailsView(
@@ -171,7 +170,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
     }
 
-    private void foodItemQuantityExtracted(ArrayList<Double> foodItemPrices, JComboBox<String> tempFoodItemQuantity) {
+    private void foodItemQuantityExtracted(List<Double> foodItemPrices, JComboBox<String> tempFoodItemQuantity) {
         totalPrice = 0.0;
         for (JComboBox<String> comboBox: quantityDropdownsList){
             totalPrice += Integer.parseInt(Objects.requireNonNull(comboBox.getSelectedItem()).toString()) * foodItemPrices.get(quantityDropdownsList.indexOf(comboBox));
@@ -197,9 +196,9 @@ public class OrderView extends JFrame implements OrderViewModel {
             return;
         }
 
-        ArrayList<String> selectedFoodItems = new ArrayList<>();
-        ArrayList<Integer> selectedFoodItemQuantities = new ArrayList<>();
-        ArrayList<Double> selectedFoodItemPrices = new ArrayList<>();
+        List<String> selectedFoodItems = new ArrayList<>();
+        List<Integer> selectedFoodItemQuantities = new ArrayList<>();
+        List<Double> selectedFoodItemPrices = new ArrayList<>();
         String selectedResidence = Objects.requireNonNull(residenceDropdown.getSelectedItem()).toString();
         for (JCheckBox checkBox : checkBoxes){
             if (checkBox.isSelected()){

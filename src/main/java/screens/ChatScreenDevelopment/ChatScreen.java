@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatScreen extends JFrame {
 
@@ -22,7 +23,7 @@ public class ChatScreen extends JFrame {
     private ChatInputBoundary ci;
     private ChatOutputBoundary co;
 
-    private ArrayList<ChatMessage> messages;
+    private List<ChatMessage> messages;
 
     private User sender, receiver;
     private JTextField userMessageBox;
@@ -103,12 +104,4 @@ public class ChatScreen extends JFrame {
         //This seems like there is something missing in the chat interactor: we need functionality for this.
     }
 
-
-
-
-//    //testy thing
-//    public static void main(String[]args){
-//        new ChatScreen().setVisible(true);
-//
-//    }
 }
