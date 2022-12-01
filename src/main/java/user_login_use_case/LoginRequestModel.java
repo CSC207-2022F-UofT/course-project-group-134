@@ -1,5 +1,11 @@
 package user_login_use_case;
 
+// Use case layer
+
+/**
+ * LoginRequestModel has the credential data which the user inputs
+ * into the login screen.
+ */
 public class LoginRequestModel {
 
     private final String email;

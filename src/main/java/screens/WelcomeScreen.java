@@ -8,18 +8,36 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+// Frameworks/Drivers layer
+
+/**
+ * The screen for the welcome page. The user is prompted with two options.
+ * The first option is to sign up and create a new user. The second option
+ * is to login with already existing credentials.
+ */
 public class WelcomeScreen extends JFrame {
 
+    /**
+     * This method is called when the login button is clicked. Sends the user
+     * at the keyboard to the login use case.
+     */
     private void loginClicked() {
         LoginMain.create();
         this.dispose();
     }
 
+    /**
+     * This method is called when the signup button is clicked. Sends the user
+     * at the keyboard to the login use case.
+     */
     private void signupClicked() throws IOException {
         SignUpMain.create();
         this.dispose();
     }
 
+    /**
+     * Constructor for WelcomeScreen. Creates and sets up the JFrame for the screen.
+     */
     public WelcomeScreen() throws IOException {
         JPanel pnl = new JPanel(new GridLayout(2,2));
         JButton signupButton = new JButton("Sign up");

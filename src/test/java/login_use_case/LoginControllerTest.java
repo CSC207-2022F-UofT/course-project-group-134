@@ -22,7 +22,7 @@ public class LoginControllerTest {
     @BeforeEach
     public void setUp() throws Exception {
         try {
-            gateway = new SignUpGateway();
+            gateway = new SignUpGateway("./src/test/resources/users.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }

@@ -2,6 +2,12 @@ package user_access_use_case;
 
 import entities.UserType;
 
+// Use case layer
+
+/**
+ * SignUpRequestModel has the signup information which the user inputs
+ * into the signup screen.
+ */
 public class SignUpRequestModel {
     private final String username;
     private final String email;

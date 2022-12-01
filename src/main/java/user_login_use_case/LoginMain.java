@@ -8,6 +8,10 @@ import user_access_use_case.*;
 
 import java.io.IOException;
 
+/**
+ * LoginMain is called when an instance of the login use case is called.
+ * Creates and sets up instances of all the relevant classes for the login use case.
+ */
 public class LoginMain {
 
     public static void create() {

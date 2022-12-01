@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public interface ChatInputBoundary {
 
-    public void createChat(ChatCreationRequestModel m) throws IOException;
+    void createChat(ChatCreationRequestModel m) throws IOException;
 
-    public void sendMessage(ChatSendMessageModel m) throws IOException;
+    void sendMessage(ChatSendMessageModel m) throws IOException;
 
 }
