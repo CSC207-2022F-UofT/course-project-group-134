@@ -1,5 +1,11 @@
 package user_access_use_case;
 
+// Use case layer
+
+/**
+ * SignUpDsRequestModel contains information representing a user which
+ * gets sent to the gateway to create and store the user information.
+ */
 public class SignUpDsRequestModel {
     private final String username;
     private final String password;

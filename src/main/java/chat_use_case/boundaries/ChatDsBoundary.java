@@ -9,12 +9,10 @@ import java.io.IOException;
 
 public interface ChatDsBoundary {
 
+    void createChat(ChatCreationRequestModel m) throws IOException;
 
-    public void createChat(ChatCreationRequestModel m) throws IOException;
+    void sendMessage(ChatSendMessageModel m) throws IOException;
 
-    public void sendMessage(ChatSendMessageModel m) throws IOException;
-
-    public ChatDataRecieveModel getMessageList(ChatLogRequestModel m);
-
+    ChatDataRecieveModel getMessageList(ChatLogRequestModel m);
 
 }

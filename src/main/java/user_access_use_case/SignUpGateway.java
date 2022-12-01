@@ -13,6 +13,13 @@ import java.io.File;
 
 import java.util.*;
 
+// Use case layer
+
+/**
+ * The gateway for the signup use case. The gateway stores new user
+ * information and queries existing user information. The database
+ * is implemented by storing data in a CSV file.
+ */
 public class SignUpGateway implements SignUpDsGateway {
 
     private final File csvFile;
@@ -23,13 +30,19 @@ public class SignUpGateway implements SignUpDsGateway {
 
     private static final String defaultCSVPath = "./src/main/java/data_storage/users.csv";
 
-    // this constructor takes in the path to a csvFile and parses all the information'
-
-    public SignUpGateway() throws IOException{
+    /**
+     * SignUpGateway constructor that uses the default CSV path
+     * to be the location for the CSV file for the gateway.
+     */
+    public SignUpGateway() throws IOException {
         this(defaultCSVPath);
     }
 
-
+    /**
+     * SignUpGateway constructor that uses the csvPath provided
+     * to be the location for the CSV file for the gateway.
+     * @param csvPath the file path provided for the CSV file for the gateway.
+     */
     public SignUpGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
@@ -72,8 +85,11 @@ public class SignUpGateway implements SignUpDsGateway {
         }
     }
 
-    // If file is empty or does not exist
-    public void save() throws IOException{
+    /**
+     * This method gets called when the CSV file is empty or does not exist. The
+     * save method writes all the information in the accounts map to the empty csv file.
+     */
+    public void save() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
         writer.write("email,password,username,userType,mealPlanBalance,residence");
         writer.newLine();
@@ -88,6 +104,10 @@ public class SignUpGateway implements SignUpDsGateway {
         writer.close();
     }
 
+    /**
+     * Writes and stores information for a new user account to the CSV file.
+     * @param newUser The request model containing information for the new user account.
+     */
     public void save(SignUpDsRequestModel newUser) throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
 
@@ -101,6 +121,13 @@ public class SignUpGateway implements SignUpDsGateway {
         accounts.put(newUser.getEmail(), newUser);
     }
 
+    /**
+     * Queries the CSV file to check if a user's email matches the provided email.
+     * Note that emails are unique for each user.
+     * @param email the email being queried for existence in the csv file.
+     * @return The boolean returned is True if and only if a user with the email
+     * provided exists in the csv file.
+     */
     public Boolean existsByEmail(String email){
         for (SignUpDsRequestModel data: accounts.values()) {
             if (data.getEmail().equals(email)) {
@@ -111,10 +138,11 @@ public class SignUpGateway implements SignUpDsGateway {
     }
 
     /**
-     * Reads and returns a user based off of an email query.
-     * @param email The email of the user to read.
+     * Returns a user based off of an email query.
+     * @param email The email of the user to return.
      * @param userFactory The userFactory which creates users.
-     * @return Returns either a Buyer or Seller corresponding to the user email if it exists. Otherwise, returns null.
+     * @return Returns either a Buyer or Seller corresponding to the user email if it exists.
+     * Otherwise, returns null.
      */
     public User readUser(String email, UserFactory userFactory) {
         for (SignUpDsRequestModel data : accounts.values()) {
@@ -134,6 +162,12 @@ public class SignUpGateway implements SignUpDsGateway {
         return null; // user does not exist by email.
     }
 
+    /**
+     * Returns a user based off of an email query. The UserFactory used is the default one.
+     * @param email The email of the user to return.
+     * @return Returns either a Buyer or Seller corresponding to the user email if it exists.
+     * Otherwise, returns null.
+     */
     public User readUser(String email){
         BuyerFactory buyerFactory = new BuyerFactory();
         SellerFactory sellerFactory = new SellerFactory();
@@ -141,14 +175,26 @@ public class SignUpGateway implements SignUpDsGateway {
         return readUser(email,userFactory);
     }
 
+    /**
+     * Returns a request model based off of an email query if it exists.
+     * @param email The email of the user to return the request model of.
+     * @return Returns the request model corresponding to the user with the email if it exists.
+     * Otherwise, returns null.
+     */
     public SignUpDsRequestModel getRequestModelFromEmail(String email) {
-        for (SignUpDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data : accounts.values()) {
             if (data.getEmail().equals(email)) {
                 return data;
             }
         }
         return null;
     }
+
+    /**
+     * Modifies the CSV file to subtract a price from the sellers balance.
+     * @param sellerEmail The seller email to subtract price from.
+     * @param price The price to subtract from the sellers balance.
+     */
     public void subtractPrice(String sellerEmail, double price) throws IOException {
         this.csvFile.delete();
         double currentPrice = accounts.get(sellerEmail).getMealPlanBalance();

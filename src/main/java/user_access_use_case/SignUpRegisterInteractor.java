@@ -3,7 +3,11 @@ import entities.*;
 
 import java.io.IOException;
 
+// Use case layer
 
+/**
+ * The interactor for the signup use case. Performs the logic for the signup use case.
+ */
 public class SignUpRegisterInteractor implements SignUpInputBoundary {
 
     final SignUpDsGateway userDsGateway;

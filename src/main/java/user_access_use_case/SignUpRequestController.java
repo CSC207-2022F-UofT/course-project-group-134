@@ -4,6 +4,12 @@ import entities.UserType;
 
 import java.io.IOException;
 
+// Use case layer
+
+/**
+ * The controller for the signup use case. Takes in information from the
+ * signup screen and sends it to the interactor.
+ */
 public class SignUpRequestController {
     final SignUpInputBoundary boundary;
 

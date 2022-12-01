@@ -14,12 +14,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+// Frameworks/Drivers layer
+
+/**
+ * The screen for the login page. The user is prompted to fill in its
+ * email and password. If the credentials match a user, the user is logged in to the program
+ * depending on if the user is a buyer or a seller. If the credentials do not match any user,
+ * the user at the keyboard is prompted to try logging in again.
+ */
 public class LoginScreen extends JFrame {
 
     private final JTextField emailInput = new JTextField(15);;
     private final JPasswordField passwordInput = new JPasswordField(15);;
     private final LoginController loginController;
 
+    /**
+     * This method is called when the login button is clicked. Sends the data to the controller,
+     * and verifies if the login is successful.
+     */
     private void loginClicked() throws IOException {
         try {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
@@ -44,6 +56,11 @@ public class LoginScreen extends JFrame {
         }
     }
 
+    /**
+     * Constructor for LoginScreen. Creates and sets up the JFrame for the screen.
+     *
+     * @param loginController the controller for the login use case.
+     */
     public LoginScreen(LoginController loginController) {
         this.loginController = loginController;
         JPanel pnl = new JPanel(new GridLayout(3,1));

@@ -5,10 +5,16 @@ import entities.UserFactory;
 
 import java.io.IOException;
 
+// Use case layer
+
+/**
+ * SignUpDsGateway which purpose is to invert the dependency
+ * to satisfy the dependency rule in CLEAN architecture.
+ */
 public interface SignUpDsGateway {
     Boolean existsByEmail(String email);
 
-    void save(SignUpDsRequestModel requestModel) throws IOException;   // Save new account data
+    void save(SignUpDsRequestModel requestModel) throws IOException;
 
     void save() throws IOException;
 

@@ -2,7 +2,6 @@ package chat_use_case.models;
 
 import entities.ChatMessage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatDataRecieveModel {
