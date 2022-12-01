@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatDsGateway implements ChatDsBoundary {
-    List<Chat> chats ;
+    List<Chat> chats;
     private int managed_chats = 1;
 
     private static final String STORAGE_LOCATION = "./src/main/java/data_storage/chat_store";
@@ -28,7 +28,7 @@ public class ChatDsGateway implements ChatDsBoundary {
         return instance;
     }
 
-    private ChatDsGateway() throws IOException {
+    private ChatDsGateway() {
         this.chats = new ArrayList<>();
         this.storage_dir = new File(STORAGE_LOCATION);
         if (!storage_dir.exists()){

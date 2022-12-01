@@ -1,9 +1,6 @@
 package chat_use_case.models;
 
-import entities.BuyerFactory;
-import entities.SellerFactory;
 import entities.User;
-import entities.UserFactory;
 import user_access_use_case.SignUpDsGateway;
 import user_access_use_case.SignUpGateway;
 
@@ -21,7 +18,6 @@ public class ChatSendMessageModel {
     }
 
     public ChatSendMessageModel(String userEmail, String recieverEmail, String message){
-
         SignUpDsGateway userGateway = null;
         try {
             userGateway = new SignUpGateway();
@@ -33,7 +29,6 @@ public class ChatSendMessageModel {
         this.sender = sender;
         this.reciever = reciever;
         this.message = message;
-
     }
 
     public User getSender(){

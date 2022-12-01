@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface ChatOutputBoundary {
 
-    public ChatDataRecieveModel getMessageList(ChatLogRequestModel m) throws IOException;
+    ChatDataRecieveModel getMessageList(ChatLogRequestModel m) throws IOException;
 
 }

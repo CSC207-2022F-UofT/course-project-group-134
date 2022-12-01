@@ -12,8 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+// Frameworks/Drivers layer
+
 /**
- *
+ * The screen for the signup page. The user at the keyboard is prompted
+ * to fill out credential information in order to create a new user in the
+ * program. The information the user needs to fill in depends on if the user
+ * is signing up as a buyer or a seller. If the sigup succeeds, the program
+ * creates a new user with the credentials provided. If the signup fails,
+ * the program prompts the user at the keyboard to try again.
  */
 public class SignupScreen extends JFrame {
 
@@ -26,6 +33,11 @@ public class SignupScreen extends JFrame {
     private final JComboBox<String> residenceDropdown;
     private final SignUpRequestController signupController;
 
+    /**
+     * This method is called when the signup button is clicked. Sends the data to the controller,
+     * and verifies if the signup is successful. The signup is successful if the email inputted
+     * is unique and if all the information provided is valid.
+     */
     private void signupClicked() throws IOException {
         String passwordString = String.valueOf(passwordInput.getPassword());
         String confirmString = String.valueOf(confirmInput.getPassword());
@@ -49,7 +61,7 @@ public class SignupScreen extends JFrame {
             } catch (NumberFormatException ex) {
                 // When user types in something that is not number in balance.
                 JOptionPane.showMessageDialog(null,
-                        mealPlanInput.getText() + " is not a valid balance.", //TODO: Perhaps the presenter should handle this?
+                        mealPlanInput.getText() + " is not a valid balance.",
                         "Signup failed.", JOptionPane.WARNING_MESSAGE);
             } catch (SignUpFailed ex) {
                 System.out.println(ex.getMessage());
@@ -64,6 +76,11 @@ public class SignupScreen extends JFrame {
         }
     }
 
+    /**
+     * Constructor for signup screen. Creates and sets up the JFrame for the screen.
+     *
+     * @param signupController the controller for the signup use case.
+     */
     public SignupScreen(SignUpRequestController signupController) {
         this.signupController = signupController;
         JPanel pnl = new JPanel(new GridLayout(8,1));

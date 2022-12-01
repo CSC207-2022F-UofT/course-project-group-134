@@ -7,6 +7,10 @@ import screens.SignupScreen;
 
 import java.io.IOException;
 
+/**
+ * SignUpMain is called when an instance of the signup use case is called.
+ * Creates and sets up instances of all the relevant classes for the signup use case.
+ */
 public class SignUpMain {
 
     public static void create() {
@@ -25,4 +29,5 @@ public class SignUpMain {
         SignUpRequestController signupController = new SignUpRequestController(interactor);
         new SignupScreen(signupController);
     }
+
 }
