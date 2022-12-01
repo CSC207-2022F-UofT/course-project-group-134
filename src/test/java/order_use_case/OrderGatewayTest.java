@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,7 +64,7 @@ public class OrderGatewayTest {
 
     @Test
     void testGetUnfulfilledOrders() {
-        ArrayList<Integer> unfulfilledOrders = gateway.getUnfulfilledOrders(ResidenceType.TRINITY_COLLEGE.toString());
+        List<Integer> unfulfilledOrders = gateway.getUnfulfilledOrders(ResidenceType.TRINITY_COLLEGE.toString());
         assertEquals(2, unfulfilledOrders.size());
         assertEquals(0, unfulfilledOrders.get(0));
         assertEquals(1, unfulfilledOrders.get(1));
@@ -71,7 +72,7 @@ public class OrderGatewayTest {
 
     @Test
     void testGetFinishedOrders() throws IOException {
-        ArrayList<Integer> finishedOrders = gateway.getFinishedOrders("vivianyt.liu@mail.utoronto.ca");
+        List<Integer> finishedOrders = gateway.getFinishedOrders("vivianyt.liu@mail.utoronto.ca");
         assertEquals(0, finishedOrders.size());
     }
 
