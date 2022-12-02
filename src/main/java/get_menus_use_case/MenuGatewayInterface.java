@@ -10,6 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface MenuGatewayInterface {
-    Menu createMenu(ResidenceType type) throws Exception;
+    List<GetMenusGatewayResponseModel> createMenu(ResidenceType type) throws Exception;
     List<Review> getFoodReviews(String foodItem, ResidenceType residenceName) throws IOException;
 }

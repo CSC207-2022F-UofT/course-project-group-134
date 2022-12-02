@@ -14,7 +14,7 @@ public class GetMenusMain {
 
     public static void create(String username, String email) throws Exception {
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
-        MenuGatewayInterface menuGateway = new MenuGateway();
+        MenuGatewayInterface menuGateway = new GetMenusGateway();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
         GetMenusController getMenusController = new GetMenusController(getMenusInteractor);
 
