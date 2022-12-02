@@ -111,4 +111,21 @@ public class SignUpControllerTest {
             // threw sign up error
         }
     }
+
+    @Test
+    void testDuplicateUsername(){
+        try {
+            controller.create("lookcook",
+                    "aditya.bandekar@mail.utoronto.ca", "1234", UserType.SELLER.toString(),
+                    ResidenceType.ST_MICHAELS_COLLEGE.toString(), "10.0");
+            controller.create("lookcook",
+                    "aditya.bandekar2@mail.utoronto.ca", "password2", UserType.SELLER.toString(),
+                    ResidenceType.ST_MICHAELS_COLLEGE.toString(), "10.0");
+            fail("Didn't throw signup error.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SignUpFailed ex) {
+            // threw sign up error
+        }
+    }
 }
