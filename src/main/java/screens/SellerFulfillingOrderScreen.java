@@ -18,11 +18,10 @@ public class SellerFulfillingOrderScreen extends JFrame{
         ChatInteractor.ChatMain.create("","");
     }
 
-    public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {
+    public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price, int orderNumber) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1,3));
 
-        int orderNumber = orderGateway.getOrderNumberFromSellerEmail(sellerEmail);
         OrderDsModel orderDsModel = orderGateway.getOrderInfo(orderNumber);
 
         JPanel orderPanel = new JPanel(new GridLayout(0,1));

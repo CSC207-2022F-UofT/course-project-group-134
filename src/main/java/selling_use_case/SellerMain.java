@@ -2,6 +2,7 @@ package selling_use_case;
 
 
 import order_use_case.DoesNotExistException;
+import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 import screens.SellerFulfillingOrderScreen;
 import screens.SellingScreen;
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 public class SellerMain {
     public static void create(String sellerEmail, String sellerResidence) throws DoesNotExistException {
-        OrderGateway orderGateway;
+        OrderDsGateway orderGateway;
         SignUpDsGateway signupGateway;
         try {
             orderGateway = new OrderGateway("./src/main/java/data_storage/orders.csv");
@@ -24,12 +25,8 @@ public class SellerMain {
         SellingPresenter presenter = new SellingPresenter();
         SellingInputBoundary interactor = new SellingInteractor(presenter, orderGateway);
         SellingController sellingController = new SellingController(interactor);
-        if (orderGateway.sellerHasOrder(sellerEmail)){
-            new SellerFulfillingOrderScreen(
-                    signupGateway, orderGateway, sellerEmail,
-                    orderGateway.getPriceFromOrderNumber(orderGateway.getOrderNumberFromSellerEmail(sellerEmail)));
-        } else {
-            new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence);
-        }
+
+        new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence);
+
     }
 }
