@@ -75,16 +75,8 @@ public class SellingScreen extends JFrame {
         // 'Log-out' by going back to the welcome screen
         JButton logOutButton = new JButton("Log out");
         logOutButton.addActionListener(actionEvent -> {
-            this.dispose();
-            try {
-                new WelcomeScreen();
-                JOptionPane.showMessageDialog(null,
-                        "Successfully logged out.",
-                        "Logout succeeded",
-                        JOptionPane.PLAIN_MESSAGE);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            this.setVisible(false);
+            new ConfirmLogoutScreen(this);
         });
 
 
