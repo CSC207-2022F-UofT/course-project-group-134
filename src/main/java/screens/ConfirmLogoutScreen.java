@@ -10,11 +10,11 @@ public class ConfirmLogoutScreen extends JFrame {
     private JButton yesButton = new JButton("Yes");
     private JButton noButton = new JButton("No");
     private JLabel message = new JLabel("Are you sure you want to logout?");
-    private BuyerDefaultView buyerDefaultView;
+    private JFrame originalScreen;
 
 
-    public ConfirmLogoutScreen(BuyerDefaultView buyerDefaultView){
-        this.buyerDefaultView = buyerDefaultView;
+    public ConfirmLogoutScreen(JFrame originalScreen){
+        this.originalScreen = originalScreen;
         pnl.add(message);
         buttonsPanel.add(yesButton);
         buttonsPanel.add(noButton);
@@ -42,19 +42,18 @@ public class ConfirmLogoutScreen extends JFrame {
 
     private void yesClicked() throws IOException {
         JOptionPane.showMessageDialog(null, "You have successfully logged out.", "Logout Successful", JOptionPane.PLAIN_MESSAGE);
-        buyerDefaultView.dispose();
+        originalScreen.dispose();
         this.dispose();
         new WelcomeScreen();
     }
 
     private void noClicked(){
-        buyerDefaultView.setVisible(true);
+        originalScreen.setVisible(true);
         this.dispose();
     }
 
     @Override
     public void dispose() {
-        this.buyerDefaultView.logoutScreenClosed = true;
         super.dispose();
     }
 }

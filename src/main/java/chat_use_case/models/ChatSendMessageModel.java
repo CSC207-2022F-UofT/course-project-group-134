@@ -29,6 +29,8 @@ public class ChatSendMessageModel {
         this.sender = sender;
         this.reciever = reciever;
         this.message = message;
+        System.out.println(sender);
+        System.out.println(reciever);
     }
 
     public User getSender(){
