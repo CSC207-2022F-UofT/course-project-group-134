@@ -29,7 +29,13 @@ public class FoodItemDetailsView extends JFrame {
             starTotal += Integer.parseInt(review[1]);
         }
 
-        double starAverage = starTotal/foodItemReviews.size();
+        double starAverage;
+        if (foodItemReviews.size() == 0){
+            starAverage = 0.0;
+        }
+        else{
+            starAverage = starTotal/foodItemReviews.size();
+        }
 
         pnl.add(new JLabel("Star Average: " + starAverage));
 
