@@ -12,6 +12,7 @@ import user_access_use_case.SignUpGateway;
 import java.io.*;
 import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ChatDsGateway implements ChatDsBoundary {
@@ -33,12 +34,19 @@ public class ChatDsGateway implements ChatDsBoundary {
         this.storage_dir = new File(STORAGE_LOCATION);
         if (!storage_dir.exists()){
             storage_dir.mkdir();
+        }else{
+            chats = read();
         }
+        System.out.println(chats.size());
+
     }
     private String getChatFileName(Chat c){
+
+        String[]u = {c.getUsers()[0].getEmail(), c.getUsers()[1].getEmail()};
+        Arrays.sort(u);
         return "Chat_"
-                + c.getUsers()[0].getEmail().split("@")[0]
-                + "_" + c.getUsers()[1].getEmail().split("@")[0];
+                + u[0].split("@")[0]
+                + "_" + u[1].split("@")[0];
     }
 
     @Override
@@ -56,7 +64,7 @@ public class ChatDsGateway implements ChatDsBoundary {
         Chat c =  getChat(sender, reciever);
         ChatMessage msg = new ChatMessage(sender, m.getMessage());
         c.sendMessage(msg);
-        updateChat(c, msg);
+        writeChat(c);
     }
     @Override
     public ChatDataRecieveModel getMessageList(ChatLogRequestModel rq) {
@@ -67,12 +75,6 @@ public class ChatDsGateway implements ChatDsBoundary {
         }
         return new ChatDataRecieveModel(c.getChatLog(), true);
     }
-    private void updateChat(Chat c, ChatMessage msg) throws IOException{
-        String fileName = this.STORAGE_LOCATION +   "\\" + getChatFileName(c);
-        BufferedWriter out  = new BufferedWriter(new FileWriter(fileName));
-        out.write(msg.getSender() + "," + msg.getContents());
-        out.close();
-    }
     private void writeChat(Chat c) throws IOException{
         String fileName = this.STORAGE_LOCATION +   "\\" + getChatFileName(c);
         File f = new File(fileName);
@@ -82,7 +84,7 @@ public class ChatDsGateway implements ChatDsBoundary {
         out.write(c.getUsers()[0].getEmail() + "," + c.getUsers()[1].getEmail() + "\n");
 
         for(ChatMessage msg : c.getChatLog()){
-            out.write(msg.getSender().getEmail() + "," + msg.getContents());
+            out.write(msg.getSender().getEmail() + "," + msg.getContents() + "\n") ;
         }
         out.flush();
         out.close();
@@ -90,8 +92,11 @@ public class ChatDsGateway implements ChatDsBoundary {
 
     private List<Chat> read(){
         List<Chat> rtn = new ArrayList<Chat>();
+        System.out.println("hi");
 
         for(File f : storage_dir.listFiles()){
+
+
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 String[] emails = br.readLine().split(",");
@@ -102,7 +107,11 @@ public class ChatDsGateway implements ChatDsBoundary {
 
                 ArrayList<ChatMessage> messages = new ArrayList<>();
                 User user1 = userGateway.readUser(emails[0], userFactory);
-                User user2 = userGateway.readUser(emails[0], userFactory);
+                User user2 = userGateway.readUser(emails[1], userFactory);
+                if(user1 == null || user2 == null){
+                    continue;
+                }
+
                 //TODO: USer might not exist lol
                 String s = br.readLine();
 
@@ -121,7 +130,7 @@ public class ChatDsGateway implements ChatDsBoundary {
                 }
                 br.close();
                 Chat c = new Chat(user1, user2, messages);
-                this.chats.add(c);
+                rtn.add(c);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -129,18 +138,24 @@ public class ChatDsGateway implements ChatDsBoundary {
                 e.printStackTrace();
             }
         }
-        return null;
+        return rtn;
     }
 
     private Chat getChat(User user1, User user2){
-        for(Chat c : chats){
+        for(Chat c : chats) {
             User[] u = c.getUsers();
-            if((user1.getEmail().equals(u[0].getEmail()) && user2.getEmail().equals(u[1].getEmail())) ||
-                    (user1.getEmail().equals(u[1].getEmail()) && user2.getEmail().equals(u[0].getEmail())) ){
+            System.out.println("getchat loop:s");
+            System.out.println(u[0].getEmail());
+            System.out.println(u[1].getEmail());
+
+            if ((user1.getEmail().equals(u[0].getEmail()) && user2.getEmail().equals(u[1].getEmail())) ||
+                    (user1.getEmail().equals(u[1].getEmail()) && user2.getEmail().equals(u[0].getEmail()))) {
                 return c;
             }
         }
-        return null;
+        Chat c = new Chat(user1, user2);
+        chats.add(c);
+        return c;
     }
 
 }

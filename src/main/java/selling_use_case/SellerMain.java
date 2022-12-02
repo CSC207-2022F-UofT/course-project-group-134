@@ -12,6 +12,10 @@ import user_access_use_case.SignUpGateway;
 
 import java.io.IOException;
 
+/**
+ * SellingMain is called when an instance of the selling use case is called.
+ * Creates and sets up instances of all the relevant classes for the selling use case.
+ */
 public class SellerMain {
     public static void create(String sellerEmail, String sellerResidence) throws DoesNotExistException {
         OrderDsGateway orderGateway;
