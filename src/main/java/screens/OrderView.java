@@ -135,13 +135,11 @@ public class OrderView extends JFrame implements OrderViewModel {
             String[] itemAllergens = foodDetails.get(i)[2].split(",");
             String[] itemIngredients = foodDetails.get(i)[3].split(",");
             int itemCalories = Integer.parseInt(foodDetails.get(i)[4]);
-            int itemPopularity = Integer.parseInt(foodDetails.get(i)[5]);
-            Double itemStarAverage = Double.parseDouble(foodDetails.get(i)[6]);
             List<String[]> itemReviews = foodReviews.get(itemName);
 
             tempDetailsButton.addActionListener(actionEvent -> {
                 new FoodItemDetailsView(
-                     itemName, itemPrice, itemAllergens, itemIngredients, itemCalories, itemPopularity, itemStarAverage, itemReviews);
+                     itemName, itemPrice, itemAllergens, itemIngredients, itemCalories, itemReviews);
             });
 
             JCheckBox tempCheckBox = new JCheckBox(foodDetails.get(i)[0] + " ($" + foodItemPrices.get(i).toString() + ")");

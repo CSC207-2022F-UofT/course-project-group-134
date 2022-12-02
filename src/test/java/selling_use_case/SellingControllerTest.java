@@ -1,6 +1,8 @@
 package selling_use_case;
 
+import entities.ResidenceType;
 import order_use_case.OrderDsGateway;
+import order_use_case.OrderDsRequestModel;
 import order_use_case.OrderGateway;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class SellingControllerTest {
     private SellingController controller;
@@ -31,9 +35,10 @@ public class SellingControllerTest {
     }
 
     @Test
-    void testSellingGeneral(){
+    void testSellingFailOrderDoesNotExist(){
         try {
             controller.accept("v@mail.utoronto.ca", "3");
+            fail("Order 3 doesn't exist, exception SellingFailed should be raised");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (SellingFailed ex) {

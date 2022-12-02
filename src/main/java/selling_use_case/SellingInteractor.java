@@ -3,6 +3,10 @@ package selling_use_case;
 import entities.OrderStatusType;
 import order_use_case.OrderDsGateway;
 
+/**
+ * The interactor for the selling use case. Performs the logic for the selling use case.
+ */
+
 public class SellingInteractor implements SellingInputBoundary {
 
     final OrderDsGateway orderDsGateway;

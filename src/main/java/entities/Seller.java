@@ -100,6 +100,6 @@ public class Seller extends User implements Reviewable{
 
     @Override
     public String toString() {
-        return "Seller: " + this.getUsername() + " " + this.getMealPlan().toString();
+        return "Seller: " + this.getUsername() + ", " + this.getMealPlan().toString();
     }
 }

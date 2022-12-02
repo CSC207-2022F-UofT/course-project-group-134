@@ -1,5 +1,6 @@
 package review_use_case;
 
+import entities.OrderStatusType;
 import entities.ResidenceType;
 import entities.Review;
 
@@ -58,20 +59,15 @@ public class ReviewGateway implements ReviewDsGateway {
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
         writer.write("review,rating,dininghall,itemName,username");
         writer.newLine();
+
+        for (ReviewDsRequestModel dsModel : reviews) {
+            String toWrite = dsModel.getReviewString() + "," + dsModel.getRatings() + "," + dsModel.getDininghall() +  ","
+                    + dsModel.getItemName() + "," + dsModel.getUsername();
+            writer.write(toWrite);
+            writer.newLine();
+        }
+
         writer.close();
-    }
-
-    public void save(ReviewDsRequestModel newReview) throws IOException{
-        BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
-
-        String toWrite = newReview.getReviewString() + "," + newReview.getRatings() + "," + newReview.getDininghall() +  ","
-                + newReview.getItemName() + "," + newReview.getUsername();
-
-        writer.write(toWrite);
-        writer.newLine();
-        writer.close();
-
-        reviews.add(newReview);
     }
 
     public List<Review> getReviewsFromName(String itemName, ResidenceType diningHall) {
@@ -85,5 +81,24 @@ public class ReviewGateway implements ReviewDsGateway {
             }
         }
         return list;
+    }
+
+    public void updateReview(ReviewDsRequestModel newReview) throws IOException {
+        this.csvFile.delete();
+        boolean reviewExists = false;
+        ReviewDsRequestModel oldReview = null;
+        for (ReviewDsRequestModel dsModel : reviews) {
+            if (dsModel.getUsername().equals(newReview.getUsername())
+                    && dsModel.getItemName().equals(newReview.getItemName()) &&
+                    dsModel.getDininghall().equals(newReview.getDininghall())) {
+                reviewExists = true;
+                oldReview = dsModel;
+            }
+        }
+        if (reviewExists) {
+            reviews.remove(oldReview);
+        }
+        reviews.add(newReview);
+        save();
     }
 }

@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+
 public class SellerFulfillingOrderScreen extends JFrame{
 
     private void chatClicked() throws IOException {
@@ -20,6 +21,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
 
     public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
+        JPanel bottomPanel = new JPanel(new GridLayout(1,3));
 
         int orderNumber = orderGateway.getOrderNumberFromSellerEmail(sellerEmail);
         OrderDsModel orderDsModel = orderGateway.getOrderInfo(orderNumber);
@@ -53,7 +55,6 @@ public class SellerFulfillingOrderScreen extends JFrame{
         });
         JButton orderFulfilledButton = new JButton("ORDER FULFILLED!");
         pnl.add(orderPanel);
-        pnl.add(chatButton);
 
         OrderStatusType orderStatus = orderGateway.getOrderStatus(orderNumber);
         if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
@@ -93,6 +94,20 @@ public class SellerFulfillingOrderScreen extends JFrame{
                 }
             });
         }
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(actionEvent -> {
+            this.dispose();
+            try {
+                SellerMain.create(sellerEmail, orderDsModel.getResidence());
+            } catch (DoesNotExistException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        pnl.add(bottomPanel);
+        bottomPanel.add(chatButton);
+        bottomPanel.add(backButton);
 
         this.add(pnl);
         this.setTitle("Fulfilling Order");

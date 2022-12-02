@@ -75,16 +75,8 @@ public class SellingScreen extends JFrame {
         // 'Log-out' by going back to the welcome screen
         JButton logOutButton = new JButton("Log out");
         logOutButton.addActionListener(actionEvent -> {
-            this.dispose();
-            try {
-                new WelcomeScreen();
-                JOptionPane.showMessageDialog(null,
-                        "Successfully logged out.",
-                        "Logout succeeded",
-                        JOptionPane.PLAIN_MESSAGE);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            this.setVisible(false);
+            new ConfirmLogoutScreen(this);
         });
 
 
@@ -109,7 +101,7 @@ public class SellingScreen extends JFrame {
             int orderNumber = unfulfilledOrders.get(i);
             OrderDsModel orderDsModel = orderDsGateway.getOrderInfo(orderNumber);
             String orderString = orderNumber + ", ";
-            orderString += "$" + orderDsModel.getPrice() + ", ";
+            orderString += "$" + String.format("%.2f", orderDsModel.getPrice()) + ", ";
             orderString += orderDsModel.getBuyerName();
 
             for (int j = 0; j < orderDsModel.getFoodItems().length; j++){
@@ -127,6 +119,7 @@ public class SellingScreen extends JFrame {
             JLabel noOrderLabel = new JLabel("There is currently no orders for this residence. ");
             noOrderLabel.setHorizontalAlignment(JLabel.CENTER);
             pnl.add(noOrderLabel);
+            acceptButton.setVisible(false);
         }
 
 

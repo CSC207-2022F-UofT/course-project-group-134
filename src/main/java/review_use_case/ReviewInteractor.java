@@ -22,7 +22,7 @@ public class ReviewInteractor implements ReviewInputBoundary{
         reviewDsModel = new ReviewDsRequestModel(requestModel.getReviewString(), requestModel.getRatings(), requestModel.getDininghall(),
                 requestModel.getItemName(), requestModel.getUsername());
 
-        reviewDsGateway.save(reviewDsModel);
+        reviewDsGateway.updateReview(reviewDsModel);
 
         ReviewResponseModel reviewsResponseModel = new ReviewResponseModel(requestModel.getReviewString());
         return reviewPresenter.prepareSuccessView(reviewsResponseModel);
