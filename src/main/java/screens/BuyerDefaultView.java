@@ -80,11 +80,6 @@ public class BuyerDefaultView extends JFrame {
      */
     private final OrderDsGateway orders;
 
-
-    private void chatClicked(ActionEvent actionEvent) throws IOException {
-        ChatInteractor.ChatMain.create("","");
-    }
-
     /**
      *
      * @param username The username of the currently logged-in user
@@ -185,7 +180,7 @@ public class BuyerDefaultView extends JFrame {
                 JButton chatButton = new JButton("Chat");
                 chatButton.addActionListener(actionEvent -> {
                     try {
-                        chatClicked(actionEvent);
+                        ChatInteractor.ChatMain.create(email, tempOrder[4]);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

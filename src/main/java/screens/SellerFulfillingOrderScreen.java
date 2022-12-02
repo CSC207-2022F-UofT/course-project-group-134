@@ -15,9 +15,7 @@ import java.io.IOException;
 
 public class SellerFulfillingOrderScreen extends JFrame{
 
-    private void chatClicked() throws IOException {
-        ChatInteractor.ChatMain.create("","");
-    }
+
 
     public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
@@ -48,7 +46,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         JButton chatButton = new JButton("Chat");
         chatButton.addActionListener(actionEvent -> {
             try {
-                chatClicked();
+                ChatInteractor.ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail() );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
