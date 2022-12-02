@@ -127,6 +127,7 @@ public class SellingScreen extends JFrame {
             JLabel noOrderLabel = new JLabel("There is currently no orders for this residence. ");
             noOrderLabel.setHorizontalAlignment(JLabel.CENTER);
             pnl.add(noOrderLabel);
+            acceptButton.setVisible(false);
         }
 
 
