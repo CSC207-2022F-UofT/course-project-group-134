@@ -14,6 +14,8 @@ import java.io.IOException;
 public interface SignUpDsGateway {
     Boolean existsByEmail(String email);
 
+    Boolean existsByUsername(String username);
+
     void save(SignUpDsRequestModel requestModel) throws IOException;
 
     void save() throws IOException;

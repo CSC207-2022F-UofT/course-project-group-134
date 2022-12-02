@@ -126,11 +126,27 @@ public class SignUpGateway implements SignUpDsGateway {
      * Note that emails are unique for each user.
      * @param email the email being queried for existence in the csv file.
      * @return The boolean returned is True if and only if a user with the email
-     * provided exists in the csv file.
+     * provided exists in the CSV file.
      */
     public Boolean existsByEmail(String email){
-        for (SignUpDsRequestModel data: accounts.values()) {
+        for (SignUpDsRequestModel data : accounts.values()) {
             if (data.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Queries the CSV file to check if a user's username matches the provided username.
+     * Note that usernames are unique for each user.
+     * @param username the username being queried for existence in the csv file.
+     * @return The boolean returned is True if and only if a user with the username
+     * provided exists in the CSV file.
+     */
+    public Boolean existsByUsername(String username){
+        for (SignUpDsRequestModel data : accounts.values()) {
+            if (data.getUsername().equals(username)) {
                 return true;
             }
         }
