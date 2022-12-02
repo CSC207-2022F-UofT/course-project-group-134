@@ -4,6 +4,11 @@ import entities.ReviewFactory;
 
 import java.io.IOException;
 
+// Use case layer
+
+/**
+ * The interactor for the review use case. Performs the logic for the review use case.
+ */
 public class ReviewInteractor implements ReviewInputBoundary{
 
     final ReviewDsGateway reviewDsGateway;
@@ -24,7 +29,8 @@ public class ReviewInteractor implements ReviewInputBoundary{
 
         reviewDsGateway.updateReview(reviewDsModel);
 
-        ReviewResponseModel reviewsResponseModel = new ReviewResponseModel(requestModel.getReviewString());
+        ReviewResponseModel reviewsResponseModel = new ReviewResponseModel(requestModel.getReviewString(),
+                (requestModel.getRatings()));
         return reviewPresenter.prepareSuccessView(reviewsResponseModel);
     }
 }
