@@ -26,6 +26,9 @@ public class SignUpRegisterInteractor implements SignUpInputBoundary {
         if (userDsGateway.existsByEmail(requestModel.getEmail())) {
             return userPresenter.prepareFailView("User already exists based on email.");
         }
+        if (userDsGateway.existsByUsername(requestModel.getUsername())) {
+            return userPresenter.prepareFailView("That username is already used.");
+        }
         if (!requestModel.getUsername().matches("[A-Za-z0-9]+")) {
             return userPresenter.prepareFailView("Username is not alphanumeric.");
         }

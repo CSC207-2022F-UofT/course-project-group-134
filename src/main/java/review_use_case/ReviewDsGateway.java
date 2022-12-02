@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ReviewDsGateway {
 
-    void save(ReviewDsRequestModel requestModel) throws IOException;   // Save new review data
-
     void save() throws IOException;
 
     List<Review> getReviewsFromName(String itemName, ResidenceType residence);
+
+    void updateReview(ReviewDsRequestModel newReview) throws IOException;
 }
