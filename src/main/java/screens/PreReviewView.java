@@ -12,7 +12,7 @@ public class PreReviewView extends JFrame {
     private String foodItemsString;
     private String[] foodItemsArray;
     private String residence;
-    private JButton reviewButton = new JButton("Review");
+    private JButton reviewButton = new JButton("Place Review");
     private JPanel pnl= new JPanel(new GridLayout(2,1));
     private String username;
 
