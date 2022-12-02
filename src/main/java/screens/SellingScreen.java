@@ -109,7 +109,7 @@ public class SellingScreen extends JFrame {
             int orderNumber = unfulfilledOrders.get(i);
             OrderDsModel orderDsModel = orderDsGateway.getOrderInfo(orderNumber);
             String orderString = orderNumber + ", ";
-            orderString += "$" + orderDsModel.getPrice() + ", ";
+            orderString += "$" + String.format("%.2f", orderDsModel.getPrice()) + ", ";
             orderString += orderDsModel.getBuyerName();
 
             for (int j = 0; j < orderDsModel.getFoodItems().length; j++){
