@@ -78,8 +78,9 @@ these dependencies, java interfaces have been set up accordingly.
 ## Design Patterns Used
 
 1. The Factory design pattern has been used in this program.  The most notable
-usage of this is in the get_menus_use_case, where a Menu Factory is used to 
+usage of this is in the get_menus_use_case, where a Menu Factory (called the MenuGateway in the program) is used to 
 generate menus based on the menu csv files for each residence. 
+2. The singleton design pattern was also used.
 
 # Project Template
 

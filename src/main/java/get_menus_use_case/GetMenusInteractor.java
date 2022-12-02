@@ -1,9 +1,11 @@
 package get_menus_use_case;
 
+import entities.FoodItem;
 import entities.Menu;
 import entities.ResidenceType;
 import entities.Review;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +34,13 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
         ResidenceType[] arr = ResidenceType.values();
         for (ResidenceType residenceType : arr) {
             if (residenceType.name().equals(residenceName)) {
-                Menu menu = this.menuGatewayInterface.createMenu(residenceType);
+                List<GetMenusGatewayResponseModel> responseModels = this.menuGatewayInterface.createMenu(residenceType);
+                List<FoodItem> foodItems = new ArrayList<>();
+                for (GetMenusGatewayResponseModel model: responseModels){
+                    FoodItem foodItem = new FoodItem(model.getDescription(), model.getAllergens(), model.getIngredients(), model.getCalories(), model.getPrice());
+                    foodItems.add(foodItem);
+                }
+                Menu menu = new Menu(foodItems);
 
                 HashMap<String, List<Review>> foodReviews = new HashMap<>();
 

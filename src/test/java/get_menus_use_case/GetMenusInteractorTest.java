@@ -1,24 +1,12 @@
 package get_menus_use_case;
 
-import entities.*;
-import order_history_use_case.OrderHistoryInputBoundary;
-import order_history_use_case.OrderHistoryInteractor;
-import order_history_use_case.OrderHistoryOutputBoundary;
-import order_history_use_case.OrderHistoryPresenter;
 import order_use_case.*;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import screens.OrderView;
 import user_access_use_case.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class GetMenusInteractorTest {
 
@@ -57,7 +45,7 @@ public class GetMenusInteractorTest {
 
 
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
-        MenuGatewayInterface menuGateway = new MenuGateway();
+        MenuGatewayInterface menuGateway = new GetMenusGateway();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
         getMenusController = new GetMenusController(getMenusInteractor);
 

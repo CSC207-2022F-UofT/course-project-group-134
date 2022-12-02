@@ -1,34 +1,28 @@
 package get_menus_use_case;
-import entities.FoodItem;
-import entities.Menu;
 import entities.ResidenceType;
 import entities.Review;
-import order_history_use_case.OrderHistoryResponseModel;
 import review_use_case.ReviewGateway;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
-public class MenuGateway implements  MenuGatewayInterface{
+public class GetMenusGateway implements  MenuGatewayInterface{
 
-    private List<FoodItem> foodItems;
+    private List<GetMenusGatewayResponseModel> responseModels;
     private ResidenceType type;
 
     /**
      *
      * @param type the residence whose menu we wish to fetch
-     * @return return the Menu object containing the created Menu (in a way, this class is like a Menu Factory)
+     * @return return an ArrayList of response models which the interactor can use to create the menu object
      */
-    public Menu createMenu(ResidenceType type) throws Exception
+    public List<GetMenusGatewayResponseModel> createMenu(ResidenceType type) throws Exception
     {
 
         String name = type.name();
-        this.foodItems = new ArrayList<>();
+        this.responseModels = new ArrayList<>();
         this.type = type;
 
         // Below scanner used for finding the number of lines in the csv file
@@ -52,11 +46,11 @@ public class MenuGateway implements  MenuGatewayInterface{
             String[] ingredients = sc.next().split(";");
             int calories = Integer.parseInt(sc.next());
             double price = Double.parseDouble(sc.next());
-            FoodItem foodItem = new FoodItem(description, allergens, ingredients, calories, price);
-            this.foodItems.add(foodItem);
+            GetMenusGatewayResponseModel responseModel = new GetMenusGatewayResponseModel(description, allergens, ingredients, calories, price);
+            this.responseModels.add(responseModel);
         }
 
-        return new Menu(foodItems);
+        return this.responseModels;
     }
 
     // Takes in the name of a food item and returns all the reviews associated with the item in the given dining hall
@@ -64,15 +58,4 @@ public class MenuGateway implements  MenuGatewayInterface{
         ReviewGateway gateway = new ReviewGateway("src/main/java/data_storage/reviews.csv");
         return gateway.getReviewsFromName(foodItem, residenceType);
     }
-
-    //NOTE: the below main method is a sample to test the running of MenuFactory
-    /*public static void main(String[] args) throws Exception{
-        MenuFactory menuFactory = new MenuFactory();
-        menuFactory.createMenu(DiningHallTypes.NEW_COLLEGE);
-
-    }*/
-
-
-
-
 }

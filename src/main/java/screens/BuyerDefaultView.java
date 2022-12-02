@@ -79,6 +79,7 @@ public class BuyerDefaultView extends JFrame {
      * The Gateway for the Order use case.  Used when the user wants to make a new order.
      */
     private final OrderDsGateway orders;
+    public boolean logoutScreenClosed = true;
 
 
 
@@ -117,12 +118,15 @@ public class BuyerDefaultView extends JFrame {
         });
 
         logoutButton.addActionListener(actionEvent -> {
-            this.dispose();
-            try {
-                new WelcomeScreen();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (logoutScreenClosed){
+                this.setVisible(false);
+                new ConfirmLogoutScreen(this);
+                logoutScreenClosed = false;
             }
+            else{
+                JOptionPane.showMessageDialog(null, "Please confirm if you would like to logout.", "Confirm Logout", JOptionPane.PLAIN_MESSAGE);
+            }
+
         });
 
         tabbedPane.addTab("Order History", orderHistoryPanel);
