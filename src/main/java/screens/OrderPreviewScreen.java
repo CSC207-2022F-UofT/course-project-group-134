@@ -15,10 +15,10 @@ public class OrderPreviewScreen extends JFrame {
         JPanel pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));
         for (int i = 0; i < foodItems.length; i ++){
             double foodItemTotalPrice = foodItemPrices[i] * foodItemQuantities[i];
-            JLabel temp = new JLabel(foodItems[i] + "(Qty: " + foodItemQuantities[i]+ ") : $" + foodItemTotalPrice);
+            JLabel temp = new JLabel(foodItems[i] + "(Qty: " + foodItemQuantities[i]+ ") : $" + String.format("%.2f", foodItemTotalPrice));
             pnl.add(temp);
         }
-        pnl.add(new JLabel("Total Price: $" + totalPrice));
+        pnl.add(new JLabel("Total Price: $" + String.format("%.2f", totalPrice)));
         JButton orderButton = new JButton("Place Order");
         orderButton.addActionListener(actionEvent -> {
             placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);

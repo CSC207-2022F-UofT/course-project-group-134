@@ -47,6 +47,6 @@ public class MealPlan {
 
     @Override
     public String toString() {
-        return "Balance: " + this.getBalance() + " Residence: " + this.getResidence();
+        return "Balance: " + String.format("%.2f", this.getBalance()) + " Residence: " + this.getResidence();
     }
 }
