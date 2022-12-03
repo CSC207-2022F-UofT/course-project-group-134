@@ -131,9 +131,10 @@ public class OrderGateway implements OrderDsGateway{
         save();
     }
 
-    public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail){
+    public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail, String sellerName){
         this.csvFile.delete();
         orders.get(orderNumber).setStatus(status.toString());
+        orders.get(orderNumber).setSellerName(sellerName);
         orders.get(orderNumber).setSellerEmail(sellerEmail);
         save();
     }
@@ -148,19 +149,22 @@ public class OrderGateway implements OrderDsGateway{
         return false;
     }
 
-    public int getOrderNumberFromSellerEmail(String sellerEmail) throws DoesNotExistException {
+    public ArrayList<Integer> getOrderNumbersFromSellerEmail(String sellerEmail) {
+        ArrayList<Integer> orderNumbers = new ArrayList<Integer>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
             if (entry.getValue().getSellerEmail().equals(sellerEmail) &&
                     !(entry.getValue().getStatus().equals(OrderStatusType.FINISHED.toString()))) {
-                return entry.getValue().getOrderID();
+                orderNumbers.add(entry.getValue().getOrderID());
             }
         }
-        throw new DoesNotExistException("Seller has not accepted an order.");
+        return orderNumbers;
     }
 
     public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException {
+        System.out.println("WTF");
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
             if (entry.getValue().getOrderID() == orderNumber) {
+                System.out.println("returning " + entry.getValue().getPrice());
                 return entry.getValue().getPrice();
             }
         }

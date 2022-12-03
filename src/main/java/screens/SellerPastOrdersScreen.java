@@ -8,7 +8,17 @@ import javax.swing.*;
 import java.awt.GridLayout;
 import java.util.List;
 
+/**
+ * The screen for viewing the past orders. It allows the seller to close it when not needed.
+ */
 public class SellerPastOrdersScreen extends JFrame{
+
+    /**
+     * Constructor for sellerPastOrder screen. Creates and sets up the JFrame for the screen.
+     * @param orderDsGateway orderDsGateway is an interface for the orderGateway
+     * @param sellerEmail seller's email
+     * @throws DoesNotExistException
+     */
     public SellerPastOrdersScreen(OrderDsGateway orderDsGateway, String sellerEmail
     ) throws DoesNotExistException {
 

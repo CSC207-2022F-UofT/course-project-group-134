@@ -37,7 +37,7 @@ public class LoginScreen extends JFrame {
             LoginResponseModel response = loginController.create(emailInput.getText(), passwordInput.getText());
             User user = response.getUser();
             if (response.getUser().getUserType() == UserType.SELLER){
-                SellerMain.create(user.getEmail(), ((Seller)user).getMealPlan().getResidence());
+                SellerMain.create(user.getEmail(), ((Seller)user).getMealPlan().getResidence(), user.getUsername());
             }
             else {
                 BuyerMain.create(user.getUsername(), user.getEmail());
