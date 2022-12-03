@@ -3,7 +3,7 @@ package review_use_case;
 import entities.ResidenceType;
 import entities.Review;
 import entities.ReviewFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
