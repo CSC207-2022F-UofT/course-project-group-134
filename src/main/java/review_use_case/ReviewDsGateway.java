@@ -4,8 +4,14 @@ import entities.ResidenceType;
 import entities.Review;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+// Use case layer
+
+/**
+ * The purpose of the ReviewDsGateway is to invert the dependency
+ * to satisfy the dependency rule in CLEAN architecture.
+ */
 
 public interface ReviewDsGateway {
 

@@ -1,6 +1,4 @@
-import screens.WelcomeScreen;
-
-import javax.swing.*;
+import review_use_case.ReviewMain;
 
 /**
  * Main is the class which contains the main method. Creates a welcome screen which
@@ -12,6 +10,6 @@ public class Main {
      * The first method that gets called when the program runs. mCreates a welcome screen.
      */
     public static void main(String[] args) throws Exception {
-        WelcomeScreen welcomeScreen = new WelcomeScreen();
+        ReviewMain.create("laciscat", "pizza", "CAMPUS_ONE");
     }
 }

@@ -1,6 +1,5 @@
 package review_use_case;
 
-import entities.OrderStatusType;
 import entities.ResidenceType;
 import entities.Review;
 
@@ -10,6 +9,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+// Use case layer
+
+/**
+ * The gateway for the review use case. The gateway stores new review
+ * information and queries existing review information. The database
+ * is implemented by storing data in a CSV file.
+ */
 public class ReviewGateway implements ReviewDsGateway {
     private File csvFile;
 
@@ -17,6 +23,12 @@ public class ReviewGateway implements ReviewDsGateway {
 
     private final List<ReviewDsRequestModel> reviews = new ArrayList<>();
 
+    /**
+     * ReviewGateway constructor that uses the csvPath provided
+     * to be the location for the CSV file for the gateway.
+     * @param csvPath
+     * @throws IOException
+     */
     public ReviewGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
@@ -34,7 +46,7 @@ public class ReviewGateway implements ReviewDsGateway {
             save();
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header (review, rating, dininghall, userType, username)
+            reader.readLine();
 
             String row;
             while ((row = reader.readLine()) != null){
@@ -54,7 +66,11 @@ public class ReviewGateway implements ReviewDsGateway {
         }
     }
 
-    // If file is empty or does not exist
+    /**
+     * This method gets called when the CSV file is empty or does not exist.
+     * The save method writes all the information in the accounts map to the empty csv file.
+     * @throws IOException
+     */
     public void save() throws IOException{
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true));
         writer.write("review,rating,dininghall,itemName,username");
@@ -70,6 +86,14 @@ public class ReviewGateway implements ReviewDsGateway {
         writer.close();
     }
 
+    /**
+     * This method collects all the reviews of a single food item from its corresponding dining hall.
+     * Each review contains the reviewer's username, numerical rating (on a scale from 1-5), and their
+     * written post.
+     * @param itemName
+     * @param diningHall
+     * @return
+     */
     public List<Review> getReviewsFromName(String itemName, ResidenceType diningHall) {
         List<Review> list = new ArrayList<>();
         for (ReviewDsRequestModel dsModel : reviews) {
@@ -83,6 +107,12 @@ public class ReviewGateway implements ReviewDsGateway {
         return list;
     }
 
+    /**
+     * If a user wants to re-review an item after they bought a food item more than one time, this method
+     * will replace the user's old review with the most up-to-date one.
+     * @param newReview
+     * @throws IOException
+     */
     public void updateReview(ReviewDsRequestModel newReview) throws IOException {
         this.csvFile.delete();
         boolean reviewExists = false;
