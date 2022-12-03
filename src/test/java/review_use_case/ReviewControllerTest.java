@@ -77,4 +77,16 @@ public class ReviewControllerTest {
             fail("Threw review error.");
         }
     }
+
+    @Test
+    void testReviewRatingNotInRange() {
+        try {
+            controller.create("ok", -1, "laciscat", "pizza", "CAMPUS_ONE", "c@mail.utoronto.ca");
+            fail("ReviewFailed should be raised, -1 is not in [1,5]");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ReviewFailed ex) {
+            // this should happen
+        }
+    }
 }

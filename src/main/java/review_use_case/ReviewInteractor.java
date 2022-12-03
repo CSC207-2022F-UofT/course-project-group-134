@@ -23,6 +23,9 @@ public class ReviewInteractor implements ReviewInputBoundary{
 
     @Override
     public ReviewResponseModel create(ReviewRequestModel requestModel) throws IOException {
+        if (requestModel.getRatings() < 1 || requestModel.getRatings() > 5) {
+            return reviewPresenter.prepareFailView("The rating is not between range 1 to 5.");
+        }
         ReviewDsRequestModel reviewDsModel;
         reviewDsModel = new ReviewDsRequestModel(requestModel.getReviewString(), requestModel.getRatings(), requestModel.getDininghall(),
                 requestModel.getItemName(), requestModel.getUsername());
