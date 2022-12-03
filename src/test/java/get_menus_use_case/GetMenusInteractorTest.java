@@ -1,19 +1,12 @@
 package get_menus_use_case;
 
-import order_use_case.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import user_access_use_case.*;
+import user_access_use_case.SignUpDsGateway;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 
 public class GetMenusInteractorTest {
 

@@ -46,7 +46,7 @@ public class ReviewGateway implements ReviewDsGateway {
             save();
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-            reader.readLine(); // skip header (review, rating, dininghall, userType, username)
+            reader.readLine();
 
             String row;
             while ((row = reader.readLine()) != null){
