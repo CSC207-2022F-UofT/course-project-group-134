@@ -54,7 +54,7 @@ public class SellingControllerTest {
             orderDsGateway.saveOrder(new OrderDsRequestModel("buyerName", "buyerEmail@mail.utoronto.ca",
                     "null", "null", ResidenceType.TRINITY_COLLEGE.toString(),
                     OrderStatusType.ORDERED.toString(), new String[]{"food item 1"}, new Integer[]{1}, 50.0));
-            SellingResponseModel responseModel = controller.accept("v@mail.utoronto.ca", "0");
+            SellingResponseModel responseModel = controller.accept("v@mail.utoronto.ca", "0", "Mouse");
             assertEquals(0, responseModel.getOrderNumber());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -69,8 +69,8 @@ public class SellingControllerTest {
             orderDsGateway.saveOrder(new OrderDsRequestModel("buyerName", "buyerEmail@mail.utoronto.ca",
                     "null", "null", ResidenceType.TRINITY_COLLEGE.toString(),
                     OrderStatusType.ORDERED.toString(), new String[]{"food item 1"}, new Integer[]{1}, 50.0));
-            controller.accept("v@mail.utoronto.ca", "0");
-            controller.accept("v2@mail.utoronto.ca", "0");
+            controller.accept("v@mail.utoronto.ca", "0", "Mouse");
+            controller.accept("v2@mail.utoronto.ca", "0", "Mouse");
             fail("Order 0 is taken by v, exception SellingFailed should be raised");
         } catch (IOException e) {
             throw new RuntimeException(e);
