@@ -98,21 +98,21 @@ public class OrderGatewayTest {
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.ORDERED);
         gateway.setOrderStatus(0, OrderStatusType.FINISHED);
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.FINISHED);
-
     }
 
-//    @Test
-//    void testSellerHasOrder() {
-//        assertTrue(gateway.sellerHasOrder("s@mail.utoronto.ca"));
-//    }
-
-//    @Test
-//    void testGetOrderNumberFromSellerEmail() throws DoesNotExistException {
-//        assertEquals(gateway.getOrderNumberFromSellerEmail("s@mail.utoronto.ca"), 1);
-//    }
-//
     @Test
     void testGetPriceFromOrderNumber() throws DoesNotExistException {
         assertEquals(gateway.getPriceFromOrderNumber(1), 20.03953590);
+    }
+
+    @Test
+    void testReadFromExistingCSV() {
+        try {
+            gateway = new OrderGateway("./src/test/resources/orders.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        List<Integer> finishedOrders = gateway.getFinishedOrders("vivianyt.liu@mail.utoronto.ca");
+        assertEquals(0, finishedOrders.size());
     }
 }

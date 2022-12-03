@@ -9,8 +9,7 @@ import user_access_use_case.*;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SignUpGatewayTest {
 
@@ -55,8 +54,8 @@ public class SignUpGatewayTest {
 
     @Test
     void testIfEmailExists() {
-        assert(gateway.existsByEmail("aditya.bandekar@mail.utoronto.ca"));
-        assert(gateway.existsByEmail("cooklook@mail.utoronto.ca"));
+        assertTrue(gateway.existsByEmail("aditya.bandekar@mail.utoronto.ca"));
+        assertTrue(gateway.existsByEmail("cooklook@mail.utoronto.ca"));
     }
 
     @Test
@@ -84,7 +83,7 @@ public class SignUpGatewayTest {
     }
 
     @Test
-    void testReadUser() {
+    void testReadSellerUser() {
         User user = gateway.readUser("aditya.bandekar@mail.utoronto.ca", userFactory);
         assert(user instanceof Seller);
         Seller seller = (Seller) user;
@@ -94,4 +93,35 @@ public class SignUpGatewayTest {
         assertEquals(seller.getMealPlan().getBalance(), 10.0);
         assertEquals(seller.getMealPlan().getResidence(), ResidenceType.ST_MICHAELS_COLLEGE.toString());
     }
+
+    @Test
+    void testReadBuyerUser() {
+        User user = gateway.readUser("cooklook@mail.utoronto.ca", userFactory);
+        assertTrue(user instanceof Buyer);
+        Buyer buyer = (Buyer) user;
+        assertEquals(buyer.getEmail(), "cooklook@mail.utoronto.ca");
+        assertEquals(buyer.getUsername(), "cooklook");
+        assertEquals(buyer.getPassword(), "password2");
+    }
+
+    @Test
+    void testReadUserThatDoesntExist() {
+        assertNull(gateway.readUser("badEmail@mail.utoronto.ca"));
+    }
+
+    @Test
+    void testGetRequestModelDoesntExist() {
+        assertNull(gateway.getRequestModelFromEmail("badEmail@mail.utoronto.ca"));
+    }
+
+    @Test
+    void testReadFromExistingCSV() {
+        try {
+            gateway = new SignUpGateway("./src/test/resources/users.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
+        assertTrue(gateway.existsByUsername("lookcook"));
+    }
+
 }

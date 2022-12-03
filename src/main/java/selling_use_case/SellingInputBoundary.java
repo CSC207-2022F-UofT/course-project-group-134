@@ -7,5 +7,5 @@ import java.io.IOException;
  * to satisfy the dependency rule in CLEAN architecture.
  */
 public interface SellingInputBoundary {
-    void accept(SellingRequestModel requestModel) throws IOException;
+    SellingResponseModel accept(SellingRequestModel requestModel) throws IOException;
 }

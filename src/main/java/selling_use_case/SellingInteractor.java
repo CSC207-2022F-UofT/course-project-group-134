@@ -18,7 +18,7 @@ public class SellingInteractor implements SellingInputBoundary {
         this.sellingPresenter = presenter;
     }
 
-    public void accept(SellingRequestModel requestModel){
+    public SellingResponseModel accept(SellingRequestModel requestModel){
         int orderNumber = requestModel.getOrderNumber();
         String sellerEmail = requestModel.getSellerEmail();
         String sellerName = requestModel.getSellerName();
@@ -32,8 +32,7 @@ public class SellingInteractor implements SellingInputBoundary {
         orderDsGateway.updateOrder(orderNumber, OrderStatusType.ACCEPTED, sellerEmail, sellerName);
 
         SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrderNumber());
-        sellingPresenter.prepareSuccessView(sellingResponseModel);
-
+        return sellingPresenter.prepareSuccessView(sellingResponseModel);
     }
 
 }

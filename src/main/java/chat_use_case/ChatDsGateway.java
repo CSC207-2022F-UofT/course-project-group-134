@@ -76,7 +76,7 @@ public class ChatDsGateway implements ChatDsBoundary {
         return new ChatDataRecieveModel(c.getChatLog(), true);
     }
     private void writeChat(Chat c) throws IOException{
-        String fileName = this.STORAGE_LOCATION +   "\\" + getChatFileName(c);
+        String fileName = this.STORAGE_LOCATION +   "/" + getChatFileName(c);
         File f = new File(fileName);
         f.delete();
         f.createNewFile();

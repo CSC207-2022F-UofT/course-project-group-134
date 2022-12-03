@@ -61,14 +61,6 @@ public class Seller extends User implements Reviewable{
     }
 
     /**
-     * This seller "fulfills" the given order (sets the seller of an order to this seller).
-     * @param order Order to be fulfilled.
-     */
-    public void fulfillOrder(Order order){
-        order.setSeller(this);
-    }
-
-    /**
      * Adds a review to the list of reviews of this seller and updates the average star value accordingly.
      * @param review Review to be added to this seller's list of reviews.
      */

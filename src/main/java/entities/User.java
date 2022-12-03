@@ -76,11 +76,4 @@ public abstract class User {
         return userType;
     }
 
-
-    /**
-     * This user gets reported (This increases numReported by 1).
-     */
-    public void report(){
-        this.numReported += 1;
-    }
 }
