@@ -24,16 +24,6 @@ public class Buyer extends User{
         super.userType = UserType.BUYER;
     }
 
-    /**
-     * This buyer places an order.
-     * @param order The order to be placed.
-     *
-     *              TODO: implement this function
-     */
-    public void placeOrder(Order order){
-        // TODO place in database
-    }
-
     @Override
     public String toString() {
         return "Buyer: " + this.getUsername();

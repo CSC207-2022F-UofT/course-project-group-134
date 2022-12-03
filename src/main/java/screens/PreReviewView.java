@@ -1,12 +1,10 @@
 package screens;
 
-import entities.ReviewFactory;
 import review_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class PreReviewView extends JFrame {

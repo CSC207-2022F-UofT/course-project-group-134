@@ -98,7 +98,6 @@ public class OrderGatewayTest {
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.ORDERED);
         gateway.setOrderStatus(0, OrderStatusType.FINISHED);
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.FINISHED);
-
     }
 
     @Test
