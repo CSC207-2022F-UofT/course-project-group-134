@@ -5,6 +5,10 @@ import screens.ReviewScreen;
 
 import java.io.IOException;
 
+/**
+ * ReviewMain is called when an instance of the review use case is called.
+ * Creates and sets up instances of all the relevant classes for the review use case.
+ */
 public class ReviewMain {
 
     public static void create(String username, String itemName, String diningHall) throws IOException {

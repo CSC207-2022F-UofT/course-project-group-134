@@ -1,5 +1,11 @@
 package review_use_case;
 
+// Use case layer
+
+/**
+ * ReviewDsRequestModel contains information representing a review that
+ * gets sent to the gateway to create and store the review information.
+ */
 public class ReviewDsRequestModel {
     private String reviewString;
     private int ratings;
