@@ -12,11 +12,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-
+/**
+ * The screen for fulfilling existing orders.
+ * The seller can communicate with the buyer via the chat button.
+ * The seller can confirm that the order is fulfilled.
+ * The seller can go back to the main selling page by pressing the 'Back' button.
+ */
 public class SellerFulfillingOrderScreen extends JFrame{
 
-
-
+    /**
+     * Constructor for sellerFulfillingOrder screen. Creates and sets up the JFrame for the screen.
+     * @param signUpGateway interface for the signUpGateway
+     * @param orderGateway interface for the orderGateway
+     * @param sellerEmail seller's email
+     * @param price total price for the order
+     * @param orderNumber the order number for the order
+     * @throws DoesNotExistException
+     */
     public SellerFulfillingOrderScreen(SignUpDsGateway signUpGateway, OrderDsGateway orderGateway, String sellerEmail, double price, int orderNumber) throws DoesNotExistException {
         JPanel pnl = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1,3));
@@ -77,14 +89,14 @@ public class SellerFulfillingOrderScreen extends JFrame{
 
                     if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
                         orderGateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
-                        SellerMain.create(sellerEmail, orderDsModel.getResidence());
+                        SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
                         JOptionPane.showMessageDialog(null,
                                 "Successfully finished order.",
                                 "Order Finished",
                                 JOptionPane.PLAIN_MESSAGE);
                     } else { // order status is ACCEPTED
                         orderGateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
-                        SellerMain.create(sellerEmail, orderDsModel.getResidence());
+                        SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
                     }
                 } catch (DoesNotExistException ex) {
                     throw new RuntimeException(ex);
@@ -96,7 +108,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         backButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                SellerMain.create(sellerEmail, orderDsModel.getResidence());
+                SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }

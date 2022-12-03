@@ -131,9 +131,10 @@ public class OrderGateway implements OrderDsGateway{
         save();
     }
 
-    public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail){
+    public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail, String sellerName){
         this.csvFile.delete();
         orders.get(orderNumber).setStatus(status.toString());
+        orders.get(orderNumber).setSellerName(sellerName);
         orders.get(orderNumber).setSellerEmail(sellerEmail);
         save();
     }

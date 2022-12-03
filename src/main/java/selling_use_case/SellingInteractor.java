@@ -21,6 +21,7 @@ public class SellingInteractor implements SellingInputBoundary {
     public void accept(SellingRequestModel requestModel){
         int orderNumber = requestModel.getOrderNumber();
         String sellerEmail = requestModel.getSellerEmail();
+        String sellerName = requestModel.getSellerName();
         if (!this.orderDsGateway.orderExistsById(orderNumber)){
             this.sellingPresenter.prepareFailView("Order does not exist");
         }
@@ -28,7 +29,7 @@ public class SellingInteractor implements SellingInputBoundary {
             this.sellingPresenter.prepareFailView("Order has already been taken up by another seller");
         }
 
-        orderDsGateway.updateOrder(orderNumber, OrderStatusType.ACCEPTED, sellerEmail);
+        orderDsGateway.updateOrder(orderNumber, OrderStatusType.ACCEPTED, sellerEmail, sellerName);
 
         SellingResponseModel sellingResponseModel = new SellingResponseModel(requestModel.getOrderNumber());
         sellingPresenter.prepareSuccessView(sellingResponseModel);

@@ -14,9 +14,9 @@ public class SellingController {
         this.boundary = inputBoundary;
     }
 
-    public void accept(String sellerEmail, String orderNumberString) throws IOException {
+    public void accept(String sellerEmail, String orderNumberString, String sellerName) throws IOException {
         SellingRequestModel requestModel = new SellingRequestModel(sellerEmail,
-                Integer.parseInt(orderNumberString));
+                Integer.parseInt(orderNumberString), sellerName);
         boundary.accept(requestModel);
     }
 }

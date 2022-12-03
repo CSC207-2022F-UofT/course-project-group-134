@@ -8,9 +8,12 @@ public class SellingRequestModel {
     private final String sellerEmail;
     private final int orderNumber;
 
-    public SellingRequestModel(String sellerEmail, int orderNumber) {
+    private final String sellerName;
+
+    public SellingRequestModel(String sellerEmail, int orderNumber, String sellerName) {
         this.sellerEmail = sellerEmail;
         this.orderNumber = orderNumber;
+        this.sellerName = sellerName;
     }
 
     public String getSellerEmail() {
@@ -19,5 +22,9 @@ public class SellingRequestModel {
 
     public int getOrderNumber() {
         return orderNumber;
+    }
+
+    public String getSellerName() {
+        return sellerName;
     }
 }

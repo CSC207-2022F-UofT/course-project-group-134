@@ -17,7 +17,7 @@ import java.io.IOException;
  * Creates and sets up instances of all the relevant classes for the selling use case.
  */
 public class SellerMain {
-    public static void create(String sellerEmail, String sellerResidence) throws DoesNotExistException {
+    public static void create(String sellerEmail, String sellerResidence, String sellerName) throws DoesNotExistException {
         OrderDsGateway orderGateway;
         SignUpDsGateway signupGateway;
         try {
@@ -30,7 +30,7 @@ public class SellerMain {
         SellingInputBoundary interactor = new SellingInteractor(presenter, orderGateway);
         SellingController sellingController = new SellingController(interactor);
 
-        new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence);
+        new SellingScreen(sellingController, signupGateway, orderGateway, sellerEmail, sellerResidence, sellerName);
 
     }
 }

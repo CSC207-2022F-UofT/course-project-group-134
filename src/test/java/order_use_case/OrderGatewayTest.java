@@ -88,7 +88,7 @@ public class OrderGatewayTest {
         assertEquals(orderDsModel.getFoodQuantity().length, 4);
         assertEquals(orderDsModel.getStatus(), OrderStatusType.ORDERED.toString());
 
-        gateway.updateOrder(1, OrderStatusType.ACCEPTED, "s@mail.utoronto.ca");
+        gateway.updateOrder(1, OrderStatusType.ACCEPTED, "s@mail.utoronto.ca", "Seller");
         assertEquals(gateway.getOrderStatus(1), OrderStatusType.ACCEPTED);
         assertEquals(gateway.getOrderInfo(1).getSellerEmail(), "s@mail.utoronto.ca");
     }

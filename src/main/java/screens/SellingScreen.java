@@ -13,6 +13,12 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This SellingScreen is the main screen that the Seller sees when they log in from the login page.
+ * The seller can select and accept available orders from their selling hall.
+ * The seller can log out or view past orders by using the buttons.
+ * The seller can fulfill ongoing orders by selecting from the dropdown and clicking the 'Fulfill Selected Button'.
+ */
 public class SellingScreen extends JFrame {
 
     private JComboBox<String> currentOrdersDropdown;
@@ -20,12 +26,19 @@ public class SellingScreen extends JFrame {
     private JComboBox<String> sellerCurrentOrderDropdown;
     private final SellingController sellingController;
     private final String sellerEmail;
+    private final String sellerName;
 
     private final String sellerResidence;
 
     private final SignUpDsGateway signUpGateway;
 
     private Integer orderToView;
+
+    /**
+     * The method is called when the 'Accept Order' button is clicked. It marks the order as ACCEPTED and store the
+     * seller username and email in the orders.csv file.
+     * @throws IOException
+     */
     private void acceptClicked() throws IOException {
 
         try {
@@ -41,10 +54,10 @@ public class SellingScreen extends JFrame {
             }
             String buyerName = orderInfoList[2];
 
-            sellingController.accept(sellerEmail, orderNumberString);
+            sellingController.accept(sellerEmail, orderNumberString, sellerName);
             this.dispose();
             try {
-                SellerMain.create(sellerEmail, sellerResidence);
+                SellerMain.create(sellerEmail, sellerResidence, sellerName);
             } catch (DoesNotExistException e) {
                 throw new RuntimeException(e);
             }
@@ -60,18 +73,33 @@ public class SellingScreen extends JFrame {
         }
     }
 
+    /**
+     * This method is called when the 'Fulfilled Selected Order' is clicked. It sends the seller to the
+     * SellerFulfillingOrderScreen to communicate and fulfill the selected order.
+     * @throws IOException
+     */
     private void orderClicked() throws IOException {
         String orderString = (String) sellerCurrentOrderDropdown.getSelectedItem();
         String[] orderInfoList = orderString.split(", ");
         this.orderToView = Integer.valueOf(orderInfoList[0]);
     }
 
+    /**
+     * Constructor for selling screen. Creates and sets up the JFrame for the screen.
+     * @param sellingController the controller for the selling use case
+     * @param signUpGateway the signUpGateway is an interface for the signUpGateway
+     * @param orderDsGateway the orderDsGateway is an interface for the orderGateway
+     * @param sellerEmail the seller's email
+     * @param sellerResidence the seller's residence
+     * @param sellerName the seller's name
+     */
     public SellingScreen(SellingController sellingController, SignUpDsGateway signUpGateway, OrderDsGateway orderDsGateway, String sellerEmail, String
-                         sellerResidence) {
+                         sellerResidence, String sellerName) {
         this.sellingController = sellingController;
         this.sellerEmail = sellerEmail;
         this.sellerResidence = sellerResidence;
         this.signUpGateway = signUpGateway;
+        this.sellerName = sellerName;
         JPanel pnl = new JPanel(new GridLayout(5,1));
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
 
