@@ -39,7 +39,7 @@ public class SellingControllerTest {
     @Test
     void testSellingFailOrderDoesNotExist(){
         try {
-            controller.accept("v@mail.utoronto.ca", "3");
+            controller.accept("v@mail.utoronto.ca", "3", "Mouse");
             fail("Order 3 doesn't exist, exception SellingFailed should be raised");
         } catch (IOException e) {
             throw new RuntimeException(e);
