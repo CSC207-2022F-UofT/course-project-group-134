@@ -7,7 +7,7 @@ import screens.WelcomeScreen;
 public class Main {
 
     /**
-     * The first method that gets called when the program runs. mCreates a welcome screen.
+     * The first method that gets called when the program runs. Creates a welcome screen.
      */
     public static void main(String[] args) throws Exception {
         new WelcomeScreen();
