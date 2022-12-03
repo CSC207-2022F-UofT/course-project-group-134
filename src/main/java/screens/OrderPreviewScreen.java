@@ -9,6 +9,8 @@ import java.io.IOException;
 
 public class OrderPreviewScreen extends JFrame {
     private final OrderView orderView;
+    private PrePlaceOrderScreen prePlaceOrderScreen = null;
+    public boolean prePlaceOrderScreenOn = false;
 
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         this.orderView = orderView;
@@ -21,7 +23,14 @@ public class OrderPreviewScreen extends JFrame {
         pnl.add(new JLabel("Total Price: $" + String.format("%.2f", totalPrice)));
         JButton orderButton = new JButton("Place Order");
         orderButton.addActionListener(actionEvent -> {
-            placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
+            if (!this.prePlaceOrderScreenOn){
+                this.prePlaceOrderScreen = new PrePlaceOrderScreen(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice, this);
+                this.prePlaceOrderScreenOn = true;
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "You are currently trying to place an order.", "Please confirm your order first.", JOptionPane.PLAIN_MESSAGE);
+            }
+            //placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
 
         });
         pnl.add(orderButton);
@@ -64,6 +73,9 @@ public class OrderPreviewScreen extends JFrame {
     @Override
     public void dispose() {
         this.orderView.orderPreviewClosed = true;
+        if (this.prePlaceOrderScreenOn){
+            this.prePlaceOrderScreen.dispose();
+        }
         super.dispose();
     }
 }

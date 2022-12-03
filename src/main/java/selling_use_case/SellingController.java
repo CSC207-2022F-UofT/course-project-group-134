@@ -2,6 +2,11 @@ package selling_use_case;
 
 import java.io.IOException;
 
+
+/**
+ * The controller for the selling use case. Takes in information from the
+ * selling screen and sends it to the interactor.
+ */
 public class SellingController {
     final SellingInputBoundary boundary;
 

@@ -37,7 +37,6 @@ public class ReviewScreen extends JFrame {
             JOptionPane.showMessageDialog(null,
                     ex.getMessage(), "Review failed to post.", JOptionPane.WARNING_MESSAGE);
         }
-
     }
 
     public ReviewScreen(ReviewController reviewController,

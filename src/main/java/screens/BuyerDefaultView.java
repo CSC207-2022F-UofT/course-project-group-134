@@ -79,13 +79,6 @@ public class BuyerDefaultView extends JFrame {
      * The Gateway for the Order use case.  Used when the user wants to make a new order.
      */
     private final OrderDsGateway orders;
-    public boolean logoutScreenClosed = true;
-
-
-
-    private void chatClicked(ActionEvent actionEvent) throws IOException {
-        ChatInteractor.ChatMain.create("","");
-    }
 
     /**
      *
@@ -118,15 +111,8 @@ public class BuyerDefaultView extends JFrame {
         });
 
         logoutButton.addActionListener(actionEvent -> {
-            if (logoutScreenClosed){
-                this.setVisible(false);
-                new ConfirmLogoutScreen(this);
-                logoutScreenClosed = false;
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Please confirm if you would like to logout.", "Confirm Logout", JOptionPane.PLAIN_MESSAGE);
-            }
-
+           this.setVisible(false);
+           new ConfirmLogoutScreen(this);
         });
 
         tabbedPane.addTab("Order History", orderHistoryPanel);
@@ -194,7 +180,7 @@ public class BuyerDefaultView extends JFrame {
                 JButton chatButton = new JButton("Chat");
                 chatButton.addActionListener(actionEvent -> {
                     try {
-                        chatClicked(actionEvent);
+                        ChatInteractor.ChatMain.create(email, tempOrder[4]);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
