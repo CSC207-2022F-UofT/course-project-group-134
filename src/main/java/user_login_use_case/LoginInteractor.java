@@ -41,6 +41,6 @@ public class LoginInteractor implements LoginInputBoundary {
             return loginPresenter.prepareFailView("Password is incorrect.");
         }
         LoginResponseModel loginResponseModel = new LoginResponseModel(user);
-        return loginResponseModel;
+        return loginPresenter.prepareSuccessView(loginResponseModel);
     }
 }

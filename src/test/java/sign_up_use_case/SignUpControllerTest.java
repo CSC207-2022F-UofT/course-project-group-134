@@ -128,4 +128,5 @@ public class SignUpControllerTest {
             // threw sign up error
         }
     }
+
 }

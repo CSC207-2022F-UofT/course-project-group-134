@@ -106,7 +106,7 @@ public class OrderGatewayTest {
     }
 
     @Test
-    void testReadFromCSV() {
+    void testReadFromExistingCSV() {
         try {
             gateway = new OrderGateway("./src/test/resources/orders.csv");
         } catch (IOException e) {

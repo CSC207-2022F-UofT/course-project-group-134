@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class SellingControllerTest {
@@ -53,7 +54,8 @@ public class SellingControllerTest {
             orderDsGateway.saveOrder(new OrderDsRequestModel("buyerName", "buyerEmail@mail.utoronto.ca",
                     "null", "null", ResidenceType.TRINITY_COLLEGE.toString(),
                     OrderStatusType.ORDERED.toString(), new String[]{"food item 1"}, new Integer[]{1}, 50.0));
-            controller.accept("v@mail.utoronto.ca", "0");
+            SellingResponseModel responseModel = controller.accept("v@mail.utoronto.ca", "0");
+            assertEquals(0, responseModel.getOrderNumber());
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (SellingFailed ex) {

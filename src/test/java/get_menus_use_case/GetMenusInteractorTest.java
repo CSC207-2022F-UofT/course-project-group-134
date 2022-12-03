@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class GetMenusInteractorTest {
 
@@ -22,7 +22,6 @@ public class GetMenusInteractorTest {
 
     @BeforeEach
     void setUp() {
-
         GetMenusOutputBoundary getMenusPresenter = new GetMenusPresenter();
         MenuGatewayInterface menuGateway = new GetMenusGateway();
         GetMenusInputBoundary getMenusInteractor = new GetMenusInteractor(getMenusPresenter, menuGateway);
@@ -44,6 +43,16 @@ public class GetMenusInteractorTest {
         Assertions.assertEquals(foodDetails.get(1)[2], "Cheese");
         Assertions.assertEquals(foodDetails.get(1)[3], "Cheese,Tomatoes,Mayonnaise,Onions,Potatoes");
         Assertions.assertEquals(foodDetails.get(1)[4], "250");
+    }
+
+    @Test
+    void testNoReviews() throws Exception {
+        getMenusController.setUpInteractor("NEW_COLLEGE");
+        Map<String, List<String[]>> map = getMenusController.getFoodReviews();
+        Assertions.assertTrue(map.containsKey("Veggie Burger"));
+        Assertions.assertTrue(map.containsKey("Pepperoni Pizza"));
+        Assertions.assertTrue(map.get("Veggie Burger").isEmpty());
+        Assertions.assertTrue(map.get("Pepperoni Pizza").isEmpty());
     }
 
     @AfterEach
