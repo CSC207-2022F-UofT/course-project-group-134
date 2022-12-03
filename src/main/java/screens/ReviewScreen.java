@@ -7,7 +7,6 @@ import review_use_case.ReviewResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -36,7 +35,6 @@ public class ReviewScreen extends JFrame {
             JOptionPane.showMessageDialog(null,
                     ex.getMessage(), "Review failed to post.", JOptionPane.WARNING_MESSAGE);
         }
-
     }
 
     public ReviewScreen(ReviewController reviewController,

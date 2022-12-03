@@ -1,5 +1,4 @@
 package screens;
-
 import review_use_case.*;
 
 import javax.swing.*;
@@ -13,18 +12,17 @@ public class PreReviewView extends JFrame {
     private String foodItemsString;
     private String[] foodItemsArray;
     private String residence;
-    private JButton reviewButton = new JButton("Review");
+    private JButton reviewButton = new JButton("Place Review");
     private JPanel pnl= new JPanel(new GridLayout(2,1));
     private String username;
 
-    public PreReviewView(String foodItemsString, String residence, String username){
+    public PreReviewView(String foodItemsString, String residence, String username) {
         this.residence = residence;
         this.foodItemsString = foodItemsString;
         this.foodItemsArray = foodItemsString.split(",");
         for (int i= 0; i < this.foodItemsArray.length; i++){
             this.foodItemsArray[i] = this.foodItemsArray[i].split("\\(")[0].strip();
         }
-
         this.username  = username;
         foodItems = new JComboBox<>(foodItemsArray);
 
@@ -34,11 +32,6 @@ public class PreReviewView extends JFrame {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            /*try {
-                new ReviewScreen(new ReviewController(new ReviewInteractor(new ReviewGateway("reviews.csv"), new ReviewAccessPresenter(), new ReviewFactory())), username, Objects.requireNonNull(foodItems.getSelectedItem()).toString(),residence);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }*/
         });
 
         pnl.add(foodItems);
