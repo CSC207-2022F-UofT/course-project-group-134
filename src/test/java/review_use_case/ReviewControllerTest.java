@@ -41,7 +41,7 @@ public class ReviewControllerTest {
     @Test
     public void testWrittenReviewDoesNotExist() {
         try {
-            controller.create("ok", 3, "laciscat",
+            ReviewResponseModel responseModel = controller.create("ok", 3, "laciscat",
                     "pizza", "CAMPUS_ONE", "c@mail.utoronto.ca");
             List<Review> list = gateway.getReviewsFromName("pizza", ResidenceType.CAMPUS_ONE);
             assertFalse(list.isEmpty());
@@ -50,6 +50,9 @@ public class ReviewControllerTest {
             assertEquals("laciscat", review.getBuyer());
             assertEquals(3, review.getRating());
             assertEquals("pizza", review.getItemName());
+
+            assertEquals(3, responseModel.getRating());
+            assertEquals("ok", responseModel.getReview());
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ReviewFailed ex) {
