@@ -3,7 +3,6 @@ package screens;
 import entities.ResidenceType;
 import get_menus_use_case.GetMenusController;
 import order_history_use_case.OrderHistoryInputBoundary;
-import order_use_case.FoodItemDetailsView;
 import order_use_case.OrderController;
 
 import javax.swing.*;
