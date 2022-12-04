@@ -17,6 +17,7 @@ import java.io.IOException;
 public class ChatScreen extends JFrame{
     private final JTextField messageInput = new JTextField(15);
     private JTextArea messageDisplay = new JTextArea();
+    private JScrollPane messageScrollPane = new JScrollPane(messageDisplay);
 
     private ChatInputBoundary input;
 
@@ -47,7 +48,7 @@ public class ChatScreen extends JFrame{
 
     public ChatScreen(String userEmail, String recipientEmail) throws IOException {
         JPanel pnl = new JPanel(new GridLayout(0,1));
-        pnl.add(messageDisplay);
+        pnl.add(messageScrollPane);
         messageDisplay.setEditable(false);
 
         LabelTextPanel chatBox = new LabelTextPanel(
