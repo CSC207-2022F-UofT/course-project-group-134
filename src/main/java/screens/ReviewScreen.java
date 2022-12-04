@@ -1,7 +1,7 @@
 package screens;
 
 import entities.ReviewType;
-import order_use_case.BuyerMain;
+import use_cases_mains.BuyerMain;
 import review_use_case.ReviewController;
 import review_use_case.ReviewFailed;
 import review_use_case.ReviewResponseModel;
