@@ -1,20 +1,28 @@
 package order_use_case;
 
-import entities.OrderFactory;
 import entities.OrderStatusType;
 
 
 public class OrderInteractor implements OrderInputBoundary {
     final OrderDsGateway orderDsGateway;
     final OrderOutputBoundary orderPresenter;
-    final OrderFactory orderFactory;
 
-    public OrderInteractor(OrderDsGateway orderDsGateway, OrderOutputBoundary orderPresenter, OrderFactory orderFactory) {
+    /**
+     * The constructor of this class.
+     *
+     * @param orderDsGateway The gateway to access the orders.
+     * @param orderPresenter The presenter that processes the output.
+     */
+    public OrderInteractor(OrderDsGateway orderDsGateway, OrderOutputBoundary orderPresenter) {
         this.orderDsGateway = orderDsGateway;
         this.orderPresenter = orderPresenter;
-        this.orderFactory = orderFactory;
     }
 
+    /**
+     *
+     * @param request The model containing the order information.
+     * @return a model of the response
+     */
     @Override
      public OrderResponseModel placeOrder(OrderRequestModel request) {
         // TODO: How can the order fail?

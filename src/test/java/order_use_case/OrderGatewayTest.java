@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +25,7 @@ public class OrderGatewayTest {
         OrderPresenter presenter = new OrderPresenter();
         OrderFactory orderFactory = new OrderFactory();
         OrderInputBoundary interactor = new OrderInteractor(
-                gateway, presenter, orderFactory);
+                gateway, presenter);
         OrderController controller = new OrderController(interactor);
 
         try {

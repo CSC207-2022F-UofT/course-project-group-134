@@ -14,6 +14,19 @@ public class OrderDsModel {
     private final Integer[] foodQuantity;
     private final Double price;
 
+    /**
+     *
+     * @param orderID       Order ID
+     * @param buyerName     Buyer name
+     * @param buyerEmail    Buyer email
+     * @param sellerName    Seller name
+     * @param sellerEmail   Seller email
+     * @param residence     Dining hall
+     * @param status        Status from OrderStatusType
+     * @param foodItems     The list of food items
+     * @param foodQuantity  The list of food quantities bought
+     * @param price         Price
+     */
     public OrderDsModel(int orderID, String buyerName, String buyerEmail, String sellerName, String sellerEmail, String residence, String status, String[] foodItems, Integer[] foodQuantity, Double price) {
         this.orderID = orderID;
         this.buyerName = buyerName;
