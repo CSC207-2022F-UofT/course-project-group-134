@@ -4,16 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class ConfirmLogoutScreen extends JFrame {
+public abstract class ConfirmScreen extends JFrame {
     private JPanel pnl = new JPanel(new GridLayout(2, 1));
     private JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
     private JButton yesButton = new JButton("Yes");
     private JButton noButton = new JButton("No");
-    private JLabel message = new JLabel("Are you sure you want to logout?");
-    private JFrame originalScreen;
+    private JLabel message;
+    public JFrame originalScreen;
 
 
-    public ConfirmLogoutScreen(JFrame originalScreen){
+    public ConfirmScreen(JFrame originalScreen, String title, String prompt) {
+        this.message = new JLabel(prompt);
         this.originalScreen = originalScreen;
         pnl.add(message);
         buttonsPanel.add(yesButton);
@@ -33,19 +34,14 @@ public class ConfirmLogoutScreen extends JFrame {
         });
 
         this.add(pnl);
-        this.setTitle("Confirm Logout");
+        this.setTitle(title);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(450, 400);
         this.setLocation(400, 0);
         this.setVisible(true);
     }
 
-    private void yesClicked() throws IOException {
-        JOptionPane.showMessageDialog(null, "You have successfully logged out.", "Logout Successful", JOptionPane.PLAIN_MESSAGE);
-        originalScreen.dispose();
-        this.dispose();
-        new WelcomeScreen();
-    }
+    abstract void yesClicked() throws IOException;
 
     private void noClicked(){
         originalScreen.setVisible(true);

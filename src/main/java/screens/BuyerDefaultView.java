@@ -112,7 +112,16 @@ public class BuyerDefaultView extends JFrame {
 
         logoutButton.addActionListener(actionEvent -> {
            this.setVisible(false);
-           new ConfirmLogoutScreen(this);
+           new ConfirmScreen(this, "Confirm Logout",
+                    "Are you sure you want to logout?") {
+                @Override
+                void yesClicked() throws IOException {
+                    JOptionPane.showMessageDialog(null, "You have successfully logged out.", "Logout Successful", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();
+                    originalScreen.dispose();
+                    new WelcomeScreen();
+                }
+            };
         });
 
         tabbedPane.addTab("Order History", orderHistoryPanel);
