@@ -9,6 +9,11 @@ import java.util.List;
 
 public class OrderHistoryPresenter implements OrderHistoryOutputBoundary{
 
+    /**
+     *
+     * @param resMod Contains all the information about an order that is to be displayed
+     * @return A String[] containing the details of an order to be displayed.
+     */
     @Override
     public String[] getViewList(OrderHistoryResponseModel resMod) {
         List<String> foodItems = new ArrayList<String>();
