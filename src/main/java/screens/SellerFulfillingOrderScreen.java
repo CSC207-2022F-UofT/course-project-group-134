@@ -5,7 +5,7 @@ import entities.OrderStatusType;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
-import selling_use_case.SellerMain;
+import use_cases_mains.SellerMain;
 import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;

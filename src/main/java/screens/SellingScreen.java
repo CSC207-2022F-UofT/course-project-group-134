@@ -4,7 +4,7 @@ import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
 import order_use_case.OrderFailed;
-import selling_use_case.SellerMain;
+import use_cases_mains.SellerMain;
 import selling_use_case.SellingController;
 import user_access_use_case.SignUpDsGateway;
 

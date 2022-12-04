@@ -1,6 +1,7 @@
-package review_use_case;
+package use_cases_mains;
 
 import entities.ReviewFactory;
+import review_use_case.*;
 import screens.ReviewScreen;
 
 import java.io.IOException;

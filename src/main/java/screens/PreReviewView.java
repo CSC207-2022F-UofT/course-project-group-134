@@ -1,5 +1,5 @@
 package screens;
-import review_use_case.*;
+import use_cases_mains.ReviewMain;
 
 import javax.swing.*;
 import java.awt.*;

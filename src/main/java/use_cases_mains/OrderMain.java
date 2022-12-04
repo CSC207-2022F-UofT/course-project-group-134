@@ -1,7 +1,8 @@
-package order_use_case;
+package use_cases_mains;
 
 import entities.OrderFactory;
 import entities.ResidenceType;
+import order_use_case.*;
 
 import java.io.IOException;
 
