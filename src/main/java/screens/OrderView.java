@@ -10,10 +10,7 @@ import javax.swing.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OrderView extends JFrame implements OrderViewModel {
     private final JPanel pnl = new JPanel(new GridLayout(4,1));
@@ -59,7 +56,7 @@ public class OrderView extends JFrame implements OrderViewModel {
                             totalPriceString.setVisible(true);
                             getMenusController.setUpInteractor((String) residenceDropdown.getSelectedItem());
                             List<String[]> foodDetails = getMenusController.getFoodDetails();
-                            HashMap<String, List<String[]>> foodReviews = getMenusController.getFoodReviews();
+                            Map<String, List<String[]>> foodReviews = getMenusController.getFoodReviews();
                             showMenus(foodDetails, foodReviews);
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
@@ -100,7 +97,7 @@ public class OrderView extends JFrame implements OrderViewModel {
 
 
     @Override
-    public void showMenus(List<String[]> foodDetails, HashMap<String, List<String[]>> foodReviews) {
+    public void showMenus(List<String[]> foodDetails, Map<String, List<String[]>> foodReviews) {
 
         menusPanel.removeAll();
         bottomPanel.removeAll();

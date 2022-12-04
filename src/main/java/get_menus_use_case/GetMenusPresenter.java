@@ -5,6 +5,7 @@ import entities.Review;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetMenusPresenter implements GetMenusOutputBoundary{
 
@@ -48,8 +49,8 @@ public class GetMenusPresenter implements GetMenusOutputBoundary{
      * @return A hashmap whose keys are food items. Each key is mapped to an arrayList of String[] and each
      *  String[] contains the review string, rating, reviewer's username (in that order)
      */
-    public HashMap<String, List<String[]>> getFoodReviews(GetMenusResponseModel responseModel){
-        HashMap<String, List<String[]>> foodItemsAndReviews = new HashMap<>();
+    public Map<String, List<String[]>> getFoodReviews(GetMenusResponseModel responseModel){
+        Map<String, List<String[]>> foodItemsAndReviews = new HashMap<>();
 
         for(String foodName: responseModel.getFoodItemReviews().keySet()){
             List<String[]> reviewList = new ArrayList<>();
