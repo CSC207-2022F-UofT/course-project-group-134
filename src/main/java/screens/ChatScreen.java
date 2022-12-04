@@ -67,7 +67,7 @@ public class ChatScreen extends JFrame{
         pnl.add(sendButton);
         this.add(pnl);
         this.setTitle("Chat");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 400);
         this.setLocation(500, 100);
         this.setVisible(true);
