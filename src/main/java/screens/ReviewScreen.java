@@ -1,7 +1,7 @@
 package screens;
 
 import entities.ReviewType;
-import order_use_case.BuyerMain;
+import use_cases_mains.BuyerMain;
 import review_use_case.ReviewController;
 import review_use_case.ReviewFailed;
 import review_use_case.ReviewResponseModel;
@@ -11,6 +11,15 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
+// Frameworks/Drivers layer
+
+/**
+ * The screen for creating reviews and ratings for specific food items that were previously purchased.
+ * The reviewer can write a review in the provided text box.
+ * The reviewer can choose a rating [1,5] from the dropbox.
+ * The reviewer can go back to the buyer main screen by pressing the 'Back' button.
+ */
+
 public class ReviewScreen extends JFrame {
     private final JTextField reviewInput = new JTextField(15);
     private final JComboBox<String> ratingsInput;
@@ -18,6 +27,12 @@ public class ReviewScreen extends JFrame {
 
     String username, itemName, diningHall, email;
 
+    /**
+     * This method is called when the post button is clicked.
+     * Data gets sent to the controller.
+     * This method tells you if review is successful.
+     * @throws IOException
+     */
     private void reviewClicked() throws IOException {
         try {
             Object inputDropdown = ratingsInput.getSelectedItem();
@@ -39,6 +54,14 @@ public class ReviewScreen extends JFrame {
         }
     }
 
+    /**
+     * Constructor for review screen.
+     * JFrame is created and set up.
+     * @param reviewController
+     * @param username
+     * @param itemName
+     * @param diningHall
+     */
     public ReviewScreen(ReviewController reviewController,
                         String username, String itemName, String diningHall){
         this.reviewController = reviewController;

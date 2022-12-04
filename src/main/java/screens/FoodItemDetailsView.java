@@ -1,4 +1,4 @@
-package order_use_case;
+package screens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,16 +41,15 @@ public class FoodItemDetailsView extends JFrame {
             pnl.add(new JLabel("Star Average: " + String.format("%.2f", starAverage)));
 
             JPanel reviewPanel = new JPanel(new GridLayout(foodItemReviews.size() + 1, 1));
+            JScrollPane reviewInnerScrollPane = new JScrollPane(reviewPanel);
 
             reviewPanel.add(new JLabel("Reviews:"));
             for (String[] review : foodItemReviews) {
                 reviewPanel.add(new JLabel(review[2] + ": " + review[0] + " (" + review[1] + " stars)"));
             }
 
-            pnl.add(reviewPanel);
+            pnl.add(reviewInnerScrollPane);
         }
-
-        //pnl.add(new JLabel("Reviews: " + foodItemReviews.toString().replace("[", "").replace("]","")));
 
         this.add(pnl);
         this.setTitle("Food Item Information");

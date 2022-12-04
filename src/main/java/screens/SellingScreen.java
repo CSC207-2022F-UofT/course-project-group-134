@@ -4,7 +4,7 @@ import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
 import order_use_case.OrderFailed;
-import selling_use_case.SellerMain;
+import use_cases_mains.SellerMain;
 import selling_use_case.SellingController;
 import user_access_use_case.SignUpDsGateway;
 
@@ -107,7 +107,16 @@ public class SellingScreen extends JFrame {
         JButton logOutButton = new JButton("Log out");
         logOutButton.addActionListener(actionEvent -> {
             this.setVisible(false);
-            new ConfirmLogoutScreen(this);
+            new ConfirmScreen(this, "Confirm Logout",
+                    "Are you sure you want to logout?") {
+                @Override
+                void yesClicked() throws IOException {
+                    JOptionPane.showMessageDialog(null, "You have successfully logged out.", "Logout Successful", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();
+                    originalScreen.dispose();
+                    new WelcomeScreen();
+                }
+            };
         });
 
         JButton pastOrderButton = new JButton("Past orders");
@@ -125,11 +134,17 @@ public class SellingScreen extends JFrame {
 
         JButton acceptButton = new JButton("Accept Order");
         acceptButton.addActionListener(actionEvent -> {
-            try {
-                acceptClicked();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            this.setVisible(false);
+            new ConfirmScreen(this, "Confirm accept order",
+                    "Are you sure you want to accept this order?") {
+                @Override
+                void yesClicked() throws IOException {
+                    JOptionPane.showMessageDialog(null, "You have successfully accepted this order.", "Order Accepted Successful", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();
+                    originalScreen.dispose();
+                    acceptClicked();
+                }
+            };
         });
 
         JButton fulfillOrderButton = new JButton("Fulfill Selected Order");

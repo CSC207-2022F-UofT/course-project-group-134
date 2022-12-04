@@ -1,11 +1,10 @@
 package screens;
 
-import user_access_use_case.*;
-import user_login_use_case.LoginMain;
+import use_cases_mains.SignUpMain;
+import use_cases_mains.LoginMain;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 // Frameworks/Drivers layer

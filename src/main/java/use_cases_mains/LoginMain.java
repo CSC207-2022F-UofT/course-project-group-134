@@ -1,10 +1,14 @@
-package user_login_use_case;
+package use_cases_mains;
 
 import entities.BuyerFactory;
 import entities.SellerFactory;
 import entities.UserFactory;
 import screens.LoginScreen;
 import user_access_use_case.*;
+import user_login_use_case.LoginController;
+import user_login_use_case.LoginInputBoundary;
+import user_login_use_case.LoginInteractor;
+import user_login_use_case.LoginPresenter;
 
 import java.io.IOException;
 

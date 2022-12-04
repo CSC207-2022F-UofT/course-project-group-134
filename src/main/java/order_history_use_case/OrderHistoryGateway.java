@@ -13,6 +13,13 @@ public class OrderHistoryGateway {
 
     private List<OrderHistoryResponseModel> orderList;
 
+    /**
+     *
+     * @param inputUsername The username of the user whose details we wish to fetch
+     * @param inputEmail The email of the user whose details we wish to fetch
+     * @throws IOException if the file containing the orders list is not found
+     */
+
     public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
         orderList = new ArrayList<>();
 
@@ -54,49 +61,12 @@ public class OrderHistoryGateway {
         reader.close();
     }
 
-    /*
-    public static double fetchPrice(String foodName, String residence) throws IOException {
-        double price = 0.0;
-        residence = residence.toUpperCase();
-
-        Map<String, Integer> headers = new LinkedHashMap<>();
-
-        String csvPath = "./src/main/java/data_storage/Dining_Halls/"+ residence + ".csv";   // TODO: check if this is correct
-        File csvFile = new File(csvPath);
-
-        headers.put("ItemName", 0);
-        headers.put("Allergens", 1);
-        headers.put("Ingredients", 2);
-        headers.put("Calories", 3);
-        headers.put("Price", 4);
-
-        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
-
-        String row;
-        while ((row = reader.readLine()) != null) {
-            String[] col = row.split(",");
-
-            String itemName = String.valueOf(col[headers.get("ItemName")]);
-            price = Double.parseDouble(String.valueOf(col[headers.get("Price")]));
-
-
-            // String[] allergens = String.valueOf(col[headers.get("Allergens")]).split(";");
-            //  String[] ingredients = String.valueOf(col[headers.get("Ingredients")]).split(";");
-            // String calories = String.valueOf(col[headers.get("Calories")]);
-
-
-            if(foodName.equals(itemName)){
-                break;
-            }
-
-        }
-
-        return price;
-    }
-
-    */
-
+    /**\
+     *
+     * @return Returns the list of all orders that were fetched by the constructor
+     */
     public List<OrderHistoryResponseModel> getAllOrders(){
+
         return orderList;
     }
 }

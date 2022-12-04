@@ -8,6 +8,15 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
 
     private final List<OrderHistoryResponseModel> allOrders;
     private final OrderHistoryOutputBoundary outputBoundary;
+
+    /**
+     *
+     * @param username  The username of the user whose details we wish to display
+     * @param email The email of the user whose details we wish to display
+     * @param outputBoundary The UseCase output boundary we use to process the data into a form that can be displayed
+     *                       on the view
+     * @throws IOException if the file containing the orders list does not exist
+     */
     public OrderHistoryInteractor(String username, String email, OrderHistoryOutputBoundary outputBoundary)
             throws IOException {
         System.out.println("interactor says email is " + email);
@@ -16,7 +25,10 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
         this.outputBoundary = outputBoundary;
     }
 
-
+    /**
+     *
+     * @return Returns all the finished orders that the OutputBoundary returns
+     */
     @Override
     public List<String[]> returnFinishedOrders(){
         List<String[]> allOrdersList  = new ArrayList<>();
@@ -30,6 +42,10 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
         return allOrdersList;
     }
 
+    /**
+     *
+     * @return Returns all the unfinished orders that the OutputBoundary returns
+     */
     @Override
     public List<String[]> returnCurrentOrders(){
         List<String[]> allOrdersList  = new ArrayList<>();
