@@ -1,4 +1,4 @@
-package screens;
+package order_use_case;
 
 import javax.swing.*;
 import java.awt.*;
