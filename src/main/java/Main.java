@@ -1,4 +1,4 @@
-import review_use_case.ReviewMain;
+import screens.WelcomeScreen;
 
 /**
  * Main is the class which contains the main method. Creates a welcome screen which
@@ -7,9 +7,9 @@ import review_use_case.ReviewMain;
 public class Main {
 
     /**
-     * The first method that gets called when the program runs. mCreates a welcome screen.
+     * The first method that gets called when the program runs. Creates a welcome screen.
      */
     public static void main(String[] args) throws Exception {
-        ReviewMain.create("laciscat", "pizza", "CAMPUS_ONE");
+        new WelcomeScreen();
     }
 }
