@@ -25,6 +25,7 @@ public class OrderHistoryGateway {
 
         String csvPath = "src/main/java/data_storage/orders.csv";
         File csvFile = new File(csvPath);
+
         if (!csvFile.exists()){
             csvFile.createNewFile();
         }
