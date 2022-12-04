@@ -8,14 +8,11 @@ import chat_use_case.models.ChatDataRecieveModel;
 import chat_use_case.models.ChatLogRequestModel;
 import chat_use_case.models.ChatSendMessageModel;
 import entities.*;
-import user_access_use_case.SignUpDsGateway;
-import user_access_use_case.SignUpGateway;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ChatScreen extends JFrame{
     private final JTextField messageInput = new JTextField(15);
@@ -25,29 +22,30 @@ public class ChatScreen extends JFrame{
 
     private ChatOutputBoundary output;
 
-    private final String userEmail, recipiantEmail;
+    private final String userEmail, recipientEmail;
     private void sendClicked(ActionEvent actionEvent) throws IOException {
 
         String s = messageInput.getText();
 
-        input.sendMessage(new ChatSendMessageModel(userEmail, recipiantEmail, s));
+        input.sendMessage(new ChatSendMessageModel(userEmail, recipientEmail, s));
         messageInput.setText("");
         updateChatLog();
 
     }
 
     private void updateChatLog() throws IOException {
-       ChatDataRecieveModel m =  output.getMessageList(new ChatLogRequestModel(userEmail, recipiantEmail));
+        ChatDataRecieveModel m =  output.getMessageList(new ChatLogRequestModel(userEmail, recipientEmail));
         java.util.List<ChatMessage> c = m.getChatMessages();
-        String chatlog = "";
+        StringBuilder chatLog = new StringBuilder("");
         for(ChatMessage msg: c){
-            chatlog = chatlog + msg.getSender().getEmail() + ": " +  msg.getContents() + "\n";
+            chatLog.append(msg.getSender().getEmail() + ": " + msg.getContents() + System.lineSeparator());
         }
-        messageDisplay.setText(chatlog);
+        String chatLogString = chatLog.toString();
+        messageDisplay.setText(chatLogString);
 
     }
 
-    public ChatScreen(String userEmail, String recipiantEmail) throws IOException {
+    public ChatScreen(String userEmail, String recipientEmail) throws IOException {
         JPanel pnl = new JPanel(new GridLayout(0,1));
         pnl.add(messageDisplay);
         messageDisplay.setEditable(false);
@@ -77,7 +75,7 @@ public class ChatScreen extends JFrame{
         input = new ChatInteractor();
 
         this.userEmail = userEmail;
-        this.recipiantEmail = recipiantEmail;
+        this.recipientEmail = recipientEmail;
         updateChatLog();
     }
 }
