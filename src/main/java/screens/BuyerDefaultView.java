@@ -81,7 +81,8 @@ public class BuyerDefaultView extends JFrame {
     private final OrderDsGateway orders;
 
     /**
-     *
+     *The below method is the constructor for this class.  It creates some important buttons and action
+     * listeners for them.  Also initializes the tabbed panes and scroll panes
      * @param username The username of the currently logged-in user
      * @param email The email-id of the currently logged-in user
      * @param orderHistoryInteractor The Use Case Interactor to be used for the OrderHistory use case
@@ -111,7 +112,7 @@ public class BuyerDefaultView extends JFrame {
         });
 
         logoutButton.addActionListener(actionEvent -> {
-           this.setVisible(false);
+           this.setVisible(false); // To prevent user from clicking on logout button multiples times
            new ConfirmScreen(this, "Confirm Logout",
                     "Are you sure you want to logout?") {
                 @Override
@@ -124,6 +125,7 @@ public class BuyerDefaultView extends JFrame {
             };
         });
 
+        // creating the two tabs (the panels added are scroll panes)
         tabbedPane.addTab("Order History", orderHistoryPanel);
         tabbedPane.addTab("Current Orders", currentOrdersPanel);
         // This must come later
@@ -140,6 +142,11 @@ public class BuyerDefaultView extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * The below method creates the "Order History" tab in the buyer's view.  It uses the orderHistoryController
+     * to accomplish this (the order history is obtained from the controller, which calls other classes from that
+     * use case)
+     */
     private void createOrderHistoryPanel(){
         List<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
         orderHistoryInnerPanel = new JPanel(new GridLayout(orderHistory.size(),2));
@@ -164,6 +171,10 @@ public class BuyerDefaultView extends JFrame {
         tabbedPane.setComponentAt(0, this.orderHistoryPanel);
     }
 
+    /**
+     * Similar to order history, but instead for current orders (orders that are not yet marked as "FINISHED"
+     * in the csv file)
+     */
     private void createCurrentOrdersPanel(){
         List<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
         currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
@@ -234,6 +245,12 @@ public class BuyerDefaultView extends JFrame {
         tabbedPane.setComponentAt(1, this.currentOrdersPanel);
     }
 
+    /**
+     * Cal
+     * @param username
+     * @param email
+     * @throws Exception
+     */
     public void placeNewOrderClicked(String username, String email) throws Exception {
         GetMenusMain.create(username, email);
         this.dispose();

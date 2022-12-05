@@ -26,6 +26,7 @@ public class PreReviewView extends JFrame {
         this.username  = username;
         foodItems = new JComboBox<>(foodItemsArray);
 
+        System.out.println(username);
         reviewButton.addActionListener(actionEvent -> {
             try {
                 ReviewMain.create(username, Objects.requireNonNull(foodItems.getSelectedItem()).toString(),residence);
