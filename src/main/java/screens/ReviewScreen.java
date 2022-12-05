@@ -63,8 +63,13 @@ public class ReviewScreen extends JFrame {
      * @param diningHall
      */
     public ReviewScreen(ReviewController reviewController,
-                        String username, String itemName, String diningHall){
+                        String username, String itemName, String diningHall, String email){
         this.reviewController = reviewController;
+        this.email = email;
+        this.username = username;
+        this.itemName = itemName;
+        this.diningHall = diningHall;
+
         JPanel pnl = new JPanel(new GridLayout(8,1));
 
         LabelTextPanel reviewInfo = new LabelTextPanel(

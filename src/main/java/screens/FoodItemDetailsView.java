@@ -41,14 +41,14 @@ public class FoodItemDetailsView extends JFrame {
             pnl.add(new JLabel("Star Average: " + String.format("%.2f", starAverage)));
 
             JPanel reviewPanel = new JPanel(new GridLayout(foodItemReviews.size() + 1, 1));
-            JScrollPane reviewInnerScrollPane = new JScrollPane(reviewPanel);
+            //JScrollPane reviewInnerScrollPane = new JScrollPane(reviewPanel);
 
             reviewPanel.add(new JLabel("Reviews:"));
             for (String[] review : foodItemReviews) {
                 reviewPanel.add(new JLabel(review[2] + ": " + review[0] + " (" + review[1] + " stars)"));
             }
 
-            pnl.add(reviewInnerScrollPane);
+            pnl.add(reviewPanel);
         }
 
         this.add(pnl);

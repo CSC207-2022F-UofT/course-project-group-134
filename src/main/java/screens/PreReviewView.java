@@ -16,7 +16,7 @@ public class PreReviewView extends JFrame {
     private JPanel pnl= new JPanel(new GridLayout(2,1));
     private String username;
 
-    public PreReviewView(String foodItemsString, String residence, String username) {
+    public PreReviewView(String foodItemsString, String residence, String username, String email) {
         this.residence = residence;
         this.foodItemsString = foodItemsString;
         this.foodItemsArray = foodItemsString.split(",");
@@ -28,7 +28,7 @@ public class PreReviewView extends JFrame {
 
         reviewButton.addActionListener(actionEvent -> {
             try {
-                ReviewMain.create(username, Objects.requireNonNull(foodItems.getSelectedItem()).toString(),residence);
+                ReviewMain.create(username, Objects.requireNonNull(foodItems.getSelectedItem()).toString(),residence, email);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
