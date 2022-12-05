@@ -17,7 +17,9 @@ public class OrderInteractor implements OrderInputBoundary {
 
     @Override
      public OrderResponseModel placeOrder(OrderRequestModel request) {
-        // TODO: How can the order fail?
+        if (request.getFoodItems().length == 0) {
+            throw new OrderFailed("No food items were ordered.");
+        }
 
         String sellerName = "null";
         String sellerEmail = "null";

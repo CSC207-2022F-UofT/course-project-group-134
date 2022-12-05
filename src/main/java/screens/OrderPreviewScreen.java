@@ -2,6 +2,7 @@ package screens;
 
 import entities.OrderFactory;
 import order_use_case.*;
+import use_cases_mains.BuyerMain;
 
 import javax.swing.*;
 import java.awt.*;

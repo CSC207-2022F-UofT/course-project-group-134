@@ -2,20 +2,18 @@ package screens;
 
 import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
-import get_menus_use_case.GetMenusMain;
+import use_cases_mains.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 
-import order_use_case.BuyerMain;
+import use_cases_mains.BuyerMain;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
 
 import javax.swing.*;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -162,7 +160,7 @@ public class BuyerDefaultView extends JFrame {
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
-                new PreReviewView(tempOrder[7], tempOrder[5], username);
+                new PreReviewView(tempOrder[7], tempOrder[5], username, email);
             });
 
             this.orderHistoryInnerPanel.add(reviewButton);
