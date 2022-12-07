@@ -13,7 +13,14 @@ public class OrderGateway implements OrderDsGateway{
 
     private final Map<Integer, OrderDsModel> orders = new HashMap<>();
 
-
+    /**
+     * The constructor of the gateway to the database for orders.
+     * If the file does not exist, create a new file.
+     * Otherwise, the file is read and stored in the gateway.
+     *
+     * @param csvPath path to file
+     * @throws IOException
+     */
     public OrderGateway(String csvPath) throws IOException {
         this.csvFile = new File(csvPath);
 
@@ -33,7 +40,7 @@ public class OrderGateway implements OrderDsGateway{
         headers.put("price", 9);
 
         if (csvFile.length() == 0) {
-            save();
+            save(); // Does this get run ever?
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
@@ -50,6 +57,7 @@ public class OrderGateway implements OrderDsGateway{
                 String residence = String.valueOf(col[headers.get("residence")]);
                 String status = String.valueOf(col[headers.get("status")]);
                 String[] foodItems = (String.valueOf(col[headers.get("foodItems")])).split(";");
+                //I love java
                 Integer[] foodQuantity =  Stream.of((String.valueOf(col[headers.get("foodQuantity")])).split(";")).map(Integer::valueOf).toArray(Integer[]::new);
                 Double price = Double.valueOf(col[headers.get("price")]);
                 OrderDsModel order = new OrderDsModel(orderID, buyerName, buyerEmail, sellerName, sellerEmail, residence, status, foodItems, foodQuantity, price);
@@ -61,6 +69,11 @@ public class OrderGateway implements OrderDsGateway{
         }
     }
 
+    /**
+     * Saves an order.
+     *
+     * @param orderModel The model of the order.
+     */
     @Override
     public void saveOrder(OrderDsRequestModel orderModel) {
         OrderDsModel order = new OrderDsModel(this.currentOrderID, orderModel.getBuyerName(), orderModel.getBuyerEmail(),
@@ -69,6 +82,10 @@ public class OrderGateway implements OrderDsGateway{
         this.currentOrderID++;
         this.save();
     }
+
+    /**
+     * Saves orders to the file.
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -90,10 +107,17 @@ public class OrderGateway implements OrderDsGateway{
             throw new RuntimeException(e);
         }
     }
+
     public boolean orderExistsById(int orderNumber){
         return this.orders.containsKey(orderNumber);
     }
 
+    /**
+     * Filters orders by a dining hall and "ORDERED" status from <a href="#{@link}">{@link OrderStatusType}</a>.
+     *
+     * @param sellerResidence   A dining hall
+     * @return                  A list of order IDs
+     */
     public List<Integer> getUnfulfilledOrders(String sellerResidence) {
         List<Integer> orders = new ArrayList<>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
@@ -105,6 +129,12 @@ public class OrderGateway implements OrderDsGateway{
         return orders;
     }
 
+    /**
+     * Filters orders by a seller hall and "ORDERED" status from <a href="#{@link}">{@link OrderStatusType}</a>.
+     *
+     * @param sellerEmail
+     * @return A list of order IDs
+     */
     public List<Integer> getFinishedOrders(String sellerEmail) {
         List<Integer> finishedOrders = new ArrayList<Integer>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
@@ -116,21 +146,47 @@ public class OrderGateway implements OrderDsGateway{
         return finishedOrders;
     }
 
+    /**
+     * Get the order associated with the given order ID.
+     *
+     * @param orderNumber   order ID
+     * @return a model representing the order
+     */
     public OrderDsModel getOrderInfo(int orderNumber) {
         return orders.get(orderNumber);
     }
 
+    /**
+     * Get the status of the order associated with the given order ID.
+     *
+     * @param orderNumber   order ID
+     * @return <a href="#{@link}">{@link OrderStatusType}</a>
+     */
     public OrderStatusType getOrderStatus(int orderNumber) {
         OrderDsModel model = getOrderInfo(orderNumber);
         return OrderStatusType.valueOf(model.getStatus());
     }
 
+    /**
+     * Set the status of the order associated with the given order ID.
+     *
+     * @param orderNumber   order ID
+     * @param status        status from <a href="#{@link}">{@link OrderStatusType}</a>
+     */
     public void setOrderStatus(int orderNumber, OrderStatusType status) {
         this.csvFile.delete();
         orders.get(orderNumber).setStatus(status.toString());
         save();
     }
 
+    /**
+     * Update an order's status, seller email, and seller name.
+     *
+     * @param orderNumber   order ID
+     * @param status        status from <a href="#{@link}">{@link OrderStatusType}</a>
+     * @param sellerEmail
+     * @param sellerName
+     */
     public void updateOrder(int orderNumber, OrderStatusType status, String sellerEmail, String sellerName){
         this.csvFile.delete();
         orders.get(orderNumber).setStatus(status.toString());
@@ -139,6 +195,11 @@ public class OrderGateway implements OrderDsGateway{
         save();
     }
 
+    /**
+     * Check if seller has an order5
+     * @param sellerEmail
+     * @return True if there's an order
+     */
     public boolean sellerHasOrder(String sellerEmail){
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()){
             if (entry.getValue().getSellerEmail().equals(sellerEmail) &&
@@ -149,6 +210,12 @@ public class OrderGateway implements OrderDsGateway{
         return false;
     }
 
+    /**
+     * Get the order IDs associated with a seller.
+     *
+     * @param sellerEmail
+     * @return list of order IDs
+     */
     public ArrayList<Integer> getOrderNumbersFromSellerEmail(String sellerEmail) {
         ArrayList<Integer> orderNumbers = new ArrayList<Integer>();
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
@@ -160,8 +227,15 @@ public class OrderGateway implements OrderDsGateway{
         return orderNumbers;
     }
 
+    /**
+     * Get the price of an order.
+     *
+     * @param orderNumber
+     * @return price
+     * @throws DoesNotExistException
+     */
     public double getPriceFromOrderNumber(int orderNumber) throws DoesNotExistException {
-        System.out.println("WTF");
+        //System.out.println("WTF");
         for (Map.Entry<Integer, OrderDsModel> entry : this.orders.entrySet()) {
             if (entry.getValue().getOrderID() == orderNumber) {
                 System.out.println("returning " + entry.getValue().getPrice());
