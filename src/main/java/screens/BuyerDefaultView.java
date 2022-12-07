@@ -2,7 +2,7 @@ package screens;
 
 import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
-import use_cases_mains.GetMenusMain;
+import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 

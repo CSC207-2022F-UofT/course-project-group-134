@@ -25,9 +25,7 @@ public class OrderGatewayTest {
             throw new RuntimeException("Could not create file.");
         }
         OrderPresenter presenter = new OrderPresenter();
-        OrderFactory orderFactory = new OrderFactory();
-        OrderInputBoundary interactor = new OrderInteractor(
-                gateway, presenter, orderFactory);
+        OrderInputBoundary interactor = new OrderInteractor(gateway, presenter);
         controller = new OrderController(interactor);
 
         try {
