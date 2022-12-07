@@ -9,6 +9,15 @@ public class OrderRequestModel {
     private final Integer[] foodQuantity;
     private final Double price;
 
+    /**
+     *
+     * @param buyerName     Buyer name
+     * @param buyerEmail    Buyer email
+     * @param residence     Dining hall
+     * @param foodItems     The list of food items
+     * @param foodQuantity  The list of food quantities bought
+     * @param price         Price
+     */
     public OrderRequestModel(String buyerName, String buyerEmail, String residence, String[] foodItems, Integer[] foodQuantity, Double price) {
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;

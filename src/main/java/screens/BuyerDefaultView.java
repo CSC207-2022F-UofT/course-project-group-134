@@ -160,6 +160,7 @@ public class BuyerDefaultView extends JFrame {
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
+                this.dispose();
                 new PreReviewView(tempOrder[7], tempOrder[5], username, email);
             });
 
@@ -212,7 +213,7 @@ public class BuyerDefaultView extends JFrame {
                 orderPanel.add(rightPanel);
                 buyerConfirmButton.addActionListener(actionEvent -> {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
-                        this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.FINISHED);
+                        this.orders.setOrderStatus(Integer.parseInt(tempOrder[0]), OrderStatusType.FINISHED);
                         JOptionPane.showMessageDialog(null, "Successfully finished order.", "Order Finished", JOptionPane.PLAIN_MESSAGE);
                         //this.createOrderHistoryPanel();
                         //this.createCurrentOrdersPanel();
@@ -222,7 +223,7 @@ public class BuyerDefaultView extends JFrame {
                             throw new RuntimeException(e);
                         }
                         this.dispose();
-                        System.out.println("REMOVE ORDER FROM VIEW LIST???");
+                        //System.out.println("REMOVE ORDER FROM VIEW LIST???");
                     } else {
                         this.orders.setOrderStatus(Integer.parseInt(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
@@ -232,7 +233,7 @@ public class BuyerDefaultView extends JFrame {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        System.out.println("Change status please.");
+                        //System.out.println("Change status please.");
                     }
                 });
             }
