@@ -17,6 +17,12 @@ public class ChatSendMessageModel {
      */
     private final String message;
 
+    /**
+     * Constructor for this class.
+     * @param sender The sender
+     * @param reciever The receiver
+     * @param message The message text body
+     */
     public ChatSendMessageModel(User sender, User reciever, String message){
         this.sender = sender;
         this.reciever = reciever;
