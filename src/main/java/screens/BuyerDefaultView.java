@@ -2,7 +2,6 @@ package screens;
 
 import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
-import use_cases_mains.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 
@@ -10,6 +9,7 @@ import use_cases_mains.BuyerMain;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
+import use_cases_mains.GetMenusMain;
 
 import javax.swing.*;
 import java.awt.GridLayout;

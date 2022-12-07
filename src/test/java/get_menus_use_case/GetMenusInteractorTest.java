@@ -39,16 +39,6 @@ public class GetMenusInteractorTest {
         Assertions.assertEquals(foodDetails.get(1)[4], "250");
     }
 
-    @Test
-    void testNoReviews() throws Exception {
-        getMenusController.setUpInteractor("NEW_COLLEGE");
-        Map<String, List<String[]>> map = getMenusController.getFoodReviews();
-        Assertions.assertTrue(map.containsKey("Veggie Burger"));
-        Assertions.assertTrue(map.containsKey("Pepperoni Pizza"));
-        Assertions.assertTrue(map.get("Veggie Burger").isEmpty());
-        Assertions.assertTrue(map.get("Pepperoni Pizza").isEmpty());
-    }
-
     @AfterEach
     void tearDown() {
 

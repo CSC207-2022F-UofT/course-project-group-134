@@ -27,7 +27,7 @@ public class OrderGatewayTest {
         OrderPresenter presenter = new OrderPresenter();
         OrderFactory orderFactory = new OrderFactory();
         OrderInputBoundary interactor = new OrderInteractor(
-                gateway, presenter, orderFactory);
+                gateway, presenter);
         controller = new OrderController(interactor);
 
         try {
