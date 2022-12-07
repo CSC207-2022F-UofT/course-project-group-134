@@ -1,3 +1,0 @@
-orderID,buyerName,buyerEmail,sellerName,sellerEmail,residence,status,foodItems,foodQuantity,price
-0,qQqQ,@mail.utoronto.ca,null,null,NEW_COLLEGE,ORDERED,Pepperoni Pizza ;Veggie Burger ,1;1,18.98
-1,qQqQ,@mail.utoronto.ca,null,null,VICTORIA_COLLEGE,ORDERED,Pepperoni Pizza ;Veggie Burger ,10;7,159.83
