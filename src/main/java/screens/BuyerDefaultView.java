@@ -153,6 +153,7 @@ public class BuyerDefaultView extends JFrame {
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
+                this.dispose();
                 new PreReviewView(tempOrder[7], tempOrder[5], username, email);
             });
 
