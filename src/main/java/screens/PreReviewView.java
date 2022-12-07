@@ -7,6 +7,11 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * The screen for choosing food item to review.
+ * The reviewer can can place a review.
+ * The reviewer can go back to the buyer main screen by pressing the 'Cancel' button.
+ */
 public class PreReviewView extends JFrame {
 
     private JComboBox<String> foodItems;
@@ -19,6 +24,13 @@ public class PreReviewView extends JFrame {
     private JPanel pnl= new JPanel(new GridLayout(2,1));
     private String username;
 
+    /**
+     * Constructor for the PreReviewView
+     * @param foodItemsString
+     * @param residence
+     * @param username
+     * @param email
+     */
     public PreReviewView(String foodItemsString, String residence, String username, String email) {
         this.residence = residence;
         this.foodItemsString = foodItemsString;

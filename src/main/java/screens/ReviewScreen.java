@@ -17,7 +17,8 @@ import java.util.Objects;
  * The screen for creating reviews and ratings for specific food items that were previously purchased.
  * The reviewer can write a review in the provided text box.
  * The reviewer can choose a rating [1,5] from the dropbox.
- * The reviewer can go back to the buyer main screen by pressing the 'Back' button.
+ * The reviewer can go back to the preReviewScren by pressing the 'Back' button.
+ * The reviewer can go back to the buyer main screen by pressing the 'Back To Home' button.
  */
 
 public class ReviewScreen extends JFrame {
@@ -61,6 +62,7 @@ public class ReviewScreen extends JFrame {
      * @param username
      * @param itemName
      * @param diningHall
+     * @param preReviewView
      */
     public ReviewScreen(ReviewController reviewController,
                         String username, String itemName, String diningHall, String email, PreReviewView preReviewView){
