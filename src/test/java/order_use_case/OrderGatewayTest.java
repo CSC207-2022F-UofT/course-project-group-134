@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OrderGatewayTest {
 
     private OrderDsGateway gateway;
+    private OrderController controller;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -26,8 +27,8 @@ public class OrderGatewayTest {
         OrderPresenter presenter = new OrderPresenter();
         OrderFactory orderFactory = new OrderFactory();
         OrderInputBoundary interactor = new OrderInteractor(
-                gateway, presenter, orderFactory);
-        OrderController controller = new OrderController(interactor);
+                gateway, presenter);
+        controller = new OrderController(interactor);
 
         try {
             String[] foodItems = {"Burger", "Fries"};
@@ -98,6 +99,17 @@ public class OrderGatewayTest {
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.ORDERED);
         gateway.setOrderStatus(0, OrderStatusType.FINISHED);
         assertEquals(gateway.getOrderStatus(0), OrderStatusType.FINISHED);
+    }
+
+    @Test
+    void testOrderFailedNoItemsOrdered() {
+        try {
+            controller.placeOrder("Vivian", "vivianyt.liu@mail.utoronto.ca",
+                    ResidenceType.TRINITY_COLLEGE.toString(), new String[]{}, new Integer[]{}, 20.31);
+            fail("OrderFailed should have been raised");
+        } catch (OrderFailed ex) {
+            // OrderFailed should be raised as there were no items placed in order.
+        }
     }
 
     @Test

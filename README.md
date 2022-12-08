@@ -78,46 +78,67 @@ these dependencies, java interfaces have been set up accordingly.
 ## Design Patterns Used
 
 1. The Factory design pattern has been used in this program.  The most notable
-usage of this is in the get_menus_use_case, where a Menu Factory (called the MenuGateway in the program) is used to 
+usage of this is in the get_menus_use_case, where a Menu Factory (called the GetMenusGateway in the program) is used to 
 generate menus based on the menu csv files for each residence. 
-2. The singleton design pattern was also used.
+2. The singleton design pattern was also used in the chat use case.  
+3. The Observer Design pattern was used in the screens; the action listeners act as observers in this case
 
-# Project Template
+## Adherence to SOLID
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+1. SRP: Each file is only responsible for one functionality of that use case.  Since we followed Clean Architecture,
+this principle was taken care of quite easily
+2. OCP: More use cases can easily be added without modifying others (use cases don't really depend on each other).
+Also, we have packaged our code well, and hence it is very easy to simply add a new package for a new use case
+3. LSP: Buyer and Seller (which are the only subclasses of User) only add to methods from User.  Additionally,
+we used Maps and Lists instead of HashMaps and ArrayLists as reference types.  This ensures that LSP is followed
+4. ISP: There are multiple files for each use case (interactor, gateway, presenter, etc.), and all the files corresponding
+to the same use case are in the same package.
+5. DIP: We have used input/output boundaries wherever necessary to invert dependencies
 
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create deveopment branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+## Improvements from Milestone 4
+Our TA gave us a lot of feedback in multiple areas following our Milestone 4 submission.  We tried our best to 
+work on this feedback.  Below are all the aspects of the project that we fixed by following the feeback:
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+### Improvements on functionality
+1. Upon Buyer login, the message shows the actual username of the buyer rather than something like "entities.Buyer @xxxxxx"
+2. Null pointer exception when seller clicks on "Accept Order" when there are no active orders fixed
+3. Chat fully implemented
+4. Seller can now accept multiple orders rather than just one
+5. Reviewing an order has been restricted to just one review per item.  If a buyer tries to review that same item again,
+then their old review gets overriden with the new one
+6. Order History no longer displays a "null" as the seller username
+7. Review and food rating update the food item's description accurately.
+8. Confirmation pop-ups implemented for logging out, accepting an order (seller), and making an order (buyer)
 
-## Workflow Documents
+### Testing Information
+Please note that after Milestone 4, we moved all the files of the form "(use_case)Main" (eg: GetMenusMain) to a new package
+called the `use_case_mains` package.  This is because such files cannot really be tested - as their name suggests, they
+simply act as "main" files for each use case.  They take care of things like initializing interactors, gateways, 
+presenters, etc.  Thus, before we moved these files, the testing coverage did not accurately represent our actual coverage;
+following the move, it does.
 
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+Below is the coverage information for each of the use cases.  For each use case, the numbers given are:
+class% / method% / line%
+1. user_login_use_case: 100/100/100
+2. user_access_use_case: 100/97/99
+3. selling_use_case: 100/100/100
+4. review_use_case: 100/96/99
+5. order_use_case: 90/92/89
+6. order_history_use_case: 0/0/0
+7. get_menus_use_case: 100/85/87
+8. chat_use_case: 75/68/68
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+Kindly note that in many of the cases above, we do not have a 100% coverage due to the inability to test certain
+exceptions.  Additionally, there are certain files (such as reviews.csv) which are local files; hence, if we were
+to make any tests involving them, then the tests might fail on different computers since each computer is bound to
+have different information in the file (This is the only reason why the get_menus_use_case does not have 100%
+on all three aspects).  We also did not test the screens; running the program itself is a good test for them, and 
+we did this multiple times.
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
-
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
-
-You will find HelloWorld in `src/main/java/tutorial` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
-
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
-
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
-
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
-
-You can create another simple class and try generating a test for this class.
+### Other Improvements
+Below are some other improvements we made after Milestone 4:
+1. Javadoc added to all the use cases and all the important screen classes
+2. Comments added in code whenever deemed necessary
+3. We greatly increased the utilization of GitHub features ("Issues" used more frequently, created a template for 
+pull requests, updated this README file, made more comments to code while reviewing)
+4. Increased adherence to SOLID by keeping reference types as abstract as possible (see above for detailed info)

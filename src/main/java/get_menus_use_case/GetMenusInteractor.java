@@ -8,6 +8,7 @@ import entities.Review;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetMenusInteractor implements GetMenusInputBoundary {
     private final GetMenusOutputBoundary presenter;
@@ -42,7 +43,7 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
                 }
                 Menu menu = new Menu(foodItems);
 
-                HashMap<String, List<Review>> foodReviews = new HashMap<>();
+                Map<String, List<Review>> foodReviews = new HashMap<>();
 
                 for (String foodItem : menu.getFoodItemNames()) {
                     foodReviews.put(foodItem, menuGatewayInterface.getFoodReviews(foodItem, residenceType));
@@ -77,7 +78,7 @@ public class GetMenusInteractor implements GetMenusInputBoundary {
      * @return Return what the presenter returns when getFoodReviews is called on it
      */
     @Override
-    public HashMap<String, List<String[]>> getFoodReviews(){
+    public Map<String, List<String[]>> getFoodReviews(){
 
         return presenter.getFoodReviews(this.resMod);
     }

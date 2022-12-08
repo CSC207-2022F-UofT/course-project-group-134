@@ -15,13 +15,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is the Data Storage gateway for the Chat. This follows the singleton design pattern; only one instance of this
+ * class should exist.
+ *
+ * @author Aaron Ma
+ */
 public class ChatDsGateway implements ChatDsBoundary {
+    /**
+     * The list of chats
+     */
     List<Chat> chats;
+
+    /**
+     * The number of chats that are being managed. This is initialized as one but gets changed as the program operates.
+     */
     private int managed_chats = 1;
 
+    /**
+     * File storage location
+     */
     private static final String STORAGE_LOCATION = "./src/main/java/data_storage/chat_store";
+    /**
+     * File storage directory
+     */
     private final File storage_dir;
+    /**
+     * Singleton instance initialized as one, but is updated by getInstance().
+     */
     private static ChatDsGateway instance = null;
+
+    /**
+     * Gets the instance of this class.
+     *
+     * @return The instance of this class that is used.
+     * @throws IOException Exception is thrown if file cannot be read/written/created.
+     */
     public static ChatDsGateway getInstance() throws IOException{
         if(instance == null){
             instance = new ChatDsGateway();
@@ -29,6 +58,9 @@ public class ChatDsGateway implements ChatDsBoundary {
         return instance;
     }
 
+    /**
+     * Constructor. This initializes the instance.
+     */
     private ChatDsGateway() {
         this.chats = new ArrayList<>();
         this.storage_dir = new File(STORAGE_LOCATION);
@@ -40,6 +72,12 @@ public class ChatDsGateway implements ChatDsBoundary {
         System.out.println(chats.size());
 
     }
+
+    /**
+     * This gets the file name for the input chat.
+     * @param c File to find the file name for
+     * @return Returns the file that the chat is stored in
+     */
     private String getChatFileName(Chat c){
 
         String[]u = {c.getUsers()[0].getEmail(), c.getUsers()[1].getEmail()};
@@ -49,6 +87,11 @@ public class ChatDsGateway implements ChatDsBoundary {
                 + "_" + u[1].split("@")[0];
     }
 
+    /**
+     * Creates chat, adds it to database
+     * @param m information needed to create the chat(sender, receiver)
+     * @throws IOException if something goes wrong with the file/IO system, then we throw this error
+     */
     @Override
     public void createChat(ChatCreationRequestModel m) throws IOException {
         User[] u = m.getUsers();
@@ -57,6 +100,11 @@ public class ChatDsGateway implements ChatDsBoundary {
         writeChat(c);
     }
 
+    /**
+     * Sends a message, updates the database accordingly
+     * @param m The message information (sender, receiver, message text)
+     * @throws IOException if something goes wrong with the file/IO system, then we throw this error
+     */
     @Override
     public void sendMessage(ChatSendMessageModel m) throws IOException {
         User sender = m.getSender();
@@ -66,6 +114,12 @@ public class ChatDsGateway implements ChatDsBoundary {
         c.sendMessage(msg);
         writeChat(c);
     }
+
+    /**
+     * This retrieves the list of messages from the database
+     * @param rq information needed to retrieve a list of messages (the two users)
+     * @return The list of messages, in the form of a ChatDataRecieveModel
+     */
     @Override
     public ChatDataRecieveModel getMessageList(ChatLogRequestModel rq) {
         User[] u = rq.getUsers();
@@ -75,6 +129,12 @@ public class ChatDsGateway implements ChatDsBoundary {
         }
         return new ChatDataRecieveModel(c.getChatLog(), true);
     }
+
+    /**
+     * Writes a chat to the database
+     * @param c chat to be written to database
+     * @throws IOException if something goes wrong with the file/IO system, then we throw this error
+     */
     private void writeChat(Chat c) throws IOException{
         String fileName = this.STORAGE_LOCATION +   "/" + getChatFileName(c);
         File f = new File(fileName);
@@ -90,6 +150,10 @@ public class ChatDsGateway implements ChatDsBoundary {
         out.close();
     }
 
+    /**
+     * Reads the database and fetches the list of chats
+     * @return the list of chats
+     */
     private List<Chat> read(){
         List<Chat> rtn = new ArrayList<Chat>();
         System.out.println("hi");
@@ -141,6 +205,12 @@ public class ChatDsGateway implements ChatDsBoundary {
         return rtn;
     }
 
+    /**
+     * Gets the chats between two different users
+     * @param user1 One of the users that is sending/receiving a message
+     * @param user2 The other user that is sending/receiving a message
+     * @return The Chat that represents all the chat messages sent and received between the two input users.
+     */
     private Chat getChat(User user1, User user2){
         for(Chat c : chats) {
             User[] u = c.getUsers();

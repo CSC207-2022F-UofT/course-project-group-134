@@ -2,20 +2,18 @@ package screens;
 
 import chat_use_case.ChatInteractor;
 import entities.OrderStatusType;
-import get_menus_use_case.GetMenusMain;
 import order_history_use_case.OrderHistoryController;
 import order_history_use_case.OrderHistoryInputBoundary;
 
-import order_use_case.BuyerMain;
+import use_cases_mains.BuyerMain;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
+import use_cases_mains.GetMenusMain;
 
 import javax.swing.*;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,7 +79,8 @@ public class BuyerDefaultView extends JFrame {
     private final OrderDsGateway orders;
 
     /**
-     *
+     *The below method is the constructor for this class.  It creates some important buttons and action
+     * listeners for them.  Also initializes the tabbed panes and scroll panes
      * @param username The username of the currently logged-in user
      * @param email The email-id of the currently logged-in user
      * @param orderHistoryInteractor The Use Case Interactor to be used for the OrderHistory use case
@@ -111,10 +110,20 @@ public class BuyerDefaultView extends JFrame {
         });
 
         logoutButton.addActionListener(actionEvent -> {
-           this.setVisible(false);
-           new ConfirmLogoutScreen(this);
+           this.setVisible(false); // To prevent user from clicking on logout button multiples times
+           new ConfirmScreen(this, "Confirm Logout",
+                    "Are you sure you want to logout?") {
+                @Override
+                void yesClicked() throws IOException {
+                    JOptionPane.showMessageDialog(null, "You have successfully logged out.", "Logout Successful", JOptionPane.PLAIN_MESSAGE);
+                    this.dispose();
+                    originalScreen.dispose();
+                    new WelcomeScreen();
+                }
+            };
         });
 
+        // creating the two tabs (the panels added are scroll panes)
         tabbedPane.addTab("Order History", orderHistoryPanel);
         tabbedPane.addTab("Current Orders", currentOrdersPanel);
         // This must come later
@@ -131,6 +140,11 @@ public class BuyerDefaultView extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * The below method creates the "Order History" tab in the buyer's view.  It uses the orderHistoryController
+     * to accomplish this (the order history is obtained from the controller, which calls other classes from that
+     * use case)
+     */
     private void createOrderHistoryPanel(){
         List<String[]> orderHistory =  this.orderHistoryController.returnFinishedOrders();
         orderHistoryInnerPanel = new JPanel(new GridLayout(orderHistory.size(),2));
@@ -146,7 +160,8 @@ public class BuyerDefaultView extends JFrame {
             JButton reviewButton = new JButton("Review");
 
             reviewButton.addActionListener(actionEvent -> {
-                new PreReviewView(tempOrder[7], tempOrder[5], username);
+                this.dispose();
+                new PreReviewView(tempOrder[7], tempOrder[5], username, email);
             });
 
             this.orderHistoryInnerPanel.add(reviewButton);
@@ -155,6 +170,10 @@ public class BuyerDefaultView extends JFrame {
         tabbedPane.setComponentAt(0, this.orderHistoryPanel);
     }
 
+    /**
+     * Similar to order history, but instead for current orders (orders that are not yet marked as "FINISHED"
+     * in the csv file)
+     */
     private void createCurrentOrdersPanel(){
         List<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
         currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
@@ -194,7 +213,7 @@ public class BuyerDefaultView extends JFrame {
                 orderPanel.add(rightPanel);
                 buyerConfirmButton.addActionListener(actionEvent -> {
                     if (orderStatus == OrderStatusType.SELLER_CONFIRMED) {
-                        this.orders.setOrderStatus(Integer.valueOf(tempOrder[0]), OrderStatusType.FINISHED);
+                        this.orders.setOrderStatus(Integer.parseInt(tempOrder[0]), OrderStatusType.FINISHED);
                         JOptionPane.showMessageDialog(null, "Successfully finished order.", "Order Finished", JOptionPane.PLAIN_MESSAGE);
                         //this.createOrderHistoryPanel();
                         //this.createCurrentOrdersPanel();
@@ -204,7 +223,7 @@ public class BuyerDefaultView extends JFrame {
                             throw new RuntimeException(e);
                         }
                         this.dispose();
-                        System.out.println("REMOVE ORDER FROM VIEW LIST???");
+                        //System.out.println("REMOVE ORDER FROM VIEW LIST???");
                     } else {
                         this.orders.setOrderStatus(Integer.parseInt(tempOrder[0]), OrderStatusType.BUYER_CONFIRMED);
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
@@ -214,7 +233,7 @@ public class BuyerDefaultView extends JFrame {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        System.out.println("Change status please.");
+                        //System.out.println("Change status please.");
                     }
                 });
             }
@@ -225,6 +244,12 @@ public class BuyerDefaultView extends JFrame {
         tabbedPane.setComponentAt(1, this.currentOrdersPanel);
     }
 
+    /**
+     * Cal
+     * @param username
+     * @param email
+     * @throws Exception
+     */
     public void placeNewOrderClicked(String username, String email) throws Exception {
         GetMenusMain.create(username, email);
         this.dispose();

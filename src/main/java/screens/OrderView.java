@@ -3,35 +3,88 @@ package screens;
 import entities.ResidenceType;
 import get_menus_use_case.GetMenusController;
 import order_history_use_case.OrderHistoryInputBoundary;
-import order_use_case.FoodItemDetailsView;
 import order_use_case.OrderController;
 
 import javax.swing.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OrderView extends JFrame implements OrderViewModel {
+
+    /**
+     * The main JPanel for this view
+     */
     private final JPanel pnl = new JPanel(new GridLayout(4,1));
 
+    /**
+     *This panel contains the "Order" button and displays the total price.
+     */
     private final JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+
+    /**
+     * An Arraylist containing all the required checkboxes for the food items
+     */
     private final List<JCheckBox> checkBoxes = new ArrayList<>();
+
+    /**
+     * The panel which contains all the menu items. Each cell of this grid contains three things:
+     * 1. A quantity dropdown
+     * 2. A checkbox
+     * 3. A "Details" button for getting the details of each food item
+     */
     private final JPanel menusPanel = new JPanel(new GridLayout(1,2));
+
+    /**
+     * A dropdown menu containing all the dining halls
+     */
     private JComboBox<String> diningHallsDropdown;
+
+    /**
+     * The button which (upon clicking it) takes the user to the order preview
+     */
     private final JButton orderButton = new JButton("Preview Order");
+
+    /**
+     * A parameter which stores the total price of the items
+     */
     Double totalPrice = 0.0;
+
+    /**
+     * The string which displays the total price on the screen
+     */
     private final JLabel totalPriceString = new JLabel("Total Price: $0");
 
+    /**
+     * A dropdown which shows a list of the residences from which the user can order food.
+     */
     private final JComboBox<String> residenceDropdown;
+
+    /**
+     * A list of dropdowns for the quantities of the food items
+     */
     private final ArrayList<JComboBox<String>> quantityDropdownsList = new ArrayList<>();
+
+    /**
+     * The username of the currently logged-in user
+     */
     private final String username;
+
+    /**
+     * The email of the currently logged-in user.
+     */
     private final String email;
 
+    /**
+     * TAn instance of the orderHistoryInteractor
+     */
     OrderHistoryInputBoundary orderHistoryInteractor;
+
+    /**
+     * A boolean that represents whether-or-not the OrderPreviewScreen is currently open.  This is used to
+     * create an error preventive screen.
+     */
     boolean orderPreviewClosed = true;
 
     public OrderView(OrderController orderController, GetMenusController getMenusController, String username, String email, OrderHistoryInputBoundary orderHistoryInteractor) {
@@ -59,7 +112,7 @@ public class OrderView extends JFrame implements OrderViewModel {
                             totalPriceString.setVisible(true);
                             getMenusController.setUpInteractor((String) residenceDropdown.getSelectedItem());
                             List<String[]> foodDetails = getMenusController.getFoodDetails();
-                            HashMap<String, List<String[]>> foodReviews = getMenusController.getFoodReviews();
+                            Map<String, List<String[]>> foodReviews = getMenusController.getFoodReviews();
                             showMenus(foodDetails, foodReviews);
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
@@ -98,9 +151,13 @@ public class OrderView extends JFrame implements OrderViewModel {
     }
 
 
-
+    /**
+     *
+     * @param foodDetails The details of all the foodItems that need to be shown (details like description, price, etc.)
+     * @param foodReviews A list of food reviews, including the star rating and username of the user who wrote the review
+     */
     @Override
-    public void showMenus(List<String[]> foodDetails, HashMap<String, List<String[]>> foodReviews) {
+    public void showMenus(List<String[]> foodDetails, Map<String, List<String[]>> foodReviews) {
 
         menusPanel.removeAll();
         bottomPanel.removeAll();
@@ -168,6 +225,11 @@ public class OrderView extends JFrame implements OrderViewModel {
 
     }
 
+    /**
+     * The below method is factored out - it's actually for an action listener for the quantity dropdown
+     * @param foodItemPrices The prices of the food items
+     * @param tempFoodItemQuantity The quantities of the food items
+     */
     private void foodItemQuantityExtracted(List<Double> foodItemPrices, JComboBox<String> tempFoodItemQuantity) {
         totalPrice = 0.0;
         for (JComboBox<String> comboBox: quantityDropdownsList){
@@ -183,6 +245,10 @@ public class OrderView extends JFrame implements OrderViewModel {
         }
     }
 
+    /**
+     * Below method is called when the "order" button is clicked.  It creates the order preview view if
+     * certain conditions are satisfied.
+     */
     public void orderClicked(){
         if (totalPrice <= 0) {
             JOptionPane.showMessageDialog(null, "Please order something!", "Order Failed", JOptionPane.PLAIN_MESSAGE);

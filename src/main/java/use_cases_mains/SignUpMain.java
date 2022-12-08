@@ -1,9 +1,10 @@
-package user_access_use_case;
+package use_cases_mains;
 
 import entities.BuyerFactory;
 import entities.SellerFactory;
 import entities.UserFactory;
 import screens.SignupScreen;
+import user_access_use_case.*;
 
 import java.io.IOException;
 

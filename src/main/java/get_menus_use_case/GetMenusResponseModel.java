@@ -2,9 +2,9 @@ package get_menus_use_case;
 
 import entities.Review;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetMenusResponseModel {
 
@@ -15,7 +15,7 @@ public class GetMenusResponseModel {
     private final List<Integer> foodItemCalories;
     private final List<Integer> foodItemPopularities;
     private final List<Double> foodItemStarAverages;
-    private final HashMap<String, List<Review>> foodItemReviews;
+    private final Map<String, List<Review>> foodItemReviews;
 
 
     /**
@@ -32,7 +32,7 @@ public class GetMenusResponseModel {
      *                        and the star rating of the review)
      */
 
-    public GetMenusResponseModel(List<String> foodItemNames, List<Double> foodItemPrices, List<String[]> foodItemAllergens, List<String[]> foodItemIngredients, List<Integer> foodItemCalories, List<Integer> foodItemPopularities, List<Double> foodItemStarAverages, HashMap<String, List<Review>> foodItemReviews) {
+    public GetMenusResponseModel(List<String> foodItemNames, List<Double> foodItemPrices, List<String[]> foodItemAllergens, List<String[]> foodItemIngredients, List<Integer> foodItemCalories, List<Integer> foodItemPopularities, List<Double> foodItemStarAverages, Map<String, List<Review>> foodItemReviews) {
         this.foodItemNames = foodItemNames;
         this.foodItemPrices = foodItemPrices;
         this.foodItemAllergens = foodItemAllergens;
@@ -73,7 +73,7 @@ public class GetMenusResponseModel {
         return foodItemStarAverages;
     }
 
-    public HashMap<String, List<Review>> getFoodItemReviews() {
+    public Map<String, List<Review>> getFoodItemReviews() {
         return foodItemReviews;
     }
 }

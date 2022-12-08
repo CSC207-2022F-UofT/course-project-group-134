@@ -5,7 +5,7 @@ import entities.OrderStatusType;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
-import selling_use_case.SellerMain;
+import use_cases_mains.SellerMain;
 import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;
@@ -79,28 +79,37 @@ public class SellerFulfillingOrderScreen extends JFrame{
         } else {
             pnl.add(orderFulfilledButton);
             orderFulfilledButton.addActionListener(actionEvent -> {
-                try {
-                    signUpGateway.subtractPrice(sellerEmail, price);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                this.dispose();
-                try {
+                this.setVisible(false);
+                new ConfirmScreen(this, "Confirm order finished",
+                        "Are you sure you want to confirm the order is finished?") {
+                    @Override
+                    void yesClicked() {
+                        JOptionPane.showMessageDialog(null, "You have successfully confirmed the order is finished.", "Order finished confirmed", JOptionPane.PLAIN_MESSAGE);
+                        this.dispose();
+                        try {
+                            signUpGateway.subtractPrice(sellerEmail, price);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        originalScreen.dispose();
+                        try {
 
-                    if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
-                        orderGateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
-                        SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
-                        JOptionPane.showMessageDialog(null,
-                                "Successfully finished order.",
-                                "Order Finished",
-                                JOptionPane.PLAIN_MESSAGE);
-                    } else { // order status is ACCEPTED
-                        orderGateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
-                        SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
+                            if (orderStatus == OrderStatusType.BUYER_CONFIRMED) {
+                                orderGateway.setOrderStatus(orderNumber, OrderStatusType.FINISHED);
+                                SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
+                                JOptionPane.showMessageDialog(null,
+                                        "Successfully finished order.",
+                                        "Order Finished",
+                                        JOptionPane.PLAIN_MESSAGE);
+                            } else { // order status is ACCEPTED
+                                orderGateway.setOrderStatus(orderNumber, OrderStatusType.SELLER_CONFIRMED);
+                                SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
+                            }
+                        } catch (DoesNotExistException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
-                } catch (DoesNotExistException ex) {
-                    throw new RuntimeException(ex);
-                }
+                };
             });
         }
 

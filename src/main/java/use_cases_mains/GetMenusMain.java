@@ -1,6 +1,6 @@
-package get_menus_use_case;
+package use_cases_mains;
 
-import entities.OrderFactory;
+import get_menus_use_case.*;
 import order_history_use_case.OrderHistoryInputBoundary;
 import order_history_use_case.OrderHistoryInteractor;
 import order_history_use_case.OrderHistoryOutputBoundary;
@@ -26,9 +26,8 @@ public class GetMenusMain {
         }
         // TODO: OrderFactory is ENTIRELY UNUSED because it is completely unnecessary right now
         // Maybe we should add a method that calculates the price for us?
-        OrderFactory orderFactory = new OrderFactory();
         OrderOutputBoundary orderPresenter = new OrderPresenter();
-        OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
+        OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter);
         OrderController orderController = new OrderController(orderInteractor);
 
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();

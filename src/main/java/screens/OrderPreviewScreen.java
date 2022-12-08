@@ -2,6 +2,7 @@ package screens;
 
 import entities.OrderFactory;
 import order_use_case.*;
+import use_cases_mains.BuyerMain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,19 @@ public class OrderPreviewScreen extends JFrame {
     private final OrderView orderView;
     private PrePlaceOrderScreen prePlaceOrderScreen = null;
     public boolean prePlaceOrderScreenOn = false;
+
+    /**
+     *
+     * @param orderView The orderView from which this preview screen was called.  This parameter is used to dispose
+     *                  the orderView when required
+     * @param userUsername The user's username
+     * @param userEmail The user's email
+     * @param residence The residence to which the order was made
+     * @param foodItems The list of food items which the user wants to order
+     * @param foodItemQuantities The quantities of each of the food items in foodItmes
+     * @param foodItemPrices The prices of the food items in foodItems
+     * @param totalPrice The total price of the entire order
+     */
 
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         this.orderView = orderView;
@@ -50,11 +64,8 @@ public class OrderPreviewScreen extends JFrame {
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
-        // TODO: OrderFactory is ENTIRELY UNUSED because it is completely unnecessary right now
-        // Maybe we should add a method that calculates the price for us?
-        OrderFactory orderFactory = new OrderFactory();
         OrderOutputBoundary orderPresenter = new OrderPresenter();
-        OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter, orderFactory);
+        OrderInputBoundary orderInteractor = new OrderInteractor(orders, orderPresenter);
         OrderController orderController = new OrderController(orderInteractor);
         orderController.placeOrder(userUsername, userEmail, residence, foodItems, foodItemQuantities, totalPrice);
 
