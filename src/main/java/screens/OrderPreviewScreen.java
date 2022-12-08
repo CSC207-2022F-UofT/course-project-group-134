@@ -13,6 +13,19 @@ public class OrderPreviewScreen extends JFrame {
     private PrePlaceOrderScreen prePlaceOrderScreen = null;
     public boolean prePlaceOrderScreenOn = false;
 
+    /**
+     *
+     * @param orderView The orderView from which this preview screen was called.  This parameter is used to dispose
+     *                  the orderView when required
+     * @param userUsername The user's username
+     * @param userEmail The user's email
+     * @param residence The residence to which the order was made
+     * @param foodItems The list of food items which the user wants to order
+     * @param foodItemQuantities The quantities of each of the food items in foodItmes
+     * @param foodItemPrices The prices of the food items in foodItems
+     * @param totalPrice The total price of the entire order
+     */
+
     public OrderPreviewScreen(OrderView orderView, String userUsername, String userEmail, String residence, String[] foodItems, Integer[] foodItemQuantities, Double[] foodItemPrices, Double totalPrice){
         this.orderView = orderView;
         JPanel pnl = new JPanel(new GridLayout(foodItems.length + 2, 1));

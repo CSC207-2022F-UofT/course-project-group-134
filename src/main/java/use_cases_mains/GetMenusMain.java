@@ -1,5 +1,6 @@
-package get_menus_use_case;
+package use_cases_mains;
 
+import get_menus_use_case.*;
 import order_history_use_case.OrderHistoryInputBoundary;
 import order_history_use_case.OrderHistoryInteractor;
 import order_history_use_case.OrderHistoryOutputBoundary;
