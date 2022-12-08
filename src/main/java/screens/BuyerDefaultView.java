@@ -9,6 +9,7 @@ import use_cases_mains.BuyerMain;
 
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderGateway;
+import use_cases_mains.ChatMain;
 import use_cases_mains.GetMenusMain;
 
 import javax.swing.*;
@@ -199,7 +200,7 @@ public class BuyerDefaultView extends JFrame {
                 JButton chatButton = new JButton("Chat");
                 chatButton.addActionListener(actionEvent -> {
                     try {
-                        ChatInteractor.ChatMain.create(email, tempOrder[4]);
+                        ChatMain.create(email, tempOrder[4]);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
