@@ -5,6 +5,7 @@ import entities.OrderStatusType;
 import order_use_case.DoesNotExistException;
 import order_use_case.OrderDsGateway;
 import order_use_case.OrderDsModel;
+import use_cases_mains.ChatMain;
 import use_cases_mains.SellerMain;
 import user_access_use_case.SignUpDsGateway;
 
@@ -57,7 +58,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         JButton chatButton = new JButton("Chat");
         chatButton.addActionListener(actionEvent -> {
             try {
-                ChatInteractor.ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail() );
+                ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail() );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

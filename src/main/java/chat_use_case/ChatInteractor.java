@@ -30,7 +30,6 @@ public class ChatInteractor implements ChatInputBoundary {
      */
     public void createChat(ChatCreationRequestModel c) throws IOException {
         ds.createChat(c);
-
     }
 
     /**
@@ -42,21 +41,4 @@ public class ChatInteractor implements ChatInputBoundary {
         ds.sendMessage(m);
     }
 
-    /**
-     * Creates a chat, this is the main, or the 'entry point' to the chat.
-     */
-    public static class ChatMain {
-
-        public static void create(String email1, String email2) throws IOException {
-            ChatDsGateway chat;
-            try {
-                chat = ChatDsGateway.getInstance();
-            } catch (IOException e) {
-                throw new RuntimeException("Could not create file.");
-            }
-            ChatPresenter presenter = new ChatPresenter();
-            ChatInputBoundary interactor = new ChatInteractor();
-            ChatScreen chatScreen = new ChatScreen(email1, email2);
-        }
-    }
 }
