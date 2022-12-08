@@ -14,6 +14,12 @@ import java.io.IOException;
 public class ChatMain {
 
     public static void create(String email1, String email2) throws IOException {
+        ChatDsGateway chat;
+        try {
+            chat = ChatDsGateway.getInstance();
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create file.");
+        }
         ChatScreen chatScreen = new ChatScreen(email1, email2);
     }
 }
