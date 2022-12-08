@@ -19,8 +19,9 @@ public class GetMenusMain {
         GetMenusController getMenusController = new GetMenusController(getMenusInteractor);
 
         OrderDsGateway orders;
+        String csvPath = "./src/main/java/data_storage/orders.csv";
         try {
-            orders = new OrderGateway("./src/main/java/data_storage/orders.csv");
+            orders = new OrderGateway(csvPath);
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
@@ -31,7 +32,7 @@ public class GetMenusMain {
         OrderController orderController = new OrderController(orderInteractor);
 
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
-        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
+        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, csvPath, orderHistoryOutputBoundary);
 
         new OrderView(orderController, getMenusController,username, email, orderHistoryInteractor);
 

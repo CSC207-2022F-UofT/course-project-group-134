@@ -20,10 +20,10 @@ public class OrderHistoryGateway {
      * @throws IOException if the file containing the orders list is not found
      */
 
-    public OrderHistoryGateway(String inputUsername, String inputEmail) throws IOException {
+    public OrderHistoryGateway(String inputUsername, String inputEmail, String csvPath) throws IOException {
         orderList = new ArrayList<>();
 
-        String csvPath = "src/main/java/data_storage/orders.csv";
+        // String csvPath = "src/main/java/data_storage/orders.csv";
         File csvFile = new File(csvPath);
 
         if (!csvFile.exists()){
