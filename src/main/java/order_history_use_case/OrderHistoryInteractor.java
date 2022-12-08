@@ -17,10 +17,9 @@ public class OrderHistoryInteractor implements OrderHistoryInputBoundary {
      *                       on the view
      * @throws IOException if the file containing the orders list does not exist
      */
-    public OrderHistoryInteractor(String username, String email, OrderHistoryOutputBoundary outputBoundary)
+    public OrderHistoryInteractor(String username, String email, String csvPath, OrderHistoryOutputBoundary outputBoundary)
             throws IOException {
-        System.out.println("interactor says email is " + email);
-        OrderHistoryGateway gateway1 = new OrderHistoryGateway(username, email);
+        OrderHistoryGateway gateway1 = new OrderHistoryGateway(username, email, csvPath);
         this.allOrders = gateway1.getAllOrders();
         this.outputBoundary = outputBoundary;
     }

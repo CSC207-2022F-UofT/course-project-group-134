@@ -54,7 +54,7 @@ public class PreReviewView extends JFrame {
         cancelButton.addActionListener(actionEvent -> {
             this.dispose();
             try {
-                BuyerMain.create(username, email);
+                BuyerMain.create(username, email, "./src/main/java/data_storage/orders.csv");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

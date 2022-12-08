@@ -179,6 +179,8 @@ public class BuyerDefaultView extends JFrame {
         List<String[]> currentOrders =  this.orderHistoryController.returnCurrentOrders();
         currentOrdersInnerPanel = new JPanel(new GridLayout(currentOrders.size(),1));
         OrdersInfoHeaders[] ordersInfoHeaders = OrdersInfoHeaders.values();
+        String csvPath = "./src/main/java/data_storage/orders.csv";
+
         //System.out.println(currentOrders.toString());
         for (String[] tempOrder : currentOrders) {
             JPanel orderPanel = new JPanel(new GridLayout(1,2));
@@ -219,7 +221,7 @@ public class BuyerDefaultView extends JFrame {
                         //this.createOrderHistoryPanel();
                         //this.createCurrentOrdersPanel();
                         try {
-                            BuyerMain.create(username, email);
+                            BuyerMain.create(username, email, csvPath);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -230,7 +232,7 @@ public class BuyerDefaultView extends JFrame {
                         JOptionPane.showMessageDialog(null, "Successfully confirmed order.", "Order Confirmed", JOptionPane.PLAIN_MESSAGE);
                         this.dispose();
                         try {
-                            BuyerMain.create(username, email);
+                            BuyerMain.create(username, email, csvPath);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

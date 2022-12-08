@@ -9,9 +9,9 @@ import screens.BuyerDefaultView;
 import java.io.IOException;
 
 public class BuyerMain {
-    public static void create(String username, String email) throws IOException {
+    public static void create(String username, String email, String csvPath) throws IOException {
         OrderHistoryOutputBoundary orderHistoryOutputBoundary = new OrderHistoryPresenter();
-        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, orderHistoryOutputBoundary);
+        OrderHistoryInputBoundary orderHistoryInteractor = new OrderHistoryInteractor(username, email, csvPath, orderHistoryOutputBoundary);
         BuyerDefaultView buyerDefaultView = new BuyerDefaultView(username, email, orderHistoryInteractor);
        // TODO: fill this later once we have all the order classes created.
     }

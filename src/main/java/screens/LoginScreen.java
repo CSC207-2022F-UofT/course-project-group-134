@@ -40,7 +40,7 @@ public class LoginScreen extends JFrame {
                 SellerMain.create(user.getEmail(), ((Seller)user).getMealPlan().getResidence(), user.getUsername());
             }
             else {
-                BuyerMain.create(user.getUsername(), user.getEmail());
+                BuyerMain.create(user.getUsername(), user.getEmail(), "./src/main/java/data_storage/orders.csv");
             }
             this.dispose();
             JOptionPane.showMessageDialog(null,

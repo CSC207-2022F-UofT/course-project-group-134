@@ -73,7 +73,7 @@ public class OrderPreviewScreen extends JFrame {
         this.dispose();
         orderView.dispose();
         try {
-            BuyerMain.create(userUsername, userEmail);
+            BuyerMain.create(userUsername, userEmail, "./src/main/java/data_storage/orders.csv");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null,
