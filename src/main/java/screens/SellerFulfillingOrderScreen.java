@@ -24,6 +24,7 @@ import java.io.IOException;
 public class SellerFulfillingOrderScreen extends JFrame{
 
     private boolean chatScreenOpen = false;
+    private ChatScreen chatScreen;
     /**
      * Constructor for sellerFulfillingOrder screen. Creates and sets up the JFrame for the screen.
      * @param signUpGateway interface for the signUpGateway
@@ -62,7 +63,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         chatButton.addActionListener(actionEvent -> {
             try {
                 if (!chatScreenOpen) {
-                    ChatScreen chatScreen = ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail());
+                    this.chatScreen = ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail());
                     this.chatScreenOpen = true;
                     chatScreen.addWindowListener(new WindowAdapter(){
                         public void windowClosing(WindowEvent e)
@@ -137,6 +138,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         JButton backButton = new JButton("Back");
         backButton.addActionListener(actionEvent -> {
             this.dispose();
+            this.chatScreen.dispose();
             try {
                 SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
             } catch (DoesNotExistException e) {

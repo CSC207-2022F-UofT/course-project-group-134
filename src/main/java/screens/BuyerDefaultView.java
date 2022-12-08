@@ -83,6 +83,8 @@ public class BuyerDefaultView extends JFrame {
 
     private boolean chatScreenOpen = false;
 
+    private ChatScreen chatScreen;
+
     /**
      *The below method is the constructor for this class.  It creates some important buttons and action
      * listeners for them.  Also initializes the tabbed panes and scroll panes
@@ -116,6 +118,7 @@ public class BuyerDefaultView extends JFrame {
 
         logoutButton.addActionListener(actionEvent -> {
            this.setVisible(false); // To prevent user from clicking on logout button multiples times
+           this.chatScreen.dispose();
            new ConfirmScreen(this, "Confirm Logout",
                     "Are you sure you want to logout?") {
                 @Override
@@ -205,7 +208,7 @@ public class BuyerDefaultView extends JFrame {
                 chatButton.addActionListener(actionEvent -> {
                     try {
                         if (!chatScreenOpen) {
-                            ChatScreen chatScreen =  ChatMain.create(email, tempOrder[4]);
+                            this.chatScreen =  ChatMain.create(email, tempOrder[4]);
                             this.chatScreenOpen = true;
                             chatScreen.addWindowListener(new WindowAdapter(){
                                 public void windowClosing(WindowEvent e)
@@ -273,5 +276,9 @@ public class BuyerDefaultView extends JFrame {
     public void placeNewOrderClicked(String username, String email) throws Exception {
         GetMenusMain.create(username, email);
         this.dispose();
+    }
+
+    public ChatScreen getChatScreen(){
+        return this.chatScreen;
     }
 }
