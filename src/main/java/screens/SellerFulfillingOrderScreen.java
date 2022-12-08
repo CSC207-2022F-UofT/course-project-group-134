@@ -11,6 +11,8 @@ import user_access_use_case.SignUpDsGateway;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 /**
@@ -21,6 +23,8 @@ import java.io.IOException;
  */
 public class SellerFulfillingOrderScreen extends JFrame{
 
+    private boolean chatScreenOpen = false;
+    private ChatScreen chatScreen;
     /**
      * Constructor for sellerFulfillingOrder screen. Creates and sets up the JFrame for the screen.
      * @param signUpGateway interface for the signUpGateway
@@ -58,10 +62,27 @@ public class SellerFulfillingOrderScreen extends JFrame{
         JButton chatButton = new JButton("Chat");
         chatButton.addActionListener(actionEvent -> {
             try {
-                ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail() );
+                if (!chatScreenOpen) {
+                    this.chatScreen = ChatMain.create(sellerEmail, orderDsModel.getBuyerEmail());
+                    this.chatScreenOpen = true;
+                    chatScreen.addWindowListener(new WindowAdapter(){
+                        public void windowClosing(WindowEvent e)
+                        {
+                            chatScreenOpen = false;
+                        }
+                    });
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Please close current chat before opening another one.",
+                            "Chat Already Open",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
         });
         JButton orderFulfilledButton = new JButton("ORDER FULFILLED!");
         pnl.add(orderPanel);
@@ -117,6 +138,7 @@ public class SellerFulfillingOrderScreen extends JFrame{
         JButton backButton = new JButton("Back");
         backButton.addActionListener(actionEvent -> {
             this.dispose();
+            this.chatScreen.dispose();
             try {
                 SellerMain.create(sellerEmail, orderDsModel.getResidence(), orderDsModel.getSellerName());
             } catch (DoesNotExistException e) {
