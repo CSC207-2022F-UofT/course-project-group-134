@@ -126,7 +126,7 @@ class% / method% / line%
 5. order_use_case: 90/92/89
 6. order_history_use_case: 0/0/0
 7. get_menus_use_case: 100/85/87
-8. chat_use_case: 0/0/0
+8. chat_use_case: 75/68/68
 
 Kindly note that in many of the cases above, we do not have a 100% coverage due to the inability to test certain
 exceptions.  Additionally, there are certain files (such as reviews.csv) which are local files; hence, if we were
