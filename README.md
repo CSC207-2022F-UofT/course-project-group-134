@@ -26,7 +26,7 @@ types of users must enter a username, email, and password.  A seller must additi
 input the residence where their meal plan works and their meal plan balance.  A future
 improvement to this use case is to allow the seller to connect their TCard to this app - 
 this will ensure that their meal plan dollars on the app are linked to their actual dollars
-2. Sign in (Aditya Bandekar): This allows users to sign in.  The sign in use case classes recognize
+2. Login (Aditya Bandekar): This allows users to sign in.  The sign in use case classes recognize
 whether a buyer or seller has signed in, and accordingly updates the screens
 3. Get Menus (Tejas Balaji): This use case is an intermediate use case when a buyer wishes to
 buy food.  When the buyer clicks on "Create New Order", the get menus use case
