@@ -113,7 +113,7 @@ then their old review gets overriden with the new one
 7. Review and food rating update the food item's description accurately.
 8. Confirmation pop-ups implemented for logging out, accepting an order (seller), and making an order (buyer).
 
-## Other new improvements
+### Other new improvements
 1. Javadoc added to all the use cases and all the important screen classes.
 2. Comments added in code whenever deemed necessary.
 3. We greatly increased the utilization of GitHub features ("Issues" used more frequently, created a template for 
