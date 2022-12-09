@@ -100,7 +100,7 @@ to the same use case are in the same package.
 
 ## Improvements from Milestone 4 feedback
 Our TA gave us a lot of feedback in multiple areas following our Milestone 4 submission.  We tried our best to 
-work on this feedback.  Below are all the aspects of the project that we fixed by following the feeback:
+work on this feedback.  Below are all the aspects of the project that we fixed by following the feedback:
 
 ### New improvements on functionality
 1. Upon Buyer login, the message shows the actual username of the buyer rather than something like "entities.Buyer @xxxxxx".
@@ -122,7 +122,7 @@ pull requests, updated this README file, made more comments to code while review
 
 ## Testing Information
 Please note that after Milestone 4, we moved all the files of the form "(use_case)Main" (eg: GetMenusMain) to a new package
-called the `use_case_mains` package.  This is because such files cannot really be tested - as their name suggests, they
+called the 'use_case_mains' package.  This is because such files cannot really be tested - as their name suggests, they
 simply act as "main" files for each use case.  They take care of things like initializing interactors, gateways, 
 presenters, etc.  Thus, before we moved these files, the testing coverage did not accurately represent our actual coverage;
 following the move, it does.
