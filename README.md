@@ -120,7 +120,7 @@ then their old review gets overriden with the new one
 pull requests, updated this README file, made more comments to code while reviewing).
 4. Increased adherence to SOLID by keeping reference types as abstract as possible (see above for detailed info).
 
-### Testing Information
+## Testing Information
 Please note that after Milestone 4, we moved all the files of the form "(use_case)Main" (eg: GetMenusMain) to a new package
 called the `use_case_mains` package.  This is because such files cannot really be tested - as their name suggests, they
 simply act as "main" files for each use case.  They take care of things like initializing interactors, gateways, 
