@@ -118,7 +118,7 @@ then their old review gets overriden with the new one
 2. Comments added in code whenever deemed necessary.
 3. We greatly increased the utilization of GitHub features ("Issues" used more frequently, created a template for 
 pull requests, updated this README file, made more comments to code while reviewing).
-4. Increased adherence to SOLID by keeping reference types as abstract as possible (see above for detailed info).
+4. Increased adherence to SOLID by keeping reference types as abstract as possible. For example changing instances of ArrayList to List and changing instances of HashMap to Map.
 
 ## Testing Information
 Please note that after Milestone 4, we moved all the files of the form "(use_case)Main" (eg: GetMenusMain) to a new package
