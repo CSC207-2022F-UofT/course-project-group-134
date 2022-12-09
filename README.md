@@ -98,20 +98,27 @@ we used Maps and Lists instead of HashMaps and ArrayLists as reference types.  T
 to the same use case are in the same package.
 5. DIP: We have used input/output boundaries wherever necessary to invert dependencies
 
-## Improvements from Milestone 4
+## Improvements from Milestone 4 feedback
 Our TA gave us a lot of feedback in multiple areas following our Milestone 4 submission.  We tried our best to 
 work on this feedback.  Below are all the aspects of the project that we fixed by following the feeback:
 
-### Improvements on functionality
-1. Upon Buyer login, the message shows the actual username of the buyer rather than something like "entities.Buyer @xxxxxx"
-2. Null pointer exception when seller clicks on "Accept Order" when there are no active orders fixed
-3. Chat fully implemented
-4. Seller can now accept multiple orders rather than just one
-5. Reviewing an order has been restricted to just one review per item.  If a buyer tries to review that same item again,
+### New improvements on functionality
+1. Upon Buyer login, the message shows the actual username of the buyer rather than something like "entities.Buyer @xxxxxx".
+2. Null pointer exception when seller clicks on "Accept Order" when there are no active orders fixed.
+3. Chat use case fully implemented.
+4. Seller can now accept multiple orders rather than just one.
+5. Reviewing an order has been restricted to just one review per item. If a buyer tries to review that same item again,
 then their old review gets overriden with the new one
-6. Order History no longer displays a "null" as the seller username
+6. Order History no longer displays a "null" as the seller username.
 7. Review and food rating update the food item's description accurately.
-8. Confirmation pop-ups implemented for logging out, accepting an order (seller), and making an order (buyer)
+8. Confirmation pop-ups implemented for logging out, accepting an order (seller), and making an order (buyer).
+
+## Other new improvements
+1. Javadoc added to all the use cases and all the important screen classes.
+2. Comments added in code whenever deemed necessary.
+3. We greatly increased the utilization of GitHub features ("Issues" used more frequently, created a template for 
+pull requests, updated this README file, made more comments to code while reviewing).
+4. Increased adherence to SOLID by keeping reference types as abstract as possible (see above for detailed info).
 
 ### Testing Information
 Please note that after Milestone 4, we moved all the files of the form "(use_case)Main" (eg: GetMenusMain) to a new package
@@ -137,11 +144,3 @@ to make any tests involving them, then the tests might fail on different compute
 have different information in the file (This is the only reason why the get_menus_use_case does not have 100%
 on all three aspects).  We also did not test the screens; running the program itself is a good test for them, and 
 we did this multiple times.
-
-### Other Improvements
-Below are some other improvements we made after Milestone 4:
-1. Javadoc added to all the use cases and all the important screen classes
-2. Comments added in code whenever deemed necessary
-3. We greatly increased the utilization of GitHub features ("Issues" used more frequently, created a template for 
-pull requests, updated this README file, made more comments to code while reviewing)
-4. Increased adherence to SOLID by keeping reference types as abstract as possible (see above for detailed info)
