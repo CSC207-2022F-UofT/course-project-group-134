@@ -27,7 +27,7 @@ public class ChatScreen extends JFrame{
     private void sendClicked(ActionEvent actionEvent) throws IOException {
 
         String s = messageInput.getText();
-
+        if (s.isEmpty()) return;
         input.sendMessage(new ChatSendMessageModel(userEmail, recipientEmail, s));
         messageInput.setText("");
         updateChatLog();
