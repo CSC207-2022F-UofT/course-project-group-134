@@ -83,7 +83,7 @@ these dependencies, java interfaces have been set up accordingly.
 1. The Factory design pattern has been used in this program.  The most notable
 usage of this is in the get_menus_use_case, where a Menu Factory (called the GetMenusGateway in the program) is used to 
 generate menus based on the menu csv files for each residence. We also used the factory design pattern in the following classes: BuyerFactory.java, OrderFactory.java, ReviewFactory.java, SellerFactory.java, UserFactory.java.
-2. The singleton design pattern used in the chat use case. Only one instance of the ChatDsGateway was allowed to be instantiated. This is to limit access of the chat files to a single gateway instance in order to prevent IOExceptions from occuring. The instance of ChatDsGateway is obtained by calling the static method ChatDsGateway.getInstance().
+2. The Singleton design pattern is used in the chat use case. Only one instance of the ChatDsGateway was allowed to be instantiated. This is to limit access of the chat files to a single gateway instance in order to prevent IOExceptions from occuring. The instance of ChatDsGateway is obtained by calling the static method ChatDsGateway.getInstance().
 3. The Observer Design pattern was used in the screens. The buttons in JFrame implement the Observer Design Pattern. The action listeners act as observers in this case.
 
 ## Adherence to SOLID
