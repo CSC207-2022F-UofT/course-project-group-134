@@ -82,9 +82,9 @@ these dependencies, java interfaces have been set up accordingly.
 
 1. The Factory design pattern has been used in this program.  The most notable
 usage of this is in the get_menus_use_case, where a Menu Factory (called the GetMenusGateway in the program) is used to 
-generate menus based on the menu csv files for each residence. 
-2. The singleton design pattern was also used in the chat use case.  
-3. The Observer Design pattern was used in the screens; the action listeners act as observers in this case
+generate menus based on the menu csv files for each residence. We also used the factory design pattern in the following classes: BuyerFactory.java, OrderFactory.java, ReviewFactory.java, SellerFactory.java, UserFactory.java.
+2. The singleton design pattern used in the chat use case. Only one instance of the ChatDsGateway was allowed to be instantiated. This is to limit access of the chat files to a single gateway instance in order to prevent IOExceptions from occuring. The instance of ChatDsGateway is obtained by calling the static method ChatDsGateway.getInstance().
+3. The Observer Design pattern was used in the screens. The buttons in JFrame implement the Observer Design Pattern. The action listeners act as observers in this case.
 
 ## Adherence to SOLID
 
@@ -131,7 +131,7 @@ class% / method% / line%
 7. get_menus_use_case: 100/85/87
 8. chat_use_case: 100/93/77
 
-Kindly note that in many of the cases above, we do not have a 100% coverage due to the inability to test certain
+Note that in many of the cases above, we do not have a 100% coverage due to the inability to test certain
 exceptions.  Additionally, there are certain files (such as reviews.csv) which are local files; hence, if we were
 to make any tests involving them, then the tests might fail on different computers since each computer is bound to
 have different information in the file (This is the only reason why the get_menus_use_case does not have 100%
