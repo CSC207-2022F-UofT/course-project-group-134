@@ -21,24 +21,24 @@ and money. What a simple and easy way to exhaust excess meal plan dollars!
 
 ## Use Cases Implemented
 
-1. Sign Up: This use case allows a user to sign up as a buyer or seller.  Both
+1. Sign Up (Aditya Bandekar): This use case allows a user to sign up as a buyer or seller.  Both
 types of users must enter a username, email, and password.  A seller must additionally
 input the residence where their meal plan works and their meal plan balance.  A future
 improvement to this use case is to allow the seller to connect their TCard to this app - 
 this will ensure that their meal plan dollars on the app are linked to their actual dollars
-2. Sign in: This allows users to sign in.  The sign in use case classes recognize
+2. Sign in (Aditya Bandekar): This allows users to sign in.  The sign in use case classes recognize
 whether a buyer or seller has signed in, and accordingly updates the screens
-3. Get Menus: This use case is an intermediate use case when a buyer wishes to
+3. Get Menus (Tejas Balaji): This use case is an intermediate use case when a buyer wishes to
 buy food.  When the buyer clicks on "Create New Order", the get menus use case
 takes over.  Based on the residence from which the buyer wishes to buy food, 
 the get menus use case gathers the menu from that residence and displays it
 to the user.  It also handles showing item descriptions, calculating total price,
 and showing the user a preview of their order
-4. Ordering: Once the user has previewed their order, they made place the order.
+4. Ordering (Deon Chan): Once the user has previewed their order, they made place the order.
 The ordering use case handles updating the order csv file with the newly created
 order, and updating the view accordingly (i.e., taking the user back to their
 home screen and displaying the current order on their screen)
-5. Selling: Once a buyer has made an order, every seller whose meal plan functions
+5. Selling (Vivian Liu): Once a buyer has made an order, every seller whose meal plan functions
 in the dining hall to which the order was made can now see and accept the order.
 Each seller sees a list of orders associated with their respective dining halls.
 They can view the items ordered, the quantities of each item, and the total price.
@@ -47,19 +47,19 @@ Each time the seller accepts an order, the respective amount is deducted from th
 meal plan balance.
 Once the seller accepts the order, the buyer is required to confirm the order
 from their side.  
-6. Chat: After a seller confirms an order, the buyer and seller can communicate via
+6. Chat (Aaron Ma and Benjamin Liu): After a seller confirms an order, the buyer and seller can communicate via
 the chat.  The chat provides an easy and reliable manner of allowing the two users to
 discuss the meeting place and possibly mode of payment (from the buyer to the seller).
 For each order made and accepted, a new chat interface is set up between the respective
 buyer and seller.
-7. Order History and Current Orders: When a buyer accepts an order, they see the details of that order in
+7. Order History and Current Orders (Shravan Kruthick Sridhar): When a buyer accepts an order, they see the details of that order in
 the "current orders panel" on their home page.  This includes information such as items
 ordered, quantity of each item, total price, order status etc.  In addition, once a seller confirms
 that order, the status of the order changes to "Seller Confirmed".  Once a buyer accepts
 the order, the status changes to "Buyer confirmed".  Once the order has been successfully
 delivered, the status changes to "Finished", and the order is moved to the "Order History"
 panel on the home page
-8. Review: For each order in the "Order History" panel, a buyer can give a review for
+8. Review (Catherine Lacis): For each order in the "Order History" panel, a buyer can give a review for
 each item they ordered.  In addition to a written review, they may also assign a star
 rating to the food item.  Once they place the review, other buyers can see this review
 when they order that same item from that particular residence/dining hall.  The "star
