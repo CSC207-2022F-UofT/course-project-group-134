@@ -127,16 +127,9 @@ simply act as "main" files for each use case.  They take care of things like ini
 presenters, etc.  Thus, before we moved these files, the testing coverage did not accurately represent our actual coverage;
 following the move, it does.
 
-Below is the coverage information for each of the use cases.  For each use case, the numbers given are:
-class% / method% / line%
-1. user_login_use_case: 100/100/100
-2. user_access_use_case: 100/100/100
-3. selling_use_case: 100/100/100
-4. review_use_case: 100/96/99
-5. order_use_case: 90/92/89
-6. order_history_use_case: 85/91/96
-7. get_menus_use_case: 100/85/87
-8. chat_use_case: 100/93/77
+There are 40 tests in total. Below is the coverage information for each of the use cases.
+<img width="1010" alt="image" src="https://user-images.githubusercontent.com/113255669/206610202-8e09ee22-d4a0-413d-a1fc-4abcfe6c482e.png">
+
 
 Note that in many of the cases above, we do not have a 100% coverage due to the inability to test certain
 exceptions.  Additionally, there are certain files (such as reviews.csv) which are local files; hence, if we were
