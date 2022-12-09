@@ -16,7 +16,7 @@ favorite dining halls or residences.  When a seller logs in, they see
 all the current orders associated with the Dining Halls accessible from their
 meal plan.  Sellers can then accept these orders, buy the food requested by
 the buyer (using their meal plan dollars), and communicate using the chat feature 
-on a mututal meeting place with the buyer.  The two parties meet and exchange the food 
+on a mutual meeting place with the buyer.  The two parties meet and exchange the food 
 and money. What a simple and easy way to exhaust excess meal plan dollars!
 
 ## Use Cases Implemented
@@ -88,15 +88,15 @@ generate menus based on the menu csv files for each residence. We also used the 
 
 ## Adherence to SOLID
 
-1. SRP: Each file is only responsible for one functionality of that use case.  Since we followed Clean Architecture,
-this principle was taken care of quite easily
-2. OCP: More use cases can easily be added without modifying others (use cases don't really depend on each other).
-Also, we have packaged our code well, and hence it is very easy to simply add a new package for a new use case
-3. LSP: Buyer and Seller (which are the only subclasses of User) only add to methods from User.  Additionally,
-we used Maps and Lists instead of HashMaps and ArrayLists as reference types.  This ensures that LSP is followed
-4. ISP: There are multiple files for each use case (interactor, gateway, presenter, etc.), and all the files corresponding
+1. Single-responsibility principle (SRP): Each file is only responsible for one functionality of that use case.  Since we followed Clean Architecture,
+this principle was taken care of quite easily.
+2. Open–closed principle (OCP): More use cases can easily be added without modifying others (use cases don't really depend on each other).
+Also, we have packaged our code well, and hence it is very easy to simply add a new package for a new use case.
+3. Liskov substitution principle (LSP): Buyer and Seller (which are the only subclasses of User) only add to methods from User.  Additionally,
+we used Maps and Lists instead of HashMaps and ArrayLists as reference types.  This ensures that LSP is followed.
+4. Interface segregation principle (ISP): There are multiple files for each use case (interactor, gateway, presenter, etc.), and all the files corresponding
 to the same use case are in the same package.
-5. DIP: We have used input/output boundaries wherever necessary to invert dependencies
+5. Dependency inversion principle (DIP): We have used input/output boundaries wherever necessary to invert dependencies. Implementing the program using CLEAN architecture automatically ensures we satisfy the DIP in the SOLID principles.
 
 ## Improvements from Milestone 4 feedback
 Our TA gave us a lot of feedback in multiple areas following our Milestone 4 submission.  We tried our best to 
